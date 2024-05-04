@@ -34,10 +34,21 @@
     "react",
     "react-hooks",
     "import",
-    "prettier"
+    "prettier",
+    "unused-imports"
   ],
   "rules": {
     "prettier/prettier": "error",
-    "no-var": "error"
+    "no-var": "error",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
   }
 }
