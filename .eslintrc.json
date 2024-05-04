@@ -40,6 +40,8 @@
   "rules": {
     "prettier/prettier": "error",
     "no-var": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error", //사용하지않는 변수 경고
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",
