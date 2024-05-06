@@ -12,8 +12,6 @@ const MainBody = () => {
   const [activeTab, setActiveTab] = useState("main");
 
   const onTabChange = (key: string) => {
-    console.log(key);
-    console.log("hihi");
     setActiveTab(key);
   };
 
