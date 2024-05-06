@@ -13,7 +13,7 @@ const FlightPlans = () => {
           />
         </button>
       </div>
-      <div className="bg-white w-full h-[calc(100%-46px)]"></div>
+      <div className="bg-white w-full h-[calc(100%-46px)] rounded-xl"></div>
     </div>
   );
 };

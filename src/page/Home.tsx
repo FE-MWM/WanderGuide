@@ -5,11 +5,11 @@ import Body from "../components/Body";
 
 const Home = () => {
   return (
-    <div className="flex w-full h-full bg-blue-50 min-w-[1000px]">
-      <nav className="w-2/12 h-full min-w-[190px]">
+    <div className="flex w-full h-full bg-blue-50 min-w-[1000px] min-h-[800px]">
+      <nav className="w-[260px] h-full">
         <Navbar />
       </nav>
-      <main className="w-10/12 h-full">
+      <main className="w-[calc(100%-260px)] h-full">
         <Header />
         <Body />
       </main>

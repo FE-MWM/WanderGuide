@@ -16,7 +16,7 @@ const ExchangeRate = () => {
           <span className="text-sm pl-1">2024.04.20 19:30</span>
         </div>
       </div>
-      <div className="bg-white w-full h-[calc(100%-46px)]"></div>
+      <div className="bg-white w-full h-[calc(100%-46px)] rounded-xl"></div>
     </div>
   );
 };

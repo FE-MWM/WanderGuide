@@ -9,12 +9,12 @@ import Activity from "./ActivitySection/Activity";
 
 const MainDashboard = () => {
   return (
-    <div className="w-full h-[calc(100%-54px)] p-4">
+    <div className="w-full h-[calc(100%-54px)] p-6">
       <section className="h-[50px]">
         <TravelItinerary />
       </section>
-      <div className="flex flex-col h-[calc(100%-50px)] gap-2">
-        <section className="h-2/6 grid grid-cols-3 gap-2">
+      <div className="flex flex-col h-[calc(100%-50px)] gap-4">
+        <section className="h-2/6 grid grid-cols-3 gap-6">
           <div className="col-span-1">
             <CurrentTime />
           </div>
@@ -22,7 +22,7 @@ const MainDashboard = () => {
             <Weather />
           </div>
         </section>
-        <section className="h-4/6 grid grid-cols-3 gap-2">
+        <section className="h-4/6 grid grid-cols-3 gap-6">
           <div className="col-span-1">
             <FlightPlans />
           </div>
@@ -30,7 +30,7 @@ const MainDashboard = () => {
             <div className="h-2/6">
               <ExchangeRate />
             </div>
-            <div className="h-4/6 grid grid-cols-2 gap-2">
+            <div className="h-4/6 grid grid-cols-2 gap-4">
               <Accommodation />
               <Activity />
             </div>
