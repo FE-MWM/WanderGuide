@@ -77,7 +77,7 @@ const WeatherList = () => {
               src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
               alt="weather"
             />
-            <span className="display w-[110px] text-center text-sm font-bold text-sky-950	">
+            <span className="display w-[110px] text-center text-sm font-bold text-sky-950">
               {weather.main.temp.toFixed(1)}°C
             </span>
           </div>
