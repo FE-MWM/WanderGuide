@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type WeatherData = {
+export type WeatherData = {
   cod: string; //내부 파라미터
   message: number; //내부 파라미터
   cnt: number; // api 타임스탬프
