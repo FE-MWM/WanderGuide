@@ -27,10 +27,10 @@ type Main = {
   temp_min: number; //계산 순간 최저온도
   temp_max: number; //계산 순간 최고온도
   pressure: number; //해수면 대기압
-  sea_level: number; //해수면 대기압
-  grnd_level: number; //지면의 대기압
+  sea_level?: number; //해수면 대기압
+  grnd_level?: number; //지면의 대기압
   humidity: number; //습도
-  temp_kf: number; //내부 사용
+  temp_kf?: number; //내부 사용
 };
 
 type Weather = {
@@ -47,7 +47,7 @@ type Clouds = {
 type Wind = {
   speed: number; //풍속
   deg: number; //풍향
-  gust: number; //돌풍
+  gust?: number; //돌풍
 };
 
 type Rain = {
@@ -74,6 +74,28 @@ type Coordinates = {
   lon: number; //경도
 };
 
+type WeatherCurrentData = {
+  coord: Coordinates;
+  weather: Weather[];
+  base: string;
+  main: Main;
+  visibility: number;
+  wind: Wind;
+  clouds: Clouds;
+  dt: number;
+  sys: {
+    type: number;
+    id: number;
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
+};
+
 export const getWeather = async <T = WeatherData>(
   countries: string
 ): Promise<T> => {
@@ -84,5 +106,18 @@ export const getWeather = async <T = WeatherData>(
   } catch (error) {
     console.error(error);
     throw Error("날씨 정보를 불러오는데 실패했습니다.");
+  }
+};
+
+export const getCurrentWeather = async <T = WeatherCurrentData>(
+  countries: string
+): Promise<T> => {
+  const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${countries}&appid=${process.env.REACT_APP_API_WEATHER}&units=metric`;
+  try {
+    const response = await axios.get(API_URL);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw Error("현재 날씨 정보를 불러오는데 실패했습니다.");
   }
 };
