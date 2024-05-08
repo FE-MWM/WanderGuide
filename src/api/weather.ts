@@ -1,14 +1,6 @@
 import axios from "axios";
 
-export type WeatherData = {
-  cod: string; //내부 파라미터
-  message: number; //내부 파라미터
-  cnt: number; // api 타임스탬프
-  list: WeatherEntry[];
-  city: City;
-};
-
-type WeatherEntry = {
+export type WeatherEntry = {
   dt: number; // 예측 시간 UTC
   main: Main;
   weather: Weather[];
@@ -74,7 +66,15 @@ type Coordinates = {
   lon: number; //경도
 };
 
-type WeatherCurrentData = {
+export type WeatherData = {
+  cod: string; //내부 파라미터
+  message: number; //내부 파라미터
+  cnt: number; // api 타임스탬프
+  list: WeatherEntry[];
+  city: City;
+};
+
+export type WeatherCurrentData = {
   coord: Coordinates;
   weather: Weather[];
   base: string;
