@@ -8,17 +8,22 @@ type PropsData = {
 type PropsType = {
   items: PropsData[];
   onClick: (key: string) => void;
+  activeTab: string;
 };
 
-const Tab = ({ items, onClick }: PropsType) => {
+const Tab = ({ items, onClick, activeTab }: PropsType) => {
   return (
-    <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
-      <ul className="flex flex-wrap -mb-px">
+    <div className="text-sm font-medium text-center text-gray-500  ">
+      <ul className="flex flex-wrap -mb-px mx-9 border-b">
         {items.map((tab) => (
-          <li key={tab.key} className="me-2" onClick={() => onClick(tab.key)}>
+          <li
+            key={tab.key}
+            className=" cursor-pointer"
+            onClick={() => onClick(tab.key)}
+          >
             <a
               href="#"
-              className="w-[100px] inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-blue-500"
+              className={`w-[100px] inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-blue-500 ${activeTab === tab.key ? "text-gray-800 border-blue-500" : ""} courser-pointer`}
             >
               {tab.title}
             </a>
