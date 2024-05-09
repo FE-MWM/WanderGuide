@@ -4,7 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import IsLoading from "../common/IsLoading";
 import dayjs from "dayjs";
 
-const WeatherList = () => {
+type WeatherProps = {
+  setWeatherDate: (date: { startDate: string; endDate: string }) => void;
+};
+
+const WeatherList = ({ setWeatherDate }: WeatherProps) => {
   const [weatherGroup, setWeatherGroup] = useState<{
     [key: string]: WeatherEntry[];
   }>({});
@@ -53,6 +57,14 @@ const WeatherList = () => {
     );
     setWeatherList(middleValues);
   }, [weatherGroup]);
+
+  useEffect(() => {
+    if (weatherList.length === 0) return;
+    setWeatherDate({
+      startDate: weatherList[0].dt_txt.split(" ")[0],
+      endDate: weatherList[weatherList.length - 1].dt_txt.split(" ")[0]
+    });
+  }, [weatherList, setWeatherDate]);
 
   if (isLoading) return <IsLoading />;
   if (error) return <div>날씨 데이터를 불러오는 중 오류가 발생했습니다.</div>;

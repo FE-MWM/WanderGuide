@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import WeatherList from "./WeatherList";
 
+type WeatherProps = {
+  startDate: string;
+  endDate: string;
+};
+
 const Weather = () => {
+  const [weatherDate, setWeatherDate] = useState<WeatherProps>({
+    startDate: "",
+    endDate: ""
+  });
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex h-[53px] items-center justify-between pb-5">
         <div>
           <span className="text-[22px] font-semibold ">날씨</span>
-          <span className="m-2 text-xs">2024.04.15~2024.04.15</span>
+          {weatherDate.startDate && (
+            <span className="m-2 text-xs">
+              {weatherDate.startDate} ~ {weatherDate.endDate}
+            </span>
+          )}
         </div>
         <div className="flex items-center">
           <img
@@ -19,7 +32,7 @@ const Weather = () => {
         </div>
       </div>
       <div className=" w-full rounded-3xl bg-white p-5 h-full">
-        <WeatherList />
+        <WeatherList setWeatherDate={setWeatherDate} />
       </div>
     </div>
   );
