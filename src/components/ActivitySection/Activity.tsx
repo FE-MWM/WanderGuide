@@ -13,7 +13,7 @@ const Activity = () => {
           />
         </button>
       </div>
-      <div className="bg-white w-full h-[calc(100%-53px)] rounded-3xl"></div>
+      <div className="bg-white w-full h-[calc(100%-53px)] rounded-3xl p-5"></div>
     </div>
   );
 };
