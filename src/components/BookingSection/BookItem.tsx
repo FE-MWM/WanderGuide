@@ -24,7 +24,7 @@ const BookItem = () => {
             <img
               className="w-[20px] h-[20px]"
               src="/images/baggage.svg"
-              alt="write"
+              alt="baggage"
             />
             <span className="text-base font-bold">숙소 이름 데이터</span>
           </div> */}
