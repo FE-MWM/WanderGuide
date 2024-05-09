@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { getWeather, WeatherData, WeatherEntry } from "../../api/weather";
 import { useQuery } from "@tanstack/react-query";
 import IsLoading from "../common/IsLoading";
-import dayjs from "dayjs";
+import { formatDate, formatUtc } from "../../Util/dateFormatter";
 
 type WeatherProps = {
   setWeatherDate: (date: { startDate: string; endDate: string }) => void;
+  setRefreshDate: (date: string) => void;
 };
 
-const WeatherList = ({ setWeatherDate }: WeatherProps) => {
+const WeatherList = ({ setWeatherDate, setRefreshDate }: WeatherProps) => {
   const [weatherGroup, setWeatherGroup] = useState<{
     [key: string]: WeatherEntry[];
   }>({});
@@ -19,15 +20,17 @@ const WeatherList = ({ setWeatherDate }: WeatherProps) => {
   const { data, error, isLoading } = useQuery<WeatherData, Error>({
     queryKey: ["weather", countries],
     queryFn: () => getWeather(countries),
-    enabled: !!countries
+    enabled: !!countries,
+    refetchInterval: 20 * 60 * 1000 // 20분마다 데이터 갱신 (추후 정하고 수정)
   });
 
   useEffect(() => {
     if (data) {
-      const currentTime = dayjs().valueOf();
+      const currentTime = formatUtc();
+      setRefreshDate(formatDate());
       const grouped = data.list
         .filter((item) => {
-          return dayjs(item.dt_txt).valueOf() > currentTime;
+          return formatUtc(item.dt_txt) > currentTime;
         })
         .reduce<{
           [key: string]: WeatherEntry[];
@@ -41,7 +44,7 @@ const WeatherList = ({ setWeatherDate }: WeatherProps) => {
         }, {});
       setWeatherGroup(grouped);
     }
-  }, [data]);
+  }, [data, setRefreshDate]);
 
   useEffect(() => {
     const getMiddleValue = (array: WeatherEntry[]) => {
@@ -75,7 +78,7 @@ const WeatherList = ({ setWeatherDate }: WeatherProps) => {
         <img src="/images/location.svg" alt="location" />
         <span className="text-sm font-bold leading-6 ">{countries}</span>
       </div>
-      <div className="flex gap-[10px] justify-around">
+      <div className="flex gap-[5px] justify-around">
         {weatherList.map((weather) => (
           <div key={weather.dt} className="flex flex-col items-center">
             <span className="text-blue text-sm ">
