@@ -63,7 +63,7 @@ const WeatherList = () => {
         <img src="/images/location.svg" alt="location" />
         <span className="text-sm font-bold leading-6 ">{countries}</span>
       </div>
-      <div className="flex justify-center gap-[30px]">
+      <div className="flex justify-center gap-[10px]">
         {weatherList.map((weather) => (
           <div key={weather.dt} className="flex flex-col items-center">
             <span className="text-blue text-base ">
