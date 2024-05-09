@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getWeather, WeatherData, WeatherEntry } from "../../api/weather";
 import { useQuery } from "@tanstack/react-query";
 import IsLoading from "../common/IsLoading";
-import { formatDate, formatUtc } from "../../Util/dateFormatter";
+import { formatDate, formatUtc } from "../../util/dateFormatter";
 
 type WeatherProps = {
   setWeatherDate: (date: { startDate: string; endDate: string }) => void;
