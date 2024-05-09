@@ -17,7 +17,11 @@ const MainBody = () => {
 
   return (
     <div className="w-full h-[calc(100%-57px)]">
-      <Tab items={TABS} onClick={(key: string) => onTabChange(key)} />
+      <Tab
+        items={TABS}
+        onClick={(key: string) => onTabChange(key)}
+        activeTab={activeTab}
+      />
       {activeTab === "main" && <MainDashboard />}
       {activeTab === "book" && <BookDashboard />}
     </div>
