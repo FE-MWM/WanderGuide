@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getWeather, WeatherData, WeatherEntry } from "../../api/weather";
 import { useQuery } from "@tanstack/react-query";
 import IsLoading from "../common/IsLoading";
-import { formatDate, formatUtc } from "../../util/dateFormatter";
+import { formatDate, formatUtc } from "../../Util/dateFormatter";
 
 type WeatherProps = {
   setWeatherDate: (date: { startDate: string; endDate: string }) => void;
@@ -78,7 +78,7 @@ const WeatherList = ({ setWeatherDate, setRefreshDate }: WeatherProps) => {
         <img src="/images/location.svg" alt="location" />
         <span className="text-sm font-bold leading-6 ">{countries}</span>
       </div>
-      <div className="flex gap-[5px] justify-around">
+      <div className="flex gap-[5px] justify-around w-4/5 mx-auto my-0">
         {weatherList.map((weather) => (
           <div key={weather.dt} className="flex flex-col items-center">
             <span className="text-blue text-sm ">
