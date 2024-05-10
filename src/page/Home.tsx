@@ -6,7 +6,7 @@ import Body from "../components/Body";
 const Home = () => {
   return (
     <div className="flex w-full h-full bg-[#f5f7fa] min-w-[1440px] min-h-[800px]">
-      <nav className="w-[260px] h-full">
+      <nav className="w-[230px] h-full">
         <Navbar />
       </nav>
       <main className="w-[calc(100%-260px)] h-full">
