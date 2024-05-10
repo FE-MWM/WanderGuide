@@ -23,7 +23,7 @@ const Tab = ({ items, onClick, activeTab }: PropsType) => {
           >
             <a
               href="#"
-              className={`w-[100px] inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-blue-500 ${activeTab === tab.key ? "text-gray-800 border-blue-500" : ""} courser-pointer`}
+              className={`w-[100px] inline-block p-4 border-b-2  rounded-t-lg hover:text-gray-600 hover:border-blue-500 ${activeTab === tab.key ? "text-gray-800 border-blue-500" : "border-transparent"} courser-pointer`}
             >
               {tab.title}
             </a>
