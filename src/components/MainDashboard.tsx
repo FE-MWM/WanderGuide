@@ -10,7 +10,7 @@ import Activity from "./ActivitySection/Activity";
 const MainDashboard = () => {
   return (
     <div className="w-full p-10 overflow-auto h-full max-h-[calc(100%-54px)]">
-      <section className="h-auto pb-1">
+      <section className="h-[90px] pb-1">
         <TravelItinerary />
       </section>
       <div className="flex flex-col h-full gap-7 max-h-[1000px] justify-around">
@@ -22,15 +22,15 @@ const MainDashboard = () => {
             <Weather />
           </div>
         </section>
-        <section className="h-full grid grid-cols-3 gap-6 max-h-[620px]">
-          <div className="col-span-1">
+        <section className="h-full grid grid-cols-3 gap-6 max-h-[720px]">
+          <div className="col-span-1 h-full  pb-[40px]">
             <FlightPlans />
           </div>
           <div className="h-full flex flex-col col-span-2 gap-7 ">
-            <div className="h-1/2">
+            <div>
               <ExchangeRate />
             </div>
-            <div className="h-full grid grid-cols-2 gap-4">
+            <div className="h-full grid grid-cols-2 gap-4 pb-[40px]">
               <Accommodation />
               <Activity />
             </div>
