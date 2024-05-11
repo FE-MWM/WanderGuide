@@ -1,4 +1,5 @@
 import React from "react";
+import FlightList from "./FlightList";
 
 const FlightPlans = () => {
   return (
@@ -13,7 +14,9 @@ const FlightPlans = () => {
           />
         </button>
       </div>
-      <div className="bg-white w-full h-[564px] rounded-3xl p-5"></div>
+      <div className="bg-white w-full h-[564px] rounded-3xl p-5">
+        <FlightList />
+      </div>
     </div>
   );
 };
