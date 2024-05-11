@@ -74,11 +74,11 @@ const WeatherList = ({ setWeatherDate, setRefreshDate }: WeatherProps) => {
 
   return (
     <div className="flex h-full flex-col justify-around">
-      <div className="item-center mb-[15px] flex gap-[2px]">
+      <div className="item-center mb-[15px] flex gap-[10px]">
         <img src="/images/location.svg" alt="location" />
         <span className="text-sm font-bold leading-6 ">{countries}</span>
       </div>
-      <div className="flex gap-[5px] justify-around w-4/5 mx-auto my-0">
+      <div className="flex gap-[5px] justify-around mx-auto my-0">
         {weatherList.map((weather) => (
           <div key={weather.dt} className="flex flex-col items-center">
             <span className="text-blue text-sm ">
