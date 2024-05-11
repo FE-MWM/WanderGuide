@@ -9,6 +9,30 @@ const activityList = [
   {
     startDate: "05/14(월)",
     memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
   }
 ];
 
@@ -41,7 +65,7 @@ const Activity = () => {
           </div>
         </div>
         <div className="text-zinc-500	font-bold text-sm text-center mt-[10px] flex items-center gap-2 justify-center ">
-          <span>더보기</span>
+          <button type="button">더보기</button>
           <img
             src="/images/arrow-right.svg"
             alt="more"

@@ -23,6 +23,27 @@ const accommodations = [
     nights: "4박", // 계산으로 넣는다고 가정
     name: "숙소 이름 데이터3",
     memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    endDate: "05/18(목)",
+    nights: "4박", // 계산으로 넣는다고 가정
+    name: "숙소 이름 데이터3",
+    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    endDate: "05/18(목)",
+    nights: "4박", // 계산으로 넣는다고 가정
+    name: "숙소 이름 데이터3",
+    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
+  },
+  {
+    startDate: "05/14(월)",
+    endDate: "05/18(목)",
+    nights: "4박", // 계산으로 넣는다고 가정
+    name: "숙소 이름 데이터3",
+    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
   }
 ];
 
@@ -68,7 +89,7 @@ const Accommodation = () => {
           </div>
         </div>
         <div className="text-zinc-500 font-bold text-sm text-center mt-[10px] flex items-center gap-2 justify-center">
-          <span>더보기</span>
+          <button type="button">더보기</button>
           <img
             src="/images/arrow-right.svg"
             alt="more"
