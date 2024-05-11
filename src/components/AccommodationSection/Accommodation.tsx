@@ -39,7 +39,7 @@ const Accommodation = () => {
           />
         </button>
       </div>
-      <div className="h-full bg-white w-full rounded-3xl p-10">
+      <div className="h-[400px] bg-white w-full rounded-3xl p-10">
         <div className="overflow-hidden h-[90%] max-h-[400px] relative">
           {accommodations.map((item, index) => (
             <div

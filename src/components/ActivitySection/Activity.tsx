@@ -9,34 +9,6 @@ const activityList = [
   {
     startDate: "05/14(월)",
     memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
   }
 ];
 
@@ -53,7 +25,7 @@ const Activity = () => {
           />
         </button>
       </div>
-      <div className="h-full bg-white w-full  rounded-3xl p-10">
+      <div className="h-[400px] bg-white w-full  rounded-3xl p-10">
         <div className="overflow-hidden h-[90%] max-h-[440px] relative">
           {activityList.map((item, index) => (
             <div className="flex gap-8 mb-[33px]" key={index}>
