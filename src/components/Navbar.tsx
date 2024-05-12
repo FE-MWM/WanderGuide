@@ -1,8 +1,15 @@
 import React from "react";
 import AddTravelDestination from "./AddTravelDestination";
 import { useModal } from "../context/ModalContext";
+import { Item } from "../indexeddb/indexedDB";
 
-const Navbar = () => {
+type NavProps = {
+  list: Item[];
+  selected: number;
+  setSelected: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const Navbar = ({ list, selected, setSelected }: NavProps) => {
   const { openModal } = useModal();
 
   const addTrip = () => {
@@ -16,7 +23,9 @@ const Navbar = () => {
   };
 
   // UI를 확인 위한 임시조건 (추후 조건설정 UI 변경 )
-  const active = true;
+  const active = (idx: number) => {
+    return selected === idx ? true : false;
+  };
 
   return (
     <div className="h-full bg-white border-r border-gray-200">
@@ -27,20 +36,26 @@ const Navbar = () => {
       <div className="w-full h-[calc(100%-57px)] flex flex-col justify-between items-center">
         <div className="w-full mt-[20px]">
           {/* 여행지 입력 데이터 받은 후 리스트 UI 영역 , 현재는 active로 분기처리 했으나 작업하시는 분이 편한 조건으로 변경하시면 될것같습니다  */}
-          <div
-            className={`flex items-center px-4 mb-[20px] ${active ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
-          >
-            <img
-              className="w-[40px] h-[40px]"
-              src={`${active ? "/images/plane-blue.svg" : "/images/plane-black.svg"}`}
-              alt="plane"
-            />
-            <span
-              className={`line-clamp-1 ${active ? "text-blue-600 font-bold" : "text-cool-gray"} hover:font-bold`}
-            >
-              글자가 긴 여행은 어떻게 입력 되는지
-            </span>
-          </div>
+          {list.map((ele, idx) => {
+            return (
+              <div
+                key={idx}
+                className={`flex items-center px-4 mb-[20px] ${active(idx) ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
+                onClick={() => setSelected(idx)}
+              >
+                <img
+                  className="w-[40px] h-[40px]"
+                  src={`${active(idx) ? "/images/plane-blue.svg" : "/images/plane-black.svg"}`}
+                  alt="plane"
+                />
+                <span
+                  className={`line-clamp-1 ${active(idx) ? "text-blue-600 font-bold" : "text-cool-gray"} hover:font-bold`}
+                >
+                  {ele.title}
+                </span>
+              </div>
+            );
+          })}
         </div>
         <div
           className="w-full h-[80px] flex items-center justify-center border-t border-gray-200 cursor-pointer"
