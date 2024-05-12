@@ -7,11 +7,11 @@ type MainHeaderProps = {
 
 const MainHeader = ({ selected }: MainHeaderProps) => {
   // indexedDB 비동기여서. indexedDB를 기다리는 분기 추가
-  const [title, settitle] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [isReady, setIsReady] = useState<boolean>(false);
   useEffect(() => {
     getData(selected).then((res) => {
-      if (res) settitle(res.title);
+      if (res) setTitle(res.title);
       setIsReady(true);
     });
   }, [selected]);
