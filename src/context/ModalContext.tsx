@@ -4,9 +4,8 @@ type ModalContextData = {
   isOpen: boolean;
   title: string;
   content: ReactNode | null;
-  openModal: (title: string, content: ReactNode, onSave: () => void) => void;
+  openModal: (title: string, content: ReactNode) => void;
   closeModal: () => void;
-  onSubmit: () => void;
 };
 
 type ModalProviderProps = {
@@ -18,8 +17,7 @@ const defaultState = {
   title: "",
   content: null,
   openModal: () => {},
-  closeModal: () => {},
-  onSubmit: () => {}
+  closeModal: () => {}
 };
 
 export const ModalContext = createContext<ModalContextData>(defaultState);
@@ -28,34 +26,22 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [content, setContent] = useState<ReactNode | null>(null);
   const [title, setTitle] = useState<string>("");
-  const [onSave, setOnSave] = useState<() => void>(() => {});
 
-  const openModal = (
-    title: string,
-    content: ReactNode | null,
-    onSaveCallback: () => void
-  ) => {
+  const openModal = (title: string, content: ReactNode | null) => {
     setIsOpen(true);
     setTitle(title);
     setContent(content);
-    setOnSave(() => onSaveCallback);
   };
 
   const closeModal = () => {
     setIsOpen(false);
     setTitle("");
     setContent(null);
-    setOnSave(() => {});
-  };
-
-  const onSubmit = () => {
-    onSave();
-    closeModal();
   };
 
   return (
     <ModalContext.Provider
-      value={{ isOpen, content, title, openModal, closeModal, onSubmit }}
+      value={{ isOpen, content, title, openModal, closeModal }}
     >
       {children}
     </ModalContext.Provider>

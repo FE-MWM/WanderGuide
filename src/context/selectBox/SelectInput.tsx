@@ -1,5 +1,7 @@
 import { ReactNode, useContext } from "react";
 import { selectDispatch, selectState } from "./SelectBox";
+import { useFormContext } from "react-hook-form";
+import { FormValues } from "../../provider/AddTravelDestinationProvider";
 type SelectInputProps = {
   children: ReactNode;
   title: string;
@@ -18,6 +20,7 @@ const SelectInput = ({
 }: SelectInputProps) => {
   const { isOn, selected } = useContext(selectState);
   const { handleList } = useContext(selectDispatch);
+  const { register } = useFormContext<FormValues>();
 
   //console.log("selected", selected.label);
 
@@ -45,6 +48,7 @@ const SelectInput = ({
         readOnly={selected.label ? true : false}
         defaultValue={selected.label || ""}
         key={selected.label}
+        {...register("destination", { required: "destination is required" })}
       />
       {isOn && children}
     </div>

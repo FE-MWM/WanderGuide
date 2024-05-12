@@ -43,7 +43,7 @@ export const initDB = (): Promise<boolean | IDBDatabase> => {
 // 데이터를 넘기면 Store의 (최고값)id +1 로 저장됩니다.
 export const addData = <T>(data: T): Promise<T | string | null> => {
   return new Promise((resolve) => {
-    const request = indexedDB.open("wanderGuideDB");
+    const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
       console.log("request.onsuccess - addData", data);

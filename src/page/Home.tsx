@@ -23,7 +23,7 @@ const Home = () => {
     <div className="flex w-full h-full bg-[#f5f7fa]  min-h-[800px] min-w-[1500px]">
       {isReady && (
         <>
-         <nav className="w-[230px] h-full">
+          <nav className="w-[230px] h-full">
             <Navbar
               list={planList}
               selected={selected}
@@ -31,13 +31,13 @@ const Home = () => {
             />
           </nav>
           <main className="w-[calc(100%-260px)] h-full flex-1">
-               {/* indexedDB의 id가 1부터 시작이어서 */}
-              <Header selected={selected + 1} />
+            {/* indexedDB의 id가 1부터 시작이어서 */}
+            <Header selected={selected + 1} />
             <TabProvider>
               <Body />
             </TabProvider>
           </main>
-        </>  
+        </>
       )}
     </div>
   );
