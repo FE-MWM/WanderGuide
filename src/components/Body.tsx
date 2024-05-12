@@ -1,25 +1,16 @@
-import React, { useState } from "react";
 import Tab from "./Tab";
 import MainDashboard from "./MainDashboard";
 import BookDashboard from "./BookDashboard";
-
-const TABS = [
-  { key: "main", title: "메인" },
-  { key: "book", title: "예약" }
-];
+import { useTab } from "../context/TabContext";
 
 const MainBody = () => {
-  const [activeTab, setActiveTab] = useState("main");
-
-  const onTabChange = (key: string) => {
-    setActiveTab(key);
-  };
+  const { tabs, activeTab, setActiveTab } = useTab();
 
   return (
     <div className="w-full h-[calc(100%-57px)]">
       <Tab
-        items={TABS}
-        onClick={(key: string) => onTabChange(key)}
+        items={tabs}
+        onClick={(key: string) => setActiveTab(key)}
         activeTab={activeTab}
       />
       {activeTab === "main" && <MainDashboard />}
