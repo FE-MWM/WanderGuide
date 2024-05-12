@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import Body from "../components/Body";
+import { TabProvider } from "../context/TabContext";
 
 const Home = () => {
   return (
@@ -11,7 +12,9 @@ const Home = () => {
       </nav>
       <main className="w-[calc(100%-260px)] h-full flex-1">
         <Header />
-        <Body />
+        <TabProvider>
+          <Body />
+        </TabProvider>
       </main>
     </div>
   );
