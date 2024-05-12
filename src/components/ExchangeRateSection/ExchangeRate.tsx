@@ -1,6 +1,14 @@
 import React from "react";
+import { useGetExchangeRate } from "../../hook/useGetExchangeRate";
 
-const ExchangeRate = () => {
+type ExchangeRateProps = {
+  country: string;
+};
+const ExchangeRate = ({ country }: ExchangeRateProps) => {
+  const { cashData } = useGetExchangeRate(country);
+
+  //console.log(cashData);
+
   return (
     <div className="h-full flex flex-col">
       <div className="h-[53px] flex justify-between items-center pb-5">
