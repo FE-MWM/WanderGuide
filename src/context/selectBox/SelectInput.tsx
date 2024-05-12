@@ -1,15 +1,13 @@
 import { ReactNode, useContext } from "react";
 import { selectDispatch, selectState } from "./SelectBox";
-interface Props {
+type SelectInputProps = {
   children: ReactNode;
   title: string;
   titleStyle?: string;
   layout?: string;
   linkedValue?: string;
   debounceFunc?: (str: string) => void;
-}
-
-// 사이즈 width 2종류, 높이는 동일. 패딩 동일. 폰트 사이즈, 컬러 동일
+};
 
 const SelectInput = ({
   children,
@@ -17,7 +15,7 @@ const SelectInput = ({
   title,
   titleStyle,
   debounceFunc
-}: Props) => {
+}: SelectInputProps) => {
   const { isOn, selected } = useContext(selectState);
   const { handleList } = useContext(selectDispatch);
 
@@ -48,7 +46,7 @@ const SelectInput = ({
         defaultValue={selected.label || ""}
         key={selected.label}
       />
-      <>{isOn && children}</>
+      {isOn && children}
     </div>
   );
 };
