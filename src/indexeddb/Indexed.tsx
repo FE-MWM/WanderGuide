@@ -32,7 +32,7 @@ export default function Indexed() {
     const date = target.date.value;
     const title = target.title.value;
 
-    const res = await addData("plan", { name, country, date, title });
+    const res = await addData({ name, country, date, title });
   };
   const save2 = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,14 +42,14 @@ export default function Indexed() {
 
     const accomo = target.accomo.value;
 
-    const res = await updateData("plan", keyRef.current, { accomo });
+    const res = await updateData(keyRef.current, { accomo });
   };
 
   useEffect(() => {
     // setPlanList(objectStoreList);
     //handleInitDB();
     initDB();
-    getStoreData("plan").then((res) => setPlanList(res));
+    getStoreData().then((res) => setPlanList(res));
   }, []);
 
   return (
