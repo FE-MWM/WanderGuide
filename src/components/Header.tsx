@@ -34,7 +34,7 @@ const MainHeader = ({ selected }: MainHeaderProps) => {
                 alt="notification"
               />
             </button>
-          </div>{" "}
+          </div>
         </>
       )}
     </div>
