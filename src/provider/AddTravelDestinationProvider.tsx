@@ -25,7 +25,8 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
     }
   });
   const saveDestination = async (destination: FormValues) => {
-    addData(destination);
+    await addData(destination);
+    onCloseModal();
   };
 
   const handleOnSave = () => {
