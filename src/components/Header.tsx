@@ -7,11 +7,11 @@ type MainHeaderProps = {
 
 const MainHeader = ({ selected }: MainHeaderProps) => {
   // indexedDB 비동기여서. indexedDB를 기다리는 분기 추가
-  const [country, setCountry] = useState<string>("");
+  const [title, settitle] = useState<string>("");
   const [isReady, setIsReady] = useState<boolean>(false);
   useEffect(() => {
     getData(selected).then((res) => {
-      if (res) setCountry(res.title);
+      if (res) settitle(res.title);
       setIsReady(true);
     });
   }, [selected]);
@@ -21,7 +21,7 @@ const MainHeader = ({ selected }: MainHeaderProps) => {
       {isReady && (
         <>
           <div className="pl-2">
-            <span>{country}</span>
+            <span>{title}</span>
           </div>
           <div className="flex items-center">
             <button className="w-[34px] h-[34px] bg-blue-50 rounded-full flex items-center justify-center hover:bg-blue-100">
@@ -38,7 +38,7 @@ const MainHeader = ({ selected }: MainHeaderProps) => {
                 alt="notification"
               />
             </button>
-          </div>{" "}
+          </div>
         </>
       )}
     </div>
