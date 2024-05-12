@@ -12,7 +12,6 @@ export const useCountries = () => {
 
   const search = (str: string) => {
     const searched = data?.data.filter((ele) => ele.한글명.includes(str));
-    console.log("serched", searched);
     setValue(searched || []);
   };
 
