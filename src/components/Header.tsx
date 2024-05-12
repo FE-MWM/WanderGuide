@@ -9,7 +9,7 @@ const MainHeader = ({ selected }: MainHeaderProps) => {
   // indexedDB 비동기여서. indexedDB를 기다리는 분기 추가
   const [country, setCountry] = useState<string>("");
   useEffect(() => {
-    getData("plan", selected + 1).then((res) => setCountry(res.title));
+    getData(selected).then((res) => setCountry(res.title));
   }, [selected]);
 
   return (

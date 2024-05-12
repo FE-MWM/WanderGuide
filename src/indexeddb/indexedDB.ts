@@ -1,21 +1,27 @@
-import { Item } from "./Indexed";
+export type Item = {
+  id: number;
+  title: string;
+  country: string;
+  date: string;
+  member: string;
+  accomo?: string;
+  leisure?: string;
+};
 
-let request: IDBOpenDBRequest;
-let db: IDBDatabase;
-let version = 1;
-
+// 데이터 벤이스 체크 & 생성
 export const initDB = (): Promise<boolean | IDBDatabase> => {
   return new Promise((resolve) => {
-    const request = indexedDB.open("myDB", 1);
+    const request = indexedDB.open("wanderGuideDB", 1);
 
-    // if the data object store doesn't exist, create it
+    // 데이터 베이스 버전 체크
+    // 버전이 아예 없는 경우(1보다 작은 경우) 새 Store 생성
     request.onupgradeneeded = (ev) => {
       const db = request.result;
 
       const oldVersion = ev.oldVersion;
-      console.log("od", oldVersion);
       if (oldVersion < 1) {
-        db.createObjectStore(`plan`, {
+        //id는 숫자로, 자동 증가
+        db.createObjectStore(`destination`, {
           keyPath: "id",
           autoIncrement: true
         });
@@ -23,31 +29,26 @@ export const initDB = (): Promise<boolean | IDBDatabase> => {
       // no need to resolve here
     };
 
-    request.onsuccess = (e) => {
-      db = request.result;
-      // get current version and store it
-      version = db.version;
+    request.onsuccess = () => {
       resolve(request.result);
     };
 
-    request.onerror = (e) => {
+    request.onerror = () => {
       resolve(false);
     };
   });
 };
 
-export const addData = <T>(
-  storeName: string,
-  data: T
-): Promise<T | string | null> => {
+// 데이터를 넘기면 Store의 (최고값)id +1 로 저장됩니다.
+export const addData = <T>(data: T): Promise<T | string | null> => {
   return new Promise((resolve) => {
-    request = indexedDB.open("myDB", version);
+    const request = indexedDB.open("wanderGuideDB");
 
     request.onsuccess = () => {
       console.log("request.onsuccess - addData", data);
-      db = request.result;
-      const tx = db.transaction(storeName, "readwrite");
-      const store = tx.objectStore(storeName);
+      const db = request.result;
+      const tx = db.transaction("destination", "readwrite");
+      const store = tx.objectStore("destination");
       store.add(data);
       resolve(data);
     };
@@ -63,19 +64,16 @@ export const addData = <T>(
   });
 };
 
-export const deleteData = (
-  storeName: string,
-  key: string
-): Promise<boolean> => {
+export const deleteData = (id: number): Promise<boolean> => {
   return new Promise((resolve) => {
-    request = indexedDB.open("myDB", version);
+    const request = indexedDB.open("wanderGuideDB");
 
     request.onsuccess = () => {
-      console.log("request.onsuccess - deleteData", key);
-      db = request.result;
-      const tx = db.transaction(storeName, "readwrite");
-      const store = tx.objectStore(storeName);
-      const res = store.delete(key);
+      console.log("request.onsuccess - deleteData", id);
+      const db = request.result;
+      const tx = db.transaction("destination", "readwrite");
+      const store = tx.objectStore("destination");
+      const res = store.delete(id);
       res.onsuccess = () => {
         resolve(true);
       };
@@ -87,20 +85,21 @@ export const deleteData = (
 };
 
 export const updateData = <T>(
-  storeName: string,
-  key: number,
+  id: number,
   data: T
 ): Promise<T | string | null> => {
   return new Promise((resolve) => {
-    request = indexedDB.open("myDB", version);
+    const request = indexedDB.open("wanderGuideDB");
 
     request.onsuccess = () => {
-      console.log("request.onsuccess - updateData", key);
-      db = request.result;
-      const tx = db.transaction(storeName, "readwrite");
-      const store = tx.objectStore(storeName);
-      const res = store.get(key);
+      console.log("request.onsuccess - updateData", id);
+      const db = request.result;
+      const tx = db.transaction("destination", "readwrite");
+      const store = tx.objectStore("destination");
+      // id로 저장된 값 조회
+      const res = store.get(id);
       res.onsuccess = () => {
+        //조회한 값에 덮어씌우기
         const newData = { ...res.result, ...data };
         store.put(newData);
         resolve(newData);
@@ -112,15 +111,16 @@ export const updateData = <T>(
   });
 };
 
-export const getStoreData = <T>(storeName: string): Promise<Item[]> => {
+//  store의 저장된 모든 값 가져오기
+export const getStoreData = (): Promise<Item[]> => {
   return new Promise((resolve) => {
-    const request = indexedDB.open("myDB");
+    const request = indexedDB.open("wanderGuideDB");
 
     request.onsuccess = () => {
       console.log("request.onsuccess - getAllData");
       const db = request.result;
-      const tx = db.transaction(storeName, "readonly");
-      const store = tx.objectStore(storeName);
+      const tx = db.transaction("destination", "readonly");
+      const store = tx.objectStore("destination");
       const res = store.getAll();
       res.onsuccess = () => {
         console.log(res.result);
@@ -130,15 +130,16 @@ export const getStoreData = <T>(storeName: string): Promise<Item[]> => {
   });
 };
 
-export const getData = (storeName: string, id: number): Promise<Item> => {
+// id로 조회한 값만 가져오기
+export const getData = (id: number): Promise<Item> => {
   return new Promise((resolve) => {
-    const request = indexedDB.open("myDB");
+    const request = indexedDB.open("wanderGuideDB");
 
     request.onsuccess = () => {
       console.log("request.onsuccess - getAllData");
       const db = request.result;
-      const tx = db.transaction(storeName, "readonly");
-      const store = tx.objectStore(storeName);
+      const tx = db.transaction("destination", "readonly");
+      const store = tx.objectStore("destination");
       const res = store.get(id);
       res.onsuccess = () => {
         console.log(res.result);
@@ -147,5 +148,3 @@ export const getData = (storeName: string, id: number): Promise<Item> => {
     };
   });
 };
-
-export {};
