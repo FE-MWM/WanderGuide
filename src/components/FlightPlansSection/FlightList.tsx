@@ -8,9 +8,10 @@ const FlightList = () => {
   return (
     <div className="h-full flex flex-col gap-5">
       {FLIGHT_DATA.map((flight, index) => (
-        <div key={index}>
+        <>
           <div
             className={`h-1/2 ${index === FLIGHT_DATA.length - 1 ? "" : "border-b-2 border-slate-100"}`}
+            key={index}
           >
             <span className="font-extrabold text-l inline-block mb-3">
               {flight.type} 상세일정
@@ -86,7 +87,7 @@ const FlightList = () => {
               </div>
             </div>
           </div>
-        </div>
+        </>
       ))}
     </div>
   );
