@@ -1,4 +1,5 @@
 import React from "react";
+import { useTab } from "../../context/TabContext";
 
 //  임시데이터
 
@@ -48,6 +49,7 @@ const accommodations = [
 ];
 
 const Accommodation = () => {
+  const { setActiveTab } = useTab();
   return (
     <div className="h-full flex flex-col">
       <div className="h-[53px] flex items-center justify-between pb-5">
@@ -89,7 +91,9 @@ const Accommodation = () => {
           </div>
         </div>
         <div className="text-zinc-500 font-bold text-sm text-center mt-[10px] flex items-center gap-2 justify-center">
-          <button type="button">더보기</button>
+          <button type="button" onClick={() => setActiveTab("book")}>
+            더보기
+          </button>
           <img
             src="/images/arrow-right.svg"
             alt="more"
