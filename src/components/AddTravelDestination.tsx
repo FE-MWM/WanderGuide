@@ -43,7 +43,7 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
           <input
             type="text"
             className="h-[40px] border px-2 outline-none"
-            {...register("who")}
+            {...register("member")}
           />
         </div>
         <div className="flex flex-col">
