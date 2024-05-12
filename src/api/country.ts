@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type Data = {
+export type Data = {
   "ISO alpha2": string;
   "ISO alpha3": string;
   "ISO numeric": number;
@@ -11,7 +11,7 @@ type Data = {
   한글명: string;
 };
 
-type Country = {
+export type Country = {
   page: number;
   perPage: number;
   totalCount: number;
