@@ -1,12 +1,14 @@
 import { useForm, FormProvider } from "react-hook-form";
 import AddTravelDestination from "../components/AddTravelDestination";
-import { addData } from "../indexeddb/indexedDB";
+import { Item, addData } from "../indexeddb/indexedDB";
+import { useSetRecoilState } from "recoil";
+import { destinationList } from "../store/destinationAtoms";
 
 export type FormValues = {
   title: string;
   startDate: string;
   endDate: string;
-  who: string;
+  member: string;
   destination: string;
 };
 
@@ -20,12 +22,15 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
       title: "기본 제목",
       startDate: "",
       endDate: "",
-      who: "",
+      member: "",
       destination: ""
     }
   });
+  const setDestination = useSetRecoilState<Item[]>(destinationList);
+
   const saveDestination = async (destination: FormValues) => {
     await addData(destination);
+    setDestination((prev) => [...prev, destination]);
     onCloseModal();
   };
 
@@ -35,7 +40,7 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
       title: formData.title,
       startDate: formData.startDate,
       endDate: formData.endDate,
-      who: formData.who,
+      member: formData.member,
       destination: formData.destination
     });
   };

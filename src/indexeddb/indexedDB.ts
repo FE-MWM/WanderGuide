@@ -1,9 +1,10 @@
 export type Item = {
-  id: number;
+  id?: number;
   title: string;
-  country: string;
-  date: string;
+  startDate: string;
+  endDate: string;
   member: string;
+  destination: string;
   accomo?: string;
   leisure?: string;
 };
