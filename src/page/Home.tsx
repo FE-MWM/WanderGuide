@@ -3,7 +3,8 @@ import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import Body from "../components/Body";
 
-import { Item, getStoreData, initDB } from "../indexeddb/indexedDB";
+import { getStoreData, initDB } from "../indexeddb/indexedDB";
+import { Item } from "../indexeddb/Indexed";
 
 const Home = () => {
   // indexedDB 비동기여서. indexedDB를 기다리는 분기 추가
@@ -13,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     initDB();
-    getStoreData().then((res) => {
+    getStoreData("plan").then((res) => {
       setIsReady(true);
       setPlanList(res);
     });
@@ -30,8 +31,7 @@ const Home = () => {
             />
           </nav>
           <main className="w-[calc(100%-260px)] h-full flex-1">
-            {/* indexedDB의 id가 1부터 시작이어서 */}
-            <Header selected={selected + 1} />
+            <Header selected={selected} />
             <Body />
           </main>
         </>
