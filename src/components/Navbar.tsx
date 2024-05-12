@@ -1,7 +1,7 @@
 import React from "react";
-import AddTravelDestination from "./AddTravelDestination";
 import { useModal } from "../context/ModalContext";
 import { Item } from "../indexeddb/indexedDB";
+import AddTravelDestinationProvider from "../provider/AddTravelDestinationProvider";
 
 type NavProps = {
   list: Item[];
@@ -10,15 +10,12 @@ type NavProps = {
 };
 
 const Navbar = ({ list, selected, setSelected }: NavProps) => {
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
 
   const addTrip = () => {
-    openModal("여행지 추가", <AddTravelDestination />, onSubmit);
-  };
-
-  const onSubmit = () => {
-    console.log(
-      "확인을 누르면 실행됩니다. 여기서 처리할 로직 작성 하면됩니다."
+    openModal(
+      "여행지 추가",
+      <AddTravelDestinationProvider onCloseModal={closeModal} />
     );
   };
 
