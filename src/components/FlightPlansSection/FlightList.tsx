@@ -8,14 +8,15 @@ const FlightList = () => {
   return (
     <div className="h-full flex flex-col gap-5">
       {FLIGHT_DATA.map((flight, index) => (
-        <>
-          <div
-            className={`h-1/2 ${index === FLIGHT_DATA.length - 1 ? "" : "border-b-2 border-slate-100"}`}
-          >
+        <div
+          key={index}
+          className={`${index === FLIGHT_DATA.length - 1 ? "" : "border-b-2 border-slate-100"} h-1/2 pb-[15px]`}
+        >
+          <div className={`h-full`}>
             <span className="font-extrabold text-l inline-block mb-3">
               {flight.type} 상세일정
             </span>
-            <div className="flex flex-col h-[calc(100%-50px)]">
+            <div className="flex flex-col h-[calc(100%-40px)]">
               <div className="flex pl-4">
                 <div className="flex flex-col text-sm w-[90px]">
                   <span className="font-bold">21:30</span>
@@ -66,7 +67,7 @@ const FlightList = () => {
                   <span className="text-cool-gray font-bold ">05/13(월)</span>
                 </div>
                 <div className="relative">
-                  <div className="flex items-center absolute w-[300px] top-[-20px] left-[23px]">
+                  <div className="flex items-center absolute w-[300px] top-[23px] left-[23px]">
                     <img
                       src="/images/plane-blue.svg"
                       alt="arrow"
@@ -86,7 +87,7 @@ const FlightList = () => {
               </div>
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

@@ -4,7 +4,7 @@ import { useModal } from "../../context/ModalContext";
 const Modal = () => {
   const { isOpen, title, content } = useModal();
   return (
-    <div className="">
+    <>
       {isOpen && (
         <div
           id="default-modal"
@@ -21,7 +21,7 @@ const Modal = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
