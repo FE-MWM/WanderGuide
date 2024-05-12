@@ -4,8 +4,8 @@ import Header from "../components/Header";
 import Body from "../components/Body";
 import { TabProvider } from "../context/TabContext";
 
-import { Item, getStoreData, initDB } from "../indexeddb/indexedDB";
-
+import { getStoreData, initDB } from "../indexeddb/indexedDB";
+import { Item } from "../indexeddb/Indexed";
 const Home = () => {
   // indexedDB 비동기여서. indexedDB를 기다리는 분기 추가
   const [isReady, setIsReady] = useState<boolean>(false);
@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     initDB();
-    getStoreData().then((res) => {
+    getStoreData("plan").then((res) => {
       setIsReady(true);
       setPlanList(res);
     });

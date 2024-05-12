@@ -1,7 +1,7 @@
 import React from "react";
 import AddTravelDestination from "./AddTravelDestination";
 import { useModal } from "../context/ModalContext";
-import { Item } from "../indexeddb/indexedDB";
+import { Item } from "../indexeddb/Indexed";
 
 type NavProps = {
   list: Item[];
