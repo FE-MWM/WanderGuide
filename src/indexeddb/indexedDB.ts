@@ -19,6 +19,7 @@ export const initDB = (): Promise<boolean | IDBDatabase> => {
       const db = request.result;
 
       const oldVersion = ev.oldVersion;
+      // console.log(oldVersion); //0
       if (oldVersion < 1) {
         //id는 숫자로, 자동 증가
         db.createObjectStore(`destination`, {
@@ -66,7 +67,7 @@ export const addData = <T>(data: T): Promise<T | string | null> => {
 
 export const deleteData = (id: number): Promise<boolean> => {
   return new Promise((resolve) => {
-    const request = indexedDB.open("wanderGuideDB");
+    const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
       console.log("request.onsuccess - deleteData", id);
@@ -89,7 +90,7 @@ export const updateData = <T>(
   data: T
 ): Promise<T | string | null> => {
   return new Promise((resolve) => {
-    const request = indexedDB.open("wanderGuideDB");
+    const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
       console.log("request.onsuccess - updateData", id);
@@ -114,7 +115,7 @@ export const updateData = <T>(
 //  store의 저장된 모든 값 가져오기
 export const getStoreData = (): Promise<Item[]> => {
   return new Promise((resolve) => {
-    const request = indexedDB.open("wanderGuideDB");
+    const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
       console.log("request.onsuccess - getAllData");
@@ -133,7 +134,7 @@ export const getStoreData = (): Promise<Item[]> => {
 // id로 조회한 값만 가져오기
 export const getData = (id: number): Promise<Item> => {
   return new Promise((resolve) => {
-    const request = indexedDB.open("wanderGuideDB");
+    const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
       console.log("request.onsuccess - getAllData");
