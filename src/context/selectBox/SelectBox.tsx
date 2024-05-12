@@ -4,11 +4,11 @@ import SelectTrriger from "./SelectTrigger";
 import SelectList from "./SelectList";
 import SelectInput from "./SelectInput";
 
-interface Props {
+type SelectBoxProps = {
   children: ReactNode;
   defaultValue?: { label: string; value: string };
   onChange?: (args: { label: string; value: string }) => void;
-}
+};
 
 export const selectState = createContext({
   isOn: false,
@@ -20,7 +20,7 @@ export const selectDispatch = createContext({
   clearSelected: () => {}
 });
 
-const SelectBox = ({ children, defaultValue, onChange }: Props) => {
+const SelectBox = ({ children, defaultValue, onChange }: SelectBoxProps) => {
   const [isOn, setIsOn] = useState<boolean>(false);
   const [selected, setSelected] = useState<{ label: string; value: string }>({
     label: defaultValue?.label || "",
@@ -52,7 +52,7 @@ const SelectBox = ({ children, defaultValue, onChange }: Props) => {
   return (
     <selectState.Provider value={{ isOn, selected }}>
       <selectDispatch.Provider value={dispatch}>
-        <>{children}</>
+        {children}
       </selectDispatch.Provider>
     </selectState.Provider>
   );

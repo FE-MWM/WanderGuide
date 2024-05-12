@@ -2,19 +2,19 @@ import { ReactNode, useContext, useEffect } from "react";
 import { selectDispatch, selectState } from "./SelectBox";
 import ArrDown from "./ArrDown";
 
-interface Props {
+type SelectTrrigerProps = {
   children: ReactNode;
   layout?: string;
   linkedValue?: string;
-}
+};
 
-// 사이즈 width 2종류, 높이는 동일. 패딩 동일. 폰트 사이즈, 컬러 동일
-
-const SelectTrriger = ({ children, layout, linkedValue }: Props) => {
+const SelectTrriger = ({
+  children,
+  layout,
+  linkedValue
+}: SelectTrrigerProps) => {
   const { isOn, selected } = useContext(selectState);
   const { handleList, clearSelected } = useContext(selectDispatch);
-
-  console.log("linkedValue", linkedValue);
 
   useEffect(() => {
     linkedValue && clearSelected();
@@ -29,7 +29,7 @@ const SelectTrriger = ({ children, layout, linkedValue }: Props) => {
         <span>{selected.label || "선택"}</span>
         <ArrDown />
       </label>
-      <>{isOn && children}</>
+      {isOn && children}
     </div>
   );
 };
