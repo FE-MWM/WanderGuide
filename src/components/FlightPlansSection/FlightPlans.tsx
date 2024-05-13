@@ -1,7 +1,7 @@
 import { useSideModal } from "../../context/SideModalContext";
 import FlightList from "./FlightList";
 import { useModal } from "../../context/ModalContext";
-import AddFlight from "./AddFlight";
+import AddFlightPlanProvider from "../../provider/AddFlightPlanProvider";
 
 const FlightPlans = () => {
   const { isOpen, openSideModal, closeSideModal } = useSideModal();
@@ -14,7 +14,10 @@ const FlightPlans = () => {
     }
   };
   const addFlightPlan = () => {
-    openModal("비행 일정", <AddFlight />);
+    openModal(
+      "비행 일정",
+      <AddFlightPlanProvider prefixes={["departure", "return"]} />
+    );
   };
   return (
     <div className="h-full flex flex-col">
