@@ -1,20 +1,29 @@
 import { useSideModal } from "../../context/SideModalContext";
 import FlightList from "./FlightList";
+import { useModal } from "../../context/ModalContext";
+import AddFlightPlanProvider from "../../provider/AddFlightPlanProvider";
 
 const FlightPlans = () => {
-  const { isOpen, openModal, closeModal } = useSideModal();
+  const { isOpen, openSideModal, closeSideModal } = useSideModal();
+  const { openModal } = useModal();
   const showFlightPlan = () => {
     if (!isOpen) {
-      openModal("비행 일정", <FlightList />, true);
+      openSideModal("비행 일정", <FlightList />, true);
     } else {
-      closeModal();
+      closeSideModal();
     }
+  };
+  const addFlightPlan = () => {
+    openModal(
+      "비행 일정",
+      <AddFlightPlanProvider prefixes={["departure", "return"]} />
+    );
   };
   return (
     <div className="h-full flex flex-col">
       <div className="h-[53px] flex items-center justify-between pb-5">
-        <span className="text-[22px] font-semibold ">비행 일정</span>
-        <button>
+        <span className="text-[22px] font-semibold">비행 일정</span>
+        <button onClick={() => addFlightPlan()}>
           <img
             className="w-[24px] h-[24px]"
             src="/images/write.svg"

@@ -1,7 +1,7 @@
 import { useSideModal } from "../../context/SideModalContext";
 
 const SideModal = () => {
-  const { isOpen, title, content, closeModal, fullSize } = useSideModal();
+  const { isOpen, title, content, closeSideModal, fullSize } = useSideModal();
 
   return (
     <>
@@ -17,7 +17,7 @@ const SideModal = () => {
               src="/images/close.svg"
               alt="close"
               className="w-[15px] h-[15px] cursor-pointer"
-              onClick={closeModal}
+              onClick={closeSideModal}
             />
           </div>
           <div className="mt-[30px] h-[calc(100%-80px)] ">{content}</div>

@@ -9,7 +9,7 @@ export type Item = {
   leisure?: string;
 };
 
-// 데이터 벤이스 체크 & 생성
+// 데이터 베이스 체크 & 생성
 export const initDB = (): Promise<boolean | IDBDatabase> => {
   return new Promise((resolve) => {
     const request = indexedDB.open("wanderGuideDB", 1);
