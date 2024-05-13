@@ -18,7 +18,7 @@ const Modal = () => {
           onClick={() => closeModal()}
         >
           <div
-            className="relative p-4 w-full max-w-2xl max-h-full"
+            className="relative p-4 w-auto max-h-full"
             onClick={stopPropagation}
           >
             <div className="relative bg-white rounded-lg shadow">
