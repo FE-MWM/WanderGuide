@@ -22,10 +22,7 @@ const SelectInput = ({
   const { handleList } = useContext(selectDispatch);
   const { register, setValue } = useFormContext<FormValues>();
 
-  // console.log("selected", selected.label);
-
   const debounce = (str: string) => {
-    console.log("de str", str);
     if (!debounceFunc) return;
     let timer: NodeJS.Timeout | null = null;
     if (timer) {
