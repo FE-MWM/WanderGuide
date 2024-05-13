@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getDate, getFridayIfWeekend } from "../Util/func";
+import { getDate, getFridayIfWeekend } from "../Util/calcExchangeDate";
 
 export const getExchangeList = async () => {
   const today = getDate().format("YYYY-MM-DD");
