@@ -9,7 +9,7 @@ const AddAccommodation = ({ onSave }: PropsData) => {
 
   return (
     <>
-      <div className="w-[550px] p-8">
+      <div className="w-[450px] p-8">
         <label className="block text-sm font-medium text-gray-700 mb-4">
           <span className="text-[14px]">날짜</span>
           <div className="flex justify-center items-center">
