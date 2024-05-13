@@ -28,7 +28,7 @@ const MainDashboard = () => {
           </div>
           <div className="h-full flex flex-col col-span-2 gap-7 ">
             <div>
-              <ExchangeRate />
+              <ExchangeRate country="싱가포르" />
             </div>
             <div className="h-full grid grid-cols-2 gap-4 pb-[40px]">
               <Accommodation />
