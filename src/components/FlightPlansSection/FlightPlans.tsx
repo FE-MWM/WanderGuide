@@ -2,6 +2,7 @@ import { useSideModal } from "../../context/SideModalContext";
 import FlightList from "./FlightList";
 import { useModal } from "../../context/ModalContext";
 import AddFlightPlanProvider from "../../provider/AddFlightPlanProvider";
+import NoWriteData from "../common/NoWriteData";
 
 const FlightPlans = () => {
   const { isOpen, openSideModal, closeSideModal } = useSideModal();
@@ -35,7 +36,8 @@ const FlightPlans = () => {
         className="bg-white w-full h-[564px] rounded-3xl p-5 cursor-pointer"
         onClick={() => showFlightPlan()}
       >
-        <FlightList />
+        {/* <FlightList /> */}
+        <NoWriteData title="비행 일정" />
       </div>
     </div>
   );
