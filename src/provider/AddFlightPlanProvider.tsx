@@ -1,5 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import AddFlight from "../components/FlightPlansSection/AddFlight";
+
 export type FormValue = {
   [key: string]: string | boolean;
 };
@@ -24,13 +25,12 @@ const createDefaultValues = (prefixes: string[]) => {
 type prefixProps = {
   prefixes: string[];
 };
-
 const AddFlightPlanProvider = ({ prefixes }: prefixProps) => {
   const methods = useForm({
     defaultValues: createDefaultValues(prefixes)
   });
 
-  const handleOnSave = () => {
+  const handleOnSave = async () => {
     const formData = methods.getValues();
     console.log(formData);
   };
