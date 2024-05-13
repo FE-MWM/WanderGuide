@@ -20,7 +20,7 @@ const AddAccommodationProvider = () => {
 
   const handleOnSave = async () => {
     const formData = methods.getValues();
-    console.log(formData);
+    console.log("숙소데이터", formData);
   };
 
   return (
