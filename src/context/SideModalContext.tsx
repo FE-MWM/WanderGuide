@@ -5,8 +5,12 @@ type SideModalContextData = {
   title: string;
   content: ReactNode | null;
   fullSize?: boolean;
-  openModal: (title: string, content: ReactNode, fullSize?: boolean) => void;
-  closeModal: () => void;
+  openSideModal: (
+    title: string,
+    content: ReactNode,
+    fullSize?: boolean
+  ) => void;
+  closeSideModal: () => void;
 };
 
 type SideModalProviderProps = {
@@ -17,8 +21,8 @@ const defaultState = {
   isOpen: false,
   title: "",
   content: null,
-  openModal: () => {},
-  closeModal: () => {},
+  openSideModal: () => {},
+  closeSideModal: () => {},
   fullSize: false
 };
 
@@ -31,14 +35,18 @@ export const SideModalProvider = ({ children }: SideModalProviderProps) => {
   const [title, setTitle] = useState<string>("");
   const [fullSize, setFullSize] = useState<boolean>(false);
 
-  const openModal = (title: string, content: ReactNode, fullSize?: boolean) => {
+  const openSideModal = (
+    title: string,
+    content: ReactNode,
+    fullSize?: boolean
+  ) => {
     setIsOpen(true);
     setTitle(title);
     setContent(content);
     fullSize && setFullSize(fullSize);
   };
 
-  const closeModal = () => {
+  const closeSideModal = () => {
     setIsOpen(false);
     setTitle("");
     setContent(null);
@@ -46,7 +54,14 @@ export const SideModalProvider = ({ children }: SideModalProviderProps) => {
 
   return (
     <SideModalContext.Provider
-      value={{ isOpen, content, title, openModal, closeModal, fullSize }}
+      value={{
+        isOpen,
+        content,
+        title,
+        openSideModal,
+        closeSideModal,
+        fullSize
+      }}
     >
       {children}
     </SideModalContext.Provider>
