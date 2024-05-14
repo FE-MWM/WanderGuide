@@ -53,9 +53,7 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
     ];
     delete data.id;
     setList(planData);
-    if (!destination) {
-      setDestination(data);
-    }
+    setDestination(data);
     await addData(data);
     onCloseModal();
   };
