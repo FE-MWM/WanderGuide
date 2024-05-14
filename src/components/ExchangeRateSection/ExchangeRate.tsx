@@ -3,7 +3,7 @@ import { useGetExchangeRate } from "../../hook/useGetExchangeRate";
 import NoSettingData from "../common/NoSettingData";
 import { useRecoilState } from "recoil";
 import { destinationData } from "../../store/destinationAtom";
-import { toNumberCash } from "../../Util/calcCash";
+import { calcCash } from "../../Util/calcCash";
 
 const ExchangeRate = () => {
   const [DestinationData] = useRecoilState(destinationData);
@@ -35,13 +35,13 @@ const ExchangeRate = () => {
             return (
               <div
                 key={idx}
-                className={`flex-1 ${idx === 0 ? "" : "border-l"} text-[14px]`}
+                className={`flex-1 ${idx === 0 ? "" : "border-l"} text-[13px]`}
               >
                 <div className="text-center py-[22px] border-b text-black font-bold">
                   {ele} {cashData.exc}
                 </div>
                 <div className="text-center py-[22px]">
-                  {ele * toNumberCash(cashData.krw)} 원
+                  {calcCash(cashData.krw, ele)}원
                 </div>
               </div>
             );
