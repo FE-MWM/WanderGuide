@@ -17,7 +17,7 @@ export const useCountries = () => {
 
   useEffect(() => {
     if (data) setValue(data.data);
-  }, [data?.data]);
+  }, [data]);
 
   return { value, search };
 };
