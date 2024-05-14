@@ -3,6 +3,8 @@ import FlightList from "./FlightList";
 import { useModal } from "../../context/ModalContext";
 import AddFlightPlanProvider from "../../provider/AddFlightPlanProvider";
 import NoWriteData from "../common/NoWriteData";
+import { useRecoilValue } from "recoil";
+import { DestinationData, destinationData } from "../../store/destinationAtom";
 
 const FlightPlans = () => {
   const { isOpen, openSideModal, closeSideModal } = useSideModal();
@@ -20,6 +22,10 @@ const FlightPlans = () => {
       <AddFlightPlanProvider prefixes={["departure", "return"]} />
     );
   };
+  const planDate = useRecoilValue<DestinationData>(destinationData);
+  const { flight } = planDate;
+  const hasFlight = Object.keys(flight).length > 0;
+
   return (
     <div className="h-full flex flex-col">
       <div className="h-[53px] flex items-center justify-between pb-5">
@@ -34,10 +40,9 @@ const FlightPlans = () => {
       </div>
       <div
         className="bg-white w-full h-[642px] rounded-3xl p-5 cursor-pointer"
-        onClick={() => showFlightPlan()}
+        onClick={hasFlight ? showFlightPlan : addFlightPlan}
       >
-        {/* <FlightList /> */}
-        <NoWriteData title="비행 일정" />
+        {hasFlight ? <FlightList /> : <NoWriteData title="비행 일정" />}
       </div>
     </div>
   );

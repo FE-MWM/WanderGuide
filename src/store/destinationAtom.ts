@@ -23,8 +23,7 @@ export type DestinationData = {
     destination: string;
   };
   flight: {
-    startDate: string;
-    endDate: string;
+    [key: string]: string | boolean;
   };
   accommodation: AccommodationData[];
   activities: Activities[];
@@ -41,10 +40,7 @@ export const destinationData = atom<DestinationData>({
       member: "",
       destination: ""
     },
-    flight: {
-      startDate: "",
-      endDate: ""
-    },
+    flight: {},
     accommodation: [],
     activities: [],
     apiParams: {
