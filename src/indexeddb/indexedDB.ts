@@ -1,5 +1,7 @@
+import { DestinationData } from "../store/destinationAtom";
+
 export type Item = {
-  id?: number;
+  id: number;
   title: string;
   startDate: string;
   endDate: string;
@@ -114,7 +116,7 @@ export const updateData = <T>(
 };
 
 //  store의 저장된 모든 값 가져오기
-export const getStoreData = (): Promise<Item[]> => {
+export const getStoreData = (): Promise<DestinationData[]> => {
   return new Promise((resolve) => {
     const request = indexedDB.open("wanderGuideDB", 1);
 

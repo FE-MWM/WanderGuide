@@ -1,8 +1,9 @@
 import { useForm, FormProvider } from "react-hook-form";
 import AddTravelDestination from "../components/AddTravelDestination";
-import { Item, addData } from "../indexeddb/indexedDB";
-import { useSetRecoilState } from "recoil";
-import { destinationList } from "../store/destinationAtoms";
+import { useRecoilState } from "recoil";
+import { addData } from "../indexeddb/indexedDB";
+import { DestinationData, destinationData } from "../store/destinationAtom";
+import { PlanListData, planList } from "../store/planListAtom";
 
 export type FormValues = {
   title: string;
@@ -26,11 +27,36 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
       destination: ""
     }
   });
-  const setDestination = useSetRecoilState<Item[]>(destinationList);
 
-  const saveDestination = async (destination: FormValues) => {
-    await addData(destination);
-    setDestination((prev) => [...prev, destination]);
+  const [destination, setDestination] =
+    useRecoilState<DestinationData>(destinationData);
+  const [list, setList] = useRecoilState<PlanListData[]>(planList);
+
+  const saveDestination = async (destinationFormData: FormValues) => {
+    const data = {
+      ...destination,
+      planInfo: {
+        title: destinationFormData.title,
+        startDate: destinationFormData.startDate,
+        endDate: destinationFormData.endDate,
+        member: destinationFormData.member,
+        destination: destinationFormData.destination
+      }
+    };
+    const planData = [
+      ...list,
+      {
+        id: list.length + 1,
+        title: destinationFormData.title,
+        isActive: list.length === 0 ? true : false
+      }
+    ];
+    delete data.id;
+    setList(planData);
+    if (!destination) {
+      setDestination(data);
+    }
+    await addData(data);
     onCloseModal();
   };
 
