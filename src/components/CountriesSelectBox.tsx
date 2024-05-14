@@ -1,11 +1,23 @@
 import { useRef } from "react";
 import SelectBox from "../context/selectBox/SelectBox";
-import { Data } from "../api/country";
+import { CountryData } from "../api/country";
 import { useCountries } from "../hook/useCountries";
+import { useRecoilState } from "recoil";
+import { DestinationData } from "../store/destinationAtom";
+import { initData } from "../store/initAtom";
 
 const CountriesSelectBox = () => {
   const { value, search } = useCountries();
-  const dataRef = useRef<Data | undefined>();
+  const dataRef = useRef<CountryData | undefined>();
+  const [initValue, setInit] = useRecoilState<DestinationData>(initData);
+
+  const setApiParams = (ele: CountryData) => {
+    const data = {
+      ...initValue,
+      apiParams: { ...ele }
+    };
+    setInit(data);
+  };
 
   return (
     <SelectBox>
@@ -21,7 +33,10 @@ const CountriesSelectBox = () => {
                 key={idx}
                 value={`${ele["ISO numeric"]}`}
                 label={ele.한글명}
-                onClick={() => (dataRef.current = ele)}
+                onClick={() => {
+                  setApiParams(ele);
+                  dataRef.current = ele;
+                }}
               >
                 {ele.한글명}
               </SelectBox.item>

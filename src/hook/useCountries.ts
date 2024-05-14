@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { Country, Data, getCountries } from "../api/country";
+import { Country, CountryData, getCountries } from "../api/country";
 import { useState } from "react";
 
 export const useCountries = () => {
-  const [value, setValue] = useState<Data[]>([]);
+  const [value, setValue] = useState<CountryData[]>([]);
   const { data } = useQuery<Country>({
     queryKey: ["countries"],
     queryFn: () => getCountries(),
