@@ -29,6 +29,7 @@ export type DestinationData = {
   activities: Activities[];
   apiParams: {
     countryCodes: string;
+    영문명: string;
   };
 };
 
@@ -49,7 +50,8 @@ export const destinationData = atom<DestinationData>({
     accommodation: [],
     activities: [],
     apiParams: {
-      countryCodes: ""
+      countryCodes: "",
+      영문명: ""
     }
   }
 });
