@@ -74,7 +74,12 @@ const WeatherList = ({ setWeatherDate, setRefreshDate }: WeatherProps) => {
   }, [weatherList, setWeatherDate]);
 
   if (isLoading) return <IsLoading />;
-  if (error) return <div>날씨 데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  if (error)
+    return (
+      <div className="text-cool-gray flex justify-center items-center text-sm">
+        날씨 데이터를 불러오는 중 오류가 발생했습니다.
+      </div>
+    );
 
   return (
     <div className="flex h-full flex-col justify-around">
