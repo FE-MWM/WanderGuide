@@ -1,10 +1,15 @@
 import React from "react";
 import { useGetExchangeRate } from "../../hook/useGetExchangeRate";
+import NoExchangeRate from "./NoExchangeRate";
+import NoSettingData from "../common/NoSettingData";
+import { useRecoilState } from "recoil";
+import { destinationData } from "../../store/destinationAtom";
+import { calcCash } from "../../Util/calcCash";
 
-type ExchangeRateProps = {
-  country: string;
-};
-const ExchangeRate = ({ country }: ExchangeRateProps) => {
+const ExchangeRate = () => {
+  const [DestinationData] = useRecoilState(destinationData);
+  const country = DestinationData?.planInfo.destination || "";
+
   const { cashData } = useGetExchangeRate(country);
 
   const list: number[] = [1, 100, 1000, 2000, 5000, 10000, 50000];
@@ -25,17 +30,30 @@ const ExchangeRate = ({ country }: ExchangeRateProps) => {
           <span className="text-xs pl-1">2024.04.20 19:30</span>
         </div> */}
       </div>
-      <div className="bg-white w-full flex flex-row rounded-3xl overflow-hidden">
-        {list.map((ele, idx) => {
-          return (
-            <div key={idx} className={`flex-1 ${idx === 0 ? "" : "border-l"}`}>
-              <div className="text-center py-[28px] border-b text-black font-bold">
-                {ele}
-              </div>
-              <div className="text-center py-[28px]">{ele}</div>
-            </div>
-          );
-        })}
+      <div className="bg-white w-full h-[140px] flex flex-row justify-center items-center rounded-3xl overflow-hidden">
+        {country ? (
+          cashData?.krw && cashData?.exc ? (
+            list.map((ele, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className={`flex-1 ${idx === 0 ? "" : "border-l"} text-[13px]`}
+                >
+                  <div className="text-center py-[22px] border-b text-black font-bold">
+                    {ele} {cashData.exc}
+                  </div>
+                  <div className="text-center py-[22px]">
+                    {calcCash(cashData.krw, ele)}원
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <NoExchangeRate />
+          )
+        ) : (
+          <NoSettingData />
+        )}
       </div>
     </div>
   );

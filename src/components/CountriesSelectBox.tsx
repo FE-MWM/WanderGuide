@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import SelectBox from "../context/selectBox/SelectBox";
 import { CountryData } from "../api/country";
 import { useCountries } from "../hook/useCountries";

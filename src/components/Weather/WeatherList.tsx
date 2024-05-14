@@ -3,6 +3,8 @@ import { getWeather, WeatherData, WeatherEntry } from "../../api/weather";
 import { useQuery } from "@tanstack/react-query";
 import IsLoading from "../common/IsLoading";
 import { formatDate, formatUtc } from "../../Util/dateFormatter";
+import { DestinationData, destinationData } from "../../store/destinationAtom";
+import { useRecoilValue } from "recoil";
 
 type WeatherProps = {
   setWeatherDate: (date: { startDate: string; endDate: string }) => void;
@@ -14,14 +16,16 @@ const WeatherList = ({ setWeatherDate, setRefreshDate }: WeatherProps) => {
     [key: string]: WeatherEntry[];
   }>({});
   const [weatherList, setWeatherList] = useState<WeatherEntry[]>([]);
+  const planDate = useRecoilValue<DestinationData>(destinationData);
+  const { apiParams } = planDate;
 
-  const countries: string = "London"; //동적으로 데이터값 가져올 부분
+  const countries: string = apiParams["영문명"];
 
   const { data, error, isLoading } = useQuery<WeatherData, Error>({
     queryKey: ["weather", countries],
     queryFn: () => getWeather(countries),
     enabled: !!countries,
-    refetchInterval: 20 * 60 * 1000 // 20분마다 데이터 갱신 (추후 정하고 수정)
+    refetchInterval: 3 * 60 * 60 * 1000
   });
 
   useEffect(() => {
@@ -70,7 +74,12 @@ const WeatherList = ({ setWeatherDate, setRefreshDate }: WeatherProps) => {
   }, [weatherList, setWeatherDate]);
 
   if (isLoading) return <IsLoading />;
-  if (error) return <div>날씨 데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  if (error)
+    return (
+      <div className="text-cool-gray flex justify-center items-center text-sm">
+        날씨 데이터를 불러오는 중 오류가 발생했습니다.
+      </div>
+    );
 
   return (
     <div className="flex h-full flex-col justify-around">
