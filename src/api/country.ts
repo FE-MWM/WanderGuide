@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export type Data = {
+export type CountryData = {
   "ISO alpha2": string;
   "ISO alpha3": string;
   "ISO numeric": number;
@@ -17,7 +17,7 @@ export type Country = {
   totalCount: number;
   currentCount: number;
   matchCount: number;
-  data: Data[];
+  data: CountryData[];
 };
 
 export const getCountries = async <T = Country[]>(): Promise<T> => {

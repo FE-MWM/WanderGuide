@@ -1,4 +1,5 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
+import { CountryData } from "../api/country";
 
 export type AccommodationData = {
   startDate: string;
@@ -27,10 +28,7 @@ export type DestinationData = {
   };
   accommodation: AccommodationData[];
   activities: Activities[];
-  apiParams: {
-    countryCodes: string;
-    영문명: string;
-  };
+  apiParams: CountryData;
 };
 
 export const destinationData = atom<DestinationData>({
@@ -50,8 +48,22 @@ export const destinationData = atom<DestinationData>({
     accommodation: [],
     activities: [],
     apiParams: {
-      countryCodes: "",
-      영문명: ""
+      "ISO alpha2": "",
+      "ISO alpha3": "",
+      "ISO numeric": 0,
+      "대륙명_공통 대륙코드": "",
+      대륙명_행정표준코드: "",
+      "대륙명_외교부 직제": "",
+      영문명: "",
+      한글명: ""
     }
+  }
+});
+
+export const apiParams = selector({
+  key: "apiParams",
+  get: ({ get }) => {
+    const data = get(destinationData);
+    return data.apiParams;
   }
 });
