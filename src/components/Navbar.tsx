@@ -1,16 +1,15 @@
 import React from "react";
 import { useModal } from "../context/ModalContext";
-import { Item } from "../indexeddb/indexedDB";
 import AddTravelDestinationProvider from "../provider/AddTravelDestinationProvider";
+import { PlanListData, planList } from "../store/planListAtom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { getStoreData } from "../indexeddb/indexedDB";
+import { DestinationData, destinationData } from "../store/destinationAtom";
 
-type NavProps = {
-  list: Item[];
-  selected: number;
-  setSelected: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const Navbar = ({ list, selected, setSelected }: NavProps) => {
+const Navbar = () => {
   const { openModal, closeModal } = useModal();
+  const [list, setList] = useRecoilState<PlanListData[]>(planList);
+  const setDestination = useSetRecoilState<DestinationData>(destinationData);
 
   const addTrip = () => {
     openModal(
@@ -19,9 +18,21 @@ const Navbar = ({ list, selected, setSelected }: NavProps) => {
     );
   };
 
-  // UI를 확인 위한 임시조건 (추후 조건설정 UI 변경 )
-  const active = (idx: number) => {
-    return selected === idx ? true : false;
+  const handlePlanSelection = (idx: number) => {
+    const updatedList = list.map((item) => {
+      if (item.id === idx) {
+        return { ...item, isActive: true };
+      } else {
+        return { ...item, isActive: false };
+      }
+    });
+    setList(updatedList);
+
+    getStoreData().then((res) => {
+      const selectedDestinationData = res.find((list) => list.id === idx);
+
+      selectedDestinationData && setDestination(selectedDestinationData);
+    });
   };
 
   return (
@@ -33,22 +44,23 @@ const Navbar = ({ list, selected, setSelected }: NavProps) => {
       <div className="w-full h-[calc(100%-57px)] flex flex-col justify-between items-center">
         <div className="w-full mt-[20px]">
           {/* 여행지 입력 데이터 받은 후 리스트 UI 영역 , 현재는 active로 분기처리 했으나 작업하시는 분이 편한 조건으로 변경하시면 될것같습니다  */}
-          {list.map((ele, idx) => {
+          {list.map((item) => {
             return (
               <div
-                key={idx}
-                className={`flex items-center px-4 mb-[20px] ${active(idx) ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
-                onClick={() => setSelected(idx)}
+                key={item.id}
+                className={`flex items-center px-4 mb-[20px] ${item.isActive ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
+                // onClick={() => setSitemcted(idx)}
+                onClick={() => handlePlanSelection(item.id)}
               >
                 <img
                   className="w-[40px] h-[40px]"
-                  src={`${active(idx) ? "/images/plane-blue.svg" : "/images/plane-black.svg"}`}
+                  src={`${item.isActive ? "/images/plane-blue.svg" : "/images/plane-black.svg"}`}
                   alt="plane"
                 />
                 <span
-                  className={`line-clamp-1 ${active(idx) ? "text-blue-600 font-bold" : "text-cool-gray"} hover:font-bold`}
+                  className={`line-clamp-1 ${item.isActive ? "text-blue-600 font-bold" : "text-cool-gray"} hover:font-bold`}
                 >
-                  {ele.title}
+                  {item.title}
                 </span>
               </div>
             );
