@@ -1,5 +1,6 @@
 import React from "react";
 import { useGetExchangeRate } from "../../hook/useGetExchangeRate";
+import NoExchangeRate from "./NoExchangeRate";
 import NoSettingData from "../common/NoSettingData";
 import { useRecoilState } from "recoil";
 import { destinationData } from "../../store/destinationAtom";
@@ -30,22 +31,26 @@ const ExchangeRate = () => {
         </div> */}
       </div>
       <div className="bg-white w-full h-[140px] flex flex-row justify-center items-center rounded-3xl overflow-hidden">
-        {cashData ? (
-          list.map((ele, idx) => {
-            return (
-              <div
-                key={idx}
-                className={`flex-1 ${idx === 0 ? "" : "border-l"} text-[13px]`}
-              >
-                <div className="text-center py-[22px] border-b text-black font-bold">
-                  {ele} {cashData.exc}
+        {country ? (
+          cashData?.krw && cashData?.exc ? (
+            list.map((ele, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className={`flex-1 ${idx === 0 ? "" : "border-l"} text-[13px]`}
+                >
+                  <div className="text-center py-[22px] border-b text-black font-bold">
+                    {ele} {cashData.exc}
+                  </div>
+                  <div className="text-center py-[22px]">
+                    {calcCash(cashData.krw, ele)}원
+                  </div>
                 </div>
-                <div className="text-center py-[22px]">
-                  {calcCash(cashData.krw, ele)}원
-                </div>
-              </div>
-            );
-          })
+              );
+            })
+          ) : (
+            <NoExchangeRate />
+          )
         ) : (
           <NoSettingData />
         )}
