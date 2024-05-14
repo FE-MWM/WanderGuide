@@ -1,5 +1,8 @@
 import { FormProvider, useForm } from "react-hook-form";
 import AddFlight from "../components/FlightPlansSection/AddFlight";
+import { useRecoilState } from "recoil";
+import { DestinationData, destinationData } from "../store/destinationAtom";
+import { updateData } from "../indexeddb/indexedDB";
 
 export type FormValue = {
   [key: string]: string | boolean;
@@ -16,8 +19,7 @@ const createDefaultValues = (prefixes: string[]) => {
     defaultValues[`${prefix}FlightNumber`] = "";
     defaultValues[`${prefix}ArrivalDate`] = "";
     defaultValues[`${prefix}ArrivalTime`] = "";
-    defaultValues[`${prefix}Stopover`] = false;
-    defaultValues[`${prefix}ArrivalLocation`] = "";
+    defaultValues[`${prefix}Stopover`] = "false";
   });
   return defaultValues;
 };
@@ -26,13 +28,24 @@ type prefixProps = {
   prefixes: string[];
 };
 const AddFlightPlanProvider = ({ prefixes }: prefixProps) => {
+  const [destination, setDestination] =
+    useRecoilState<DestinationData>(destinationData);
+
   const methods = useForm({
     defaultValues: createDefaultValues(prefixes)
   });
 
   const handleOnSave = async () => {
     const formData = methods.getValues();
-    console.log(formData);
+    const flightData: DestinationData = {
+      ...destination,
+      flight: { ...formData }
+    };
+    console;
+    setDestination(flightData);
+    if (destination.id) {
+      await updateData(destination.id, flightData);
+    }
   };
 
   return (
