@@ -1,11 +1,8 @@
 import React from "react";
 import { useGetExchangeRate } from "../../hook/useGetExchangeRate";
 
-type ExchangeRateProps = {
-  country: string;
-};
-const ExchangeRate = ({ country }: ExchangeRateProps) => {
-  const { cashData } = useGetExchangeRate(country);
+const ExchangeRate = () => {
+  const { cashData } = useGetExchangeRate();
 
   const list: number[] = [1, 100, 1000, 2000, 5000, 10000, 50000];
 

@@ -1,6 +1,8 @@
 import { AxiosError } from "axios";
 import { getExchangeList } from "../api/exchange";
 import { useQuery } from "@tanstack/react-query";
+import { useRecoilState } from "recoil";
+import { destinationData } from "../store/destinationAtom";
 
 type Cash = {
   result: number;
@@ -18,19 +20,21 @@ type Cash = {
 
 type CashData = Cash[];
 
-export const useGetExchangeRate = (kor: string) => {
+export const useGetExchangeRate = () => {
+  const [DestinationData] = useRecoilState(destinationData);
+  const country = DestinationData.apiParams.countryCodes;
   //리액트 쿼리로 해당 환율목록 가져오기
   const { data: cashData } = useQuery<
     CashData,
     AxiosError,
     { krw: string; exc: string }
   >({
-    queryKey: [`test2`],
+    queryKey: [`${country}`],
     queryFn: () => getExchangeList(),
     throwOnError: false,
     select: (res) => {
       const exchange = res.find((ele) => {
-        return ele.cur_nm.split(" ")[0] === kor;
+        return ele.cur_nm.split(" ")[0] === country;
       });
 
       return {
