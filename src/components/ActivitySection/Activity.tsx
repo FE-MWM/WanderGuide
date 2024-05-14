@@ -1,5 +1,7 @@
 import React from "react";
 import { useTab } from "../../context/TabContext";
+import ActivityModal from "./ActivityModal";
+import { useModal } from "../../context/ModalContext";
 
 //임시데이터
 const activityList = [
@@ -39,11 +41,13 @@ const activityList = [
 
 const Activity = () => {
   const { setActiveTab } = useTab();
+  const { openModal } = useModal();
+
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <div className="h-[53px] flex items-center justify-between pb-5">
-        <span className="text-[22px] font-semibold ">액티비티/투어</span>
-        <button>
+        <span className="text-[22px] font-semibold">액티비티/투어</span>
+        <button onClick={() => openModal("액티비티/투어", <ActivityModal />)}>
           <img
             className="w-[24px] h-[24px]"
             src="/images/write.svg"
