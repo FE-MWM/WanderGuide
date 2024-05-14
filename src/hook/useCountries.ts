@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Country, CountryData, getCountries } from "../api/country";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useCountries = () => {
   const [value, setValue] = useState<CountryData[]>([]);

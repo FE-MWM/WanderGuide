@@ -4,6 +4,7 @@ import { useCountries } from "../hook/useCountries";
 import { useRecoilState } from "recoil";
 import { DestinationData } from "../store/destinationAtom";
 import { initData } from "../store/initAtom";
+import { useRef } from "react";
 
 const CountriesSelectBox = () => {
   const { value, search } = useCountries();
