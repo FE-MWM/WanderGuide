@@ -1,11 +1,8 @@
-import { useRef } from "react";
 import SelectBox from "../context/selectBox/SelectBox";
-import { Data } from "../api/country";
 import { useCountries } from "../hook/useCountries";
 
 const CountriesSelectBox = () => {
   const { value, search } = useCountries();
-  const dataRef = useRef<Data | undefined>();
 
   return (
     <SelectBox>
@@ -21,7 +18,6 @@ const CountriesSelectBox = () => {
                 key={idx}
                 value={`${ele["ISO numeric"]}`}
                 label={ele.한글명}
-                onClick={() => (dataRef.current = ele)}
               >
                 {ele.한글명}
               </SelectBox.item>
