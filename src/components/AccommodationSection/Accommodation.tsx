@@ -1,5 +1,7 @@
 import React from "react";
 import { useTab } from "../../context/TabContext";
+import { useModal } from "../../context/ModalContext";
+import AddAccommodationProvider from "../../provider/AddAccommodationProvider";
 
 //  임시데이터
 
@@ -50,11 +52,21 @@ const accommodations = [
 
 const Accommodation = () => {
   const { setActiveTab } = useTab();
+  const { openModal } = useModal();
+
+  const AddAccommodation = () => {
+    openModal("숙소", <AddAccommodationProvider />);
+  };
+
   return (
     <div className="h-full flex flex-col">
       <div className="h-[53px] flex items-center justify-between pb-5">
         <span className="text-[22px] font-semibold">숙소</span>
-        <button type="button" aria-label="modify accommodation">
+        <button
+          type="button"
+          aria-label="modify accommodation"
+          onClick={() => AddAccommodation()}
+        >
           <img
             className="w-[24px] h-[24px]"
             src="/images/write.svg"
