@@ -32,7 +32,7 @@ const FlightPlans = () => {
         </button>
       </div>
       <div
-        className="bg-white w-full h-[564px] rounded-3xl p-5 cursor-pointer"
+        className="bg-white w-full h-[642px] rounded-3xl p-5 cursor-pointer"
         onClick={() => showFlightPlan()}
       >
         <FlightList />
