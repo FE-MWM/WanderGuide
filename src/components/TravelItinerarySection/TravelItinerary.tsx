@@ -7,7 +7,7 @@ const TravelItinerary = () => {
 
   return (
     <div className="w-full h-full flex justify-between mb-[30px]">
-      <div className="text-4xl font-bold">{`${planDate?.planInfo.title} D-10`}</div>
+      <div className="text-4xl font-bold">{`${planDate?.planInfo.destination} D-10`}</div>
       <div className="flex flex-col">
         <div className="flex items-center mb-2">
           <img
