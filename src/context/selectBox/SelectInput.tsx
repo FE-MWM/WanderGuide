@@ -47,11 +47,7 @@ const SelectInput = ({
         onClick={(e) => {
           e.currentTarget.value.trim() ? handleList(true) : handleList(!isOn);
         }}
-        // readOnly={selected.label ? true : false}
         {...register("destination", { required: "destination is required" })}
-        onBlur={(e) => {
-          e.currentTarget.value.trim() ? handleList(true) : handleList(!isOn);
-        }}
       />
       {isOn && children}
     </div>

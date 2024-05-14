@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Country, Data, getCountries } from "../api/country";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useCountries = () => {
   const [value, setValue] = useState<Data[]>([]);
@@ -11,11 +11,13 @@ export const useCountries = () => {
   });
 
   const search = (str: string) => {
-    const searched = data?.data.filter(
-      (ele) => str && ele.한글명.includes(str)
-    );
+    const searched = data?.data.filter((ele) => ele.한글명.includes(str));
     setValue(searched || []);
   };
+
+  useEffect(() => {
+    if (data) setValue(data.data);
+  }, [data?.data]);
 
   return { value, search };
 };
