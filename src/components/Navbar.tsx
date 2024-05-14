@@ -42,29 +42,34 @@ const Navbar = () => {
         <img className="pl-1.5" src="/images/wander-guide.svg" alt="logo" />
       </div>
       <div className="w-full h-[calc(100%-57px)] flex flex-col justify-between items-center">
-        <div className="w-full mt-[20px]">
-          {/* 여행지 입력 데이터 받은 후 리스트 UI 영역 , 현재는 active로 분기처리 했으나 작업하시는 분이 편한 조건으로 변경하시면 될것같습니다  */}
-          {list.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className={`flex items-center px-4 mb-[20px] ${item.isActive ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
-                // onClick={() => setSitemcted(idx)}
-                onClick={() => handlePlanSelection(item.id)}
-              >
-                <img
-                  className="w-[40px] h-[40px]"
-                  src={`${item.isActive ? "/images/plane-blue.svg" : "/images/plane-black.svg"}`}
-                  alt="plane"
-                />
-                <span
-                  className={`line-clamp-1 ${item.isActive ? "text-blue-600 font-bold" : "text-cool-gray"} hover:font-bold`}
+        <div className="w-full mt-[20px] h-full">
+          {list.length === 0 ? (
+            <div className="text-cool-gray text-sm flex flex-col justify-center items-center flex-1 h-full">
+              <span>여행 떠나시나요?</span>
+              <span>여행지를 추가해주세요.</span>
+            </div>
+          ) : (
+            list.map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  className={`flex items-center px-4 mb-[20px] ${item.isActive ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
+                  onClick={() => handlePlanSelection(item.id)}
                 >
-                  {item.title}
-                </span>
-              </div>
-            );
-          })}
+                  <img
+                    className="w-[40px] h-[40px]"
+                    src={`${item.isActive ? "/images/plane-blue.svg" : "/images/plane-black.svg"}`}
+                    alt="plane"
+                  />
+                  <span
+                    className={`line-clamp-1 ${item.isActive ? "text-blue-600 font-bold" : "text-cool-gray"} hover:font-bold`}
+                  >
+                    {item.title}
+                  </span>
+                </div>
+              );
+            })
+          )}
         </div>
         <div
           className="w-full h-[80px] flex items-center justify-center border-t border-gray-200 cursor-pointer"
