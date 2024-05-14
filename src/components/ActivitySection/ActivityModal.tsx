@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useSideModal } from "../../context/SideModalContext";
+import { useModal } from "../../context/ModalContext";
 
 type ActivityFormValues = {
   date: string;
@@ -8,7 +8,7 @@ type ActivityFormValues = {
 
 const ActivityModal = () => {
   const { register, getValues } = useForm<ActivityFormValues>();
-  const { closeSideModal } = useSideModal();
+  const { closeModal } = useModal();
   return (
     <>
       <div className="w-[450px] p-8">
@@ -32,7 +32,7 @@ const ActivityModal = () => {
         <button
           type="button"
           className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-          onClick={closeSideModal}
+          onClick={closeModal}
         >
           취소
         </button>
