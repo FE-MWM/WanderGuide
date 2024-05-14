@@ -19,6 +19,7 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
           <input
             type="text"
             className="h-[40px] border px-2 outline-none"
+            placeholder="제목을 입력해 주세요"
             {...register("title", { required: "Title is required" })}
           />
         </div>

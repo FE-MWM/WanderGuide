@@ -2,6 +2,9 @@ import React from "react";
 import { useTab } from "../../context/TabContext";
 import { useModal } from "../../context/ModalContext";
 import AddAccommodationProvider from "../../provider/AddAccommodationProvider";
+import { DestinationData, destinationData } from "../../store/destinationAtom";
+import { useRecoilValue } from "recoil";
+import NoWriteData from "../common/NoWriteData";
 
 //  임시데이터
 
@@ -53,6 +56,7 @@ const accommodations = [
 const Accommodation = () => {
   const { setActiveTab } = useTab();
   const { openModal } = useModal();
+  const planDate = useRecoilValue<DestinationData>(destinationData);
 
   const AddAccommodation = () => {
     openModal("숙소", <AddAccommodationProvider />);
@@ -75,43 +79,49 @@ const Accommodation = () => {
         </button>
       </div>
       <div className="h-[400px] bg-white w-full rounded-3xl p-10">
-        <div className="overflow-hidden h-[90%] max-h-[400px] relative">
-          {accommodations.map((item, index) => (
-            <div
-              key={index}
-              className={`flex flex-col mb-[40px] pb-[40px] ${index === accommodations.length - 1 ? "" : "border-b-2 border-slate-100"}`}
-            >
-              <div className="flex items-center gap-2 mb-[20px]">
-                <span className="text-cool-gray font-extrabold">
-                  {item.startDate} ~ {item.endDate}
-                </span>
-                <span className="text-sky-500">({item.nights})</span>
+        {planDate?.accommodation.length > 0 ? (
+          <>
+            <div className="overflow-hidden h-[90%] max-h-[400px] relative">
+              {accommodations.map((item, index) => (
+                <div
+                  key={index}
+                  className={`flex flex-col mb-[40px] pb-[40px] ${index === accommodations.length - 1 ? "" : "border-b-2 border-slate-100"}`}
+                >
+                  <div className="flex items-center gap-2 mb-[20px]">
+                    <span className="text-cool-gray font-extrabold">
+                      {item.startDate} ~ {item.endDate}
+                    </span>
+                    <span className="text-sky-500">({item.nights})</span>
+                  </div>
+                  <div className="flex items-center gap-3 mb-[10px]">
+                    <img
+                      className="w-[20px] h-[20px]"
+                      src="/images/baggage.svg"
+                      alt="baggage"
+                    />
+                    <span className="text-base font-bold">{item.name}</span>
+                  </div>
+                  <span className="text-sm line-clamp-1">{item.memo}</span>
+                </div>
+              ))}
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-b from-transparent to-white indent-[-9999px]">
+                더보기 페이드아웃
               </div>
-              <div className="flex items-center gap-3 mb-[10px]">
-                <img
-                  className="w-[20px] h-[20px]"
-                  src="/images/baggage.svg"
-                  alt="baggage"
-                />
-                <span className="text-base font-bold">{item.name}</span>
-              </div>
-              <span className="text-sm line-clamp-1">{item.memo}</span>
             </div>
-          ))}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-b from-transparent to-white indent-[-9999px]">
-            더보기 페이드아웃
-          </div>
-        </div>
-        <div className="text-zinc-500 font-bold text-sm text-center mt-[10px] flex items-center gap-2 justify-center">
-          <button type="button" onClick={() => setActiveTab("book")}>
-            더보기
-          </button>
-          <img
-            src="/images/arrow-right.svg"
-            alt="more"
-            className="w-[12px] h-[12px]"
-          />
-        </div>
+            <div className="text-zinc-500 font-bold text-sm text-center mt-[10px] flex items-center gap-2 justify-center">
+              <button type="button" onClick={() => setActiveTab("book")}>
+                더보기
+              </button>
+              <img
+                src="/images/arrow-right.svg"
+                alt="more"
+                className="w-[12px] h-[12px]"
+              />
+            </div>
+          </>
+        ) : (
+          <NoWriteData title="숙소" />
+        )}
       </div>
     </div>
   );
