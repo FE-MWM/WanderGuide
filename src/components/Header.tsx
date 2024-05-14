@@ -8,7 +8,7 @@ const MainHeader = () => {
   return (
     <div className="bg-white h-[57px] border-b border-gray-200 flex items-center justify-between">
       <div className="pl-2 font-semibold text-xl">
-        <span>{item?.title}</span>
+        <span className="ml-8 font-bold">{item?.title ?? ""}</span>
       </div>
       <div className="flex items-center">
         <button className="w-[34px] h-[34px] bg-blue-50 rounded-full flex items-center justify-center hover:bg-blue-100">

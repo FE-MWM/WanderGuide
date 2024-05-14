@@ -20,7 +20,7 @@ type PropsData = {
 const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
   const methods = useForm<FormValues>({
     defaultValues: {
-      title: "기본 제목",
+      title: "",
       startDate: "",
       endDate: "",
       member: "",
