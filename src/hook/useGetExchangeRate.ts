@@ -22,8 +22,9 @@ type CashData = Cash[];
 
 export const useGetExchangeRate = () => {
   const [DestinationData] = useRecoilState(destinationData);
-  const country = DestinationData.apiParams.countryCodes;
+  const country = DestinationData?.apiParams?.countryCodes || "";
   //리액트 쿼리로 해당 환율목록 가져오기
+
   const { data: cashData } = useQuery<
     CashData,
     AxiosError,
@@ -33,15 +34,14 @@ export const useGetExchangeRate = () => {
     queryFn: () => getExchangeList(),
     throwOnError: false,
     select: (res) => {
-      const exchange = res.find((ele) => {
-        return ele.cur_nm.split(" ")[0] === country;
-      });
+      const exchange = res.find((ele) => ele.cur_nm.split(" ")[0] === country);
 
       return {
         krw: exchange ? exchange.bkpr : "",
         exc: exchange ? exchange.cur_nm.split(" ")[1] : ""
       };
-    }
+    },
+    enabled: Boolean(country)
   });
 
   //가져온 환율 목록 중 여행할 나라 환율 추출

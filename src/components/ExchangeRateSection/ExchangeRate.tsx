@@ -1,5 +1,6 @@
 import React from "react";
 import { useGetExchangeRate } from "../../hook/useGetExchangeRate";
+import NoSettingData from "../common/NoSettingData";
 
 const ExchangeRate = () => {
   const { cashData } = useGetExchangeRate();
@@ -22,17 +23,24 @@ const ExchangeRate = () => {
           <span className="text-xs pl-1">2024.04.20 19:30</span>
         </div> */}
       </div>
-      <div className="bg-white w-full flex flex-row rounded-3xl overflow-hidden">
-        {list.map((ele, idx) => {
-          return (
-            <div key={idx} className={`flex-1 ${idx === 0 ? "" : "border-l"}`}>
-              <div className="text-center py-[28px] border-b text-black font-bold">
-                {ele}
+      <div className="bg-white w-full h-[140px] flex flex-row justify-center items-center rounded-3xl overflow-hidden">
+        {cashData ? (
+          list.map((ele, idx) => {
+            return (
+              <div
+                key={idx}
+                className={`flex-1 ${idx === 0 ? "" : "border-l"}`}
+              >
+                <div className="text-center py-[28px] border-b text-black font-bold">
+                  {ele}
+                </div>
+                <div className="text-center py-[28px]">{ele}</div>
               </div>
-              <div className="text-center py-[28px]">{ele}</div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <NoSettingData />
+        )}
       </div>
     </div>
   );
