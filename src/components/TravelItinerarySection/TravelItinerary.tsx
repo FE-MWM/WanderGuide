@@ -3,13 +3,11 @@ import { useRecoilValue } from "recoil";
 import { DestinationData, destinationData } from "../../store/destinationAtom";
 
 const TravelItinerary = () => {
-  const {
-    planInfo: { title, member, startDate, endDate }
-  } = useRecoilValue<DestinationData>(destinationData);
+  const planDate = useRecoilValue<DestinationData>(destinationData);
 
   return (
     <div className="w-full h-full flex justify-between mb-[30px]">
-      <div className="text-4xl font-bold">{`${title} D-10`}</div>
+      <div className="text-4xl font-bold">{`${planDate?.planInfo.title} D-10`}</div>
       <div className="flex flex-col">
         <div className="flex items-center mb-2">
           <img
@@ -17,7 +15,7 @@ const TravelItinerary = () => {
             src="/images/user.svg"
             alt="write"
           />
-          <span className="text-sm">{member}</span>
+          <span className="text-sm">{`${planDate?.planInfo.member}`}</span>
         </div>
         <div className="flex items-center">
           <img
@@ -25,7 +23,7 @@ const TravelItinerary = () => {
             src="/images/calendar.svg"
             alt="write"
           />
-          <span className="text-sm">{`${startDate.replace("-", ".")} ~ ${endDate.replace("-", ".")}`}</span>
+          <span className="text-sm">{`${planDate?.planInfo.startDate} ~ ${planDate?.planInfo.endDate}`}</span>
         </div>
       </div>
     </div>
