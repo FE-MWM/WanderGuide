@@ -7,6 +7,11 @@ export type AccommodationData = {
   text: string;
 };
 
+export type Activities = {
+  date: string;
+  text: string;
+};
+
 export type DestinationData = {
   id?: number;
   planInfo: {
@@ -21,10 +26,7 @@ export type DestinationData = {
     endDate: string;
   };
   accommodation: AccommodationData[];
-  activities: {
-    date: string;
-    text: string;
-  };
+  activities: Activities[];
   apiParams: {
     countryCodes: string;
   };
@@ -45,10 +47,7 @@ export const destinationData = atom<DestinationData>({
       endDate: ""
     },
     accommodation: [],
-    activities: {
-      date: "",
-      text: ""
-    },
+    activities: [],
     apiParams: {
       countryCodes: ""
     }

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import WeatherList from "./WeatherList";
+import { DestinationData, destinationData } from "../../store/destinationAtom";
+import { useRecoilValue } from "recoil";
+import NoSettingData from "../common/NoSettingData";
 
 type WeatherProps = {
   startDate: string;
@@ -12,6 +15,7 @@ const Weather = () => {
     endDate: ""
   });
   const [refreshDate, setRefreshDate] = useState<string>("");
+  const planDate = useRecoilValue<DestinationData>(destinationData);
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -36,10 +40,14 @@ const Weather = () => {
         )}
       </div>
       <div className=" w-full rounded-3xl bg-white p-5 h-full min-h-[239px]">
-        <WeatherList
-          setWeatherDate={setWeatherDate}
-          setRefreshDate={setRefreshDate}
-        />
+        {planDate?.planInfo.destination ? (
+          <WeatherList
+            setWeatherDate={setWeatherDate}
+            setRefreshDate={setRefreshDate}
+          />
+        ) : (
+          <NoSettingData />
+        )}
       </div>
     </div>
   );
