@@ -18,7 +18,9 @@ const Home = () => {
     initDB();
     getStoreData().then((res) => {
       setIsReady(true);
-      setDestination(res[0]);
+      if (res.length > 0) {
+        setDestination(res[0]);
+      }
       const planList = res.map((data, index) => {
         return {
           id: data.id as number,
