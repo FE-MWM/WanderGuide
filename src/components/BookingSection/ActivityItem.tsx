@@ -78,7 +78,7 @@ const ActivityItem = ({ data: { id, date, memo } }: PropsData) => {
   }, [date]);
   return (
     <div
-      className="bg-white w-full rounded-3xl p-5 mt-8 flex items-center justify-between cursor-pointer"
+      className="bg-white w-full rounded-3xl p-4 mt-[28px] flex items-center justify-between cursor-pointer relative"
       onClick={() => handleUpdateActivity()}
     >
       <div className="w-[60px] flex flex-col items-center justify-center">
@@ -91,8 +91,8 @@ const ActivityItem = ({ data: { id, date, memo } }: PropsData) => {
       <div className="w-[calc(100%-84px)] pl-4 pr-2">
         <p>{memo}</p>
       </div>
-      <div className="relative w-[30px] flex items-center justify-center">
-        <div className="absolute">
+      <div className=" w-[30px] flex items-center justify-center">
+        <div className="absolute top-[25px] right-[30px]">
           <img
             src="/images/close.svg"
             alt="close"
