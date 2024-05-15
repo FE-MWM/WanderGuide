@@ -12,11 +12,18 @@ type AccoBookItemProps = {
   end: string;
   accommodation: string;
   text: string;
+  onClick: () => void;
 };
 
-const AccoBookItem = ({ st, end, accommodation, text }: AccoBookItemProps) => {
+const AccoBookItem = ({
+  st,
+  end,
+  accommodation,
+  text,
+  onClick
+}: AccoBookItemProps) => {
   return (
-    <div>
+    <div onClick={onClick}>
       <div className="bg-white w-full h-full rounded-3xl p-5 mt-8 flex gap-7 items-center">
         <div className="w-[80px] flex flex-col items-center gap-5">
           <div className="flex flex-col items-center">
@@ -34,7 +41,7 @@ const AccoBookItem = ({ st, end, accommodation, text }: AccoBookItemProps) => {
             <span className="text-3xl text-cool-gray-dart font-bold">
               {getDate(end)}
             </span>
-            <span className="text-sm text-cool-gray">{getDay(st)}</span>
+            <span className="text-sm text-cool-gray">{getDay(end)}</span>
           </div>
         </div>
         <div className="flex flex-col gap-5">

@@ -7,7 +7,7 @@ export const getMonth = (date: string) => {
   return data;
 };
 export const getDate = (date: string) => {
-  const data = dayjs(date).date() + 1;
+  const data = dayjs(date).date();
   if (data < 10) return `0${data}`;
   return data;
 };

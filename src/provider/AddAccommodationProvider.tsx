@@ -12,11 +12,18 @@ export type FormValue = {
   text: string;
 };
 
-const AddAccommodationProvider = () => {
+type AccommodationProps = {
+  data?: {
+    number: number;
+    formData: FormValue;
+  };
+};
+
+const AddAccommodationProvider = ({ data }: AccommodationProps) => {
   const { closeModal } = useModal();
 
   const methods = useForm<FormValue>({
-    defaultValues: {
+    defaultValues: data?.formData || {
       title: "",
       startDate: "",
       endDate: "",
@@ -28,9 +35,16 @@ const AddAccommodationProvider = () => {
 
   const handleOnSave = async () => {
     const formData = methods.getValues();
-    const newData = {
-      accommodation: DestinationData.accommodation.concat(formData)
-    };
+    const newData = data
+      ? {
+          accommodation: DestinationData.accommodation.map((ele, idx) => {
+            if (idx === data.number) return formData;
+            return ele;
+          })
+        }
+      : {
+          accommodation: DestinationData.accommodation.concat(formData)
+        };
 
     if (DestinationData.id) {
       setDestinationData({
