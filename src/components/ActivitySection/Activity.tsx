@@ -5,10 +5,7 @@ import { useModal } from "../../context/ModalContext";
 import { Activities, activities } from "../../store/destinationAtom";
 import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
-import dayjs from "dayjs";
-import "dayjs/locale/ko";
-
-dayjs.locale("ko");
+import { formatDay, formatMonthDay } from "../../Util/dateFormatter";
 
 const Activity = () => {
   const { setActiveTab } = useTab();
@@ -38,7 +35,7 @@ const Activity = () => {
               {activityData.map((item) => (
                 <div className="flex gap-8 mb-[33px]" key={item.id}>
                   <span className="text-cool-gray font-extrabold">
-                    {`${item.date} (${dayjs(item.date).locale("ko").format("dddd").replace("요일", "")})`}
+                    {`${formatMonthDay(item.date)} (${formatDay(item.date)})`}
                   </span>
                   <div className="line-clamp-3">{item.memo}</div>
                 </div>

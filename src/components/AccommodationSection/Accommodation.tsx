@@ -6,6 +6,7 @@ import { DestinationData, destinationData } from "../../store/destinationAtom";
 import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
 import { getDiff } from "../../Util/calcDate";
+import { formatMonthDay } from "../../Util/dateFormatter";
 
 //  임시데이터
 
@@ -52,7 +53,8 @@ const Accommodation = () => {
                   >
                     <div className="flex items-center gap-2 mb-[20px]">
                       <span className="text-cool-gray font-extrabold">
-                        {item.startDate} ~ {item.endDate}
+                        {formatMonthDay(item.startDate)} ~{" "}
+                        {formatMonthDay(item.endDate)}
                       </span>
                       <span className="text-sky-500">({diff}박)</span>
                     </div>
@@ -64,7 +66,9 @@ const Accommodation = () => {
                       />
                       <span className="text-base font-bold">{item.title}</span>
                     </div>
-                    <span className="text-sm line-clamp-1">{item.text}</span>
+                    <span className="text-sm line-clamp-1 text-cool-gray">
+                      {item.text}
+                    </span>
                   </div>
                 );
               })}
