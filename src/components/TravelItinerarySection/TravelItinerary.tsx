@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { DestinationData, destinationData } from "../../store/destinationAtom";
 
 const TravelItinerary = () => {
   const planDate = useRecoilValue<DestinationData>(destinationData);
+  const [daysLeft, setDaysLeft] = useState<number>();
+
+  const calculateDDay = () => {
+    const today = formatDate();
+
+    const startDate = new Date(today);
+    const endDate = new Date(planDate.planInfo.startDate);
+
+    const difference = endDate.getTime() - startDate.getTime();
+    const remainingDays = Math.ceil(difference / (1000 * 3600 * 24));
+    const leftDay = Math.max(0, remainingDays);
+    setDaysLeft(leftDay);
+  };
+
+  const formatDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+
+    const paddedMonth = month.toString().padStart(2, "0");
+    const paddedDay = day.toString().padStart(2, "0");
+
+    return `${year}-${paddedMonth}-${paddedDay}`;
+  };
+
+  useEffect(() => {
+    calculateDDay();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [planDate]);
 
   return (
     <div className="w-full h-full flex justify-between mb-[30px] items-center">
       {planDate?.planInfo.destination ? (
-        <div className="text-4xl font-bold">{`${planDate?.planInfo.destination} D-10`}</div>
+        <div className="text-4xl font-bold">{`${planDate?.planInfo.destination} D-${daysLeft}`}</div>
       ) : (
         <div className="flex items-center">
           <img
