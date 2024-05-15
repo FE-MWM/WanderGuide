@@ -7,7 +7,7 @@ import { Activities, activities } from "../../store/destinationAtom";
 
 const ActivityList = () => {
   const { openModal } = useModal();
-  const activetyData = useRecoilValue<Activities[]>(activities);
+  const activityData = useRecoilValue<Activities[]>(activities);
   const addActivity = () => {
     openModal("액티비티/투어", <ActivityModal />);
   };
@@ -24,7 +24,7 @@ const ActivityList = () => {
         </button>
       </div>
       <div className="mb-[40px]">
-        {activetyData.map((data) => (
+        {activityData.map((data) => (
           <ActivityItem key={data.id} data={data} />
         ))}
       </div>
