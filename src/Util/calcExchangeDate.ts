@@ -8,7 +8,7 @@ export const dateToString = (date: number) => {
   }
 };
 
-export const getDate = () => {
+export const getAbleDate = () => {
   const now = dayjs();
   if (now.hour() < 11) {
     // 지금이 오전 11시 이전이라면 어제 날짜를 반환합니다.

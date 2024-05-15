@@ -5,58 +5,16 @@ import AddAccommodationProvider from "../../provider/AddAccommodationProvider";
 import { DestinationData, destinationData } from "../../store/destinationAtom";
 import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
+import { getDiff } from "../../Util/calcDate";
 
 //  임시데이터
-
-const accommodations = [
-  {
-    startDate: "05/14(월)",
-    endDate: "05/18(목)",
-    nights: "4박", // 계산으로 넣는다고 가정
-    name: "숙소 이름 데이터1",
-    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    endDate: "05/18(목)",
-    nights: "4박", // 계산으로 넣는다고 가정
-    name: "숙소 이름 데이터2",
-    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    endDate: "05/18(목)",
-    nights: "4박", // 계산으로 넣는다고 가정
-    name: "숙소 이름 데이터3",
-    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    endDate: "05/18(목)",
-    nights: "4박", // 계산으로 넣는다고 가정
-    name: "숙소 이름 데이터3",
-    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    endDate: "05/18(목)",
-    nights: "4박", // 계산으로 넣는다고 가정
-    name: "숙소 이름 데이터3",
-    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    endDate: "05/18(목)",
-    nights: "4박", // 계산으로 넣는다고 가정
-    name: "숙소 이름 데이터3",
-    memo: "메모데이터입니다.데이터길이는 한줄을 넘어가지 않습니다.데이터를 구현합니다."
-  }
-];
 
 const Accommodation = () => {
   const { setActiveTab } = useTab();
   const { openModal } = useModal();
   const planDate = useRecoilValue<DestinationData>(destinationData);
+
+  const accommodations = planDate.accommodation;
 
   const AddAccommodation = () => {
     openModal("숙소", <AddAccommodationProvider />);
@@ -82,28 +40,34 @@ const Accommodation = () => {
         {planDate?.accommodation.length > 0 ? (
           <>
             <div className="overflow-hidden h-[90%] max-h-[400px] relative">
-              {accommodations.map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex flex-col mb-[40px] pb-[40px] ${index === accommodations.length - 1 ? "" : "border-b-2 border-slate-100"}`}
-                >
-                  <div className="flex items-center gap-2 mb-[20px]">
-                    <span className="text-cool-gray font-extrabold">
-                      {item.startDate} ~ {item.endDate}
-                    </span>
-                    <span className="text-sky-500">({item.nights})</span>
+              {accommodations.map((item, index) => {
+                const diff = getDiff({
+                  startDate: item.startDate,
+                  endDate: item.endDate
+                });
+                return (
+                  <div
+                    key={index}
+                    className={`flex flex-col mb-[40px] pb-[40px] ${index === accommodations.length - 1 ? "" : "border-b-2 border-slate-100"}`}
+                  >
+                    <div className="flex items-center gap-2 mb-[20px]">
+                      <span className="text-cool-gray font-extrabold">
+                        {item.startDate} ~ {item.endDate}
+                      </span>
+                      <span className="text-sky-500">({diff}박)</span>
+                    </div>
+                    <div className="flex items-center gap-3 mb-[10px]">
+                      <img
+                        className="w-[20px] h-[20px]"
+                        src="/images/baggage.svg"
+                        alt="baggage"
+                      />
+                      <span className="text-base font-bold">{item.title}</span>
+                    </div>
+                    <span className="text-sm line-clamp-1">{item.text}</span>
                   </div>
-                  <div className="flex items-center gap-3 mb-[10px]">
-                    <img
-                      className="w-[20px] h-[20px]"
-                      src="/images/baggage.svg"
-                      alt="baggage"
-                    />
-                    <span className="text-base font-bold">{item.name}</span>
-                  </div>
-                  <span className="text-sm line-clamp-1">{item.memo}</span>
-                </div>
-              ))}
+                );
+              })}
               <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-b from-transparent to-white indent-[-9999px]">
                 더보기 페이드아웃
               </div>
