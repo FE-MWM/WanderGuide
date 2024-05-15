@@ -49,7 +49,7 @@ const TravelItinerary = () => {
         </div>
       )}
 
-      <div className="flex flex-col mr-20">
+      <div className="flex flex-col">
         <div className="flex items-center mb-2">
           <img
             className="w-[24px] h-[24px] mr-2"
