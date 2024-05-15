@@ -2,56 +2,28 @@ import React from "react";
 import { useTab } from "../../context/TabContext";
 import ActivityModal from "./ActivityModal";
 import { useModal } from "../../context/ModalContext";
-import { DestinationData, destinationData } from "../../store/destinationAtom";
+import { Activities, activities } from "../../store/destinationAtom";
 import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
 
-//임시데이터
-const activityList = [
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  },
-  {
-    startDate: "05/14(월)",
-    memo: "메모데이터입니다.데이터길이는 세줄을 넘어가지 않습니다.데이터를 구현합니다."
-  }
-];
+dayjs.locale("ko");
 
 const Activity = () => {
   const { setActiveTab } = useTab();
   const { openModal } = useModal();
-  const planDate = useRecoilValue<DestinationData>(destinationData);
+  const activetyData = useRecoilValue<Activities[]>(activities);
+
+  const addActivity = () => {
+    openModal("액티비티/투어", <ActivityModal />);
+  };
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <div className="h-[53px] flex items-center justify-between pb-5">
         <span className="text-[22px] font-semibold">액티비티/투어</span>
-        <button onClick={() => openModal("액티비티/투어", <ActivityModal />)}>
+        <button onClick={() => addActivity()}>
           <img
             className="w-[24px] h-[24px]"
             src="/images/write.svg"
@@ -60,13 +32,13 @@ const Activity = () => {
         </button>
       </div>
       <div className="h-[400px] bg-white w-full  rounded-3xl p-10">
-        {planDate?.activities.length > 0 ? (
+        {activetyData?.length > 0 ? (
           <>
             <div className="overflow-hidden h-[90%] max-h-[440px] relative">
-              {activityList.map((item, index) => (
-                <div className="flex gap-8 mb-[33px]" key={index}>
+              {activetyData.map((item) => (
+                <div className="flex gap-8 mb-[33px]" key={item.id}>
                   <span className="text-cool-gray font-extrabold">
-                    {item.startDate}
+                    {`${item.date} (${dayjs(item.date).locale("ko").format("dddd").replace("요일", "")})`}
                   </span>
                   <div className="line-clamp-3">{item.memo}</div>
                 </div>
