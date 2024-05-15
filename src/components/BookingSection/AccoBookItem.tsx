@@ -13,6 +13,7 @@ type AccoBookItemProps = {
   accommodation: string;
   text: string;
   onClick: () => void;
+  deleteItem: () => void;
 };
 
 const AccoBookItem = ({
@@ -20,11 +21,15 @@ const AccoBookItem = ({
   end,
   accommodation,
   text,
-  onClick
+  onClick,
+  deleteItem
 }: AccoBookItemProps) => {
   return (
-    <div onClick={onClick}>
-      <div className="bg-white w-full h-full rounded-3xl p-5 mt-8 flex gap-7 items-center">
+    <div className="relative">
+      <div
+        className="relative bg-white w-full h-full rounded-3xl p-5 mt-8 flex gap-7 items-center cursor-pointer"
+        onClick={onClick}
+      >
         <div className="w-[80px] flex flex-col items-center gap-5">
           <div className="flex flex-col items-center">
             <span className="text-sm text-cool-gray">{`${getYear(st)}.${getMonth(st)}`}</span>
@@ -56,6 +61,18 @@ const AccoBookItem = ({
           <p>{text}</p>
         </div>
       </div>
+      <button
+        className="absolute top-[25px] right-[30px]"
+        type="button"
+        aria-label="write"
+      >
+        <img
+          src="/images/close.svg"
+          alt="close"
+          className="w-[12px] h-[12px] cursor-pointer"
+          onClick={deleteItem}
+        />
+      </button>
     </div>
   );
 };
