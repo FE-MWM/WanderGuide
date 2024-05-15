@@ -1,4 +1,3 @@
-import React, { useRef } from "react";
 import { useRecoilValue } from "recoil";
 import { DestinationData, destinationData } from "../../store/destinationAtom";
 import AccoBookItem from "./AccoBookItem";
@@ -10,12 +9,10 @@ const AccommodationList = () => {
   const planData = useRecoilValue<DestinationData>(destinationData);
   const accommodations = planData.accommodation;
 
-  const target = useRef<number>();
-
-  const onModal = () => {
+  const onModal = (idx?: number) => {
     const formData =
-      typeof target.current === "number"
-        ? { formData: accommodations[target.current], number: target.current }
+      typeof idx === "number"
+        ? { formData: accommodations[idx], number: idx }
         : undefined;
     openModal("숙소", <AddAccommodationProvider data={formData} />);
   };
@@ -28,7 +25,6 @@ const AccommodationList = () => {
           type="button"
           aria-label="write"
           onClick={() => {
-            target.current = undefined;
             onModal();
           }}
         >
@@ -39,7 +35,7 @@ const AccommodationList = () => {
           />
         </button>
       </div>
-      <div className="mb-[40px]" onClick={() => onModal()}>
+      <div className="mb-[40px]">
         {accommodations.map((ele, idx) => {
           return (
             <AccoBookItem
@@ -48,7 +44,7 @@ const AccommodationList = () => {
               end={ele.endDate}
               text={ele.text}
               accommodation={ele.title}
-              onClick={() => (target.current = idx)}
+              onClick={() => onModal(idx)}
             />
           );
         })}
