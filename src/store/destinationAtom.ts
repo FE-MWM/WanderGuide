@@ -9,8 +9,9 @@ export type AccommodationData = {
 };
 
 export type Activities = {
+  id: string;
   date: string;
-  text: string;
+  memo: string;
 };
 
 export type DestinationData = {
@@ -57,6 +58,23 @@ export const destinationData = atom<DestinationData>({
       영문명: "",
       한글명: ""
     }
+  }
+});
+
+export const activities = selector({
+  key: "activities",
+  get: ({ get }) => {
+    const data = get(destinationData);
+    if (!data.activities) {
+      return [];
+    }
+
+    const sortingActivities = [...data.activities].sort((a, b) => {
+      const prevDate = new Date(a.date).getTime();
+      const nextDate = new Date(b.date).getTime();
+      return prevDate - nextDate;
+    });
+    return sortingActivities;
   }
 });
 

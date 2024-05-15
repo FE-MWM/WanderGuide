@@ -1,6 +1,6 @@
 import React from "react";
 import AccommodationList from "./BookingSection/AccommodationList";
-import TourList from "./BookingSection/TourList";
+import ActivityList from "./BookingSection/ActivityList";
 
 const BookDashboard = () => {
   return (
@@ -9,7 +9,7 @@ const BookDashboard = () => {
         <AccommodationList />
       </section>
       <section className="flex-1">
-        <TourList />
+        <ActivityList />
       </section>
     </div>
   );

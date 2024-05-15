@@ -1,14 +1,87 @@
 import { useForm } from "react-hook-form";
 import { useModal } from "../../context/ModalContext";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  Activities,
+  DestinationData,
+  activities,
+  destinationData
+} from "../../store/destinationAtom";
+import { updateData } from "../../indexeddb/indexedDB";
+import { v4 as uuidv4 } from "uuid";
+import { useEffect } from "react";
 
 type ActivityFormValues = {
   date: string;
-  text: string;
+  memo: string;
 };
 
-const ActivityModal = () => {
-  const { register, getValues } = useForm<ActivityFormValues>();
+type PropsData = {
+  id?: string;
+};
+
+const ActivityModal = (props: PropsData) => {
+  const { register, getValues, setValue } = useForm<ActivityFormValues>();
   const { closeModal } = useModal();
+  const [data, setData] = useRecoilState<DestinationData>(destinationData);
+  const activityData = useRecoilValue<Activities[]>(activities);
+
+  const handleAddActivity = () => {
+    const values = getValues();
+
+    const item = {
+      id: uuidv4(),
+      date: values.date,
+      memo: values.memo
+    };
+
+    const parseData = {
+      ...data,
+      activities: [...data.activities, item]
+    };
+
+    setData(parseData);
+    updateData(data.id as number, parseData);
+    closeModal();
+  };
+
+  const handleUpdateActivity = () => {
+    const values = getValues();
+
+    const item = {
+      id: props.id as string,
+      date: values.date,
+      memo: values.memo
+    };
+
+    const updatedData = activityData.map((data) => {
+      if (data.id === props.id) {
+        return item;
+      }
+      return data;
+    });
+
+    const parseData = {
+      ...data,
+      activities: updatedData
+    };
+
+    setData(parseData);
+    updateData(data.id as number, parseData);
+    closeModal();
+  };
+
+  const setActivityData = () => {
+    const data = activityData.find((data) => data.id === props.id);
+    if (!data) return;
+    setValue("date", data?.date);
+    setValue("memo", data?.memo);
+  };
+
+  useEffect(() => {
+    setActivityData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props]);
   return (
     <>
       <div className="w-[450px] p-8">
@@ -24,7 +97,7 @@ const ActivityModal = () => {
           <span className="text-[14px] mb-2">메모</span>
           <textarea
             className="mt-1 p-2 w-full border border-gray-300 rounded-md h-[200px]"
-            {...register("text")}
+            {...register("memo")}
           />
         </label>
       </div>
@@ -39,11 +112,11 @@ const ActivityModal = () => {
         <button
           type="button"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          onClick={() => {
-            console.log(getValues());
-          }}
+          onClick={() =>
+            props.id ? handleUpdateActivity() : handleAddActivity()
+          }
         >
-          확인
+          {props.id ? "수정" : "확인"}
         </button>
       </div>
     </>
