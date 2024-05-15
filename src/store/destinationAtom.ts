@@ -14,6 +14,10 @@ export type Activities = {
   memo: string;
 };
 
+export type TransferFlight = {
+  [key: string]: string | boolean;
+};
+
 export type DestinationData = {
   id?: number;
   planInfo: {
@@ -24,9 +28,10 @@ export type DestinationData = {
     destination: string;
   };
   flight: {
-    startDate: string;
-    endDate: string;
+    [key: string]: string | boolean;
   };
+  departureTransfer: TransferFlight[];
+  returnTransfer: TransferFlight[];
   accommodation: AccommodationData[];
   activities: Activities[];
   apiParams: CountryData;
@@ -42,10 +47,9 @@ export const destinationData = atom<DestinationData>({
       member: "",
       destination: ""
     },
-    flight: {
-      startDate: "",
-      endDate: ""
-    },
+    flight: {},
+    departureTransfer: [],
+    returnTransfer: [],
     accommodation: [],
     activities: [],
     apiParams: {

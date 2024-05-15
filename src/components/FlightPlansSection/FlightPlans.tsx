@@ -3,10 +3,17 @@ import FlightList from "./FlightList";
 import { useModal } from "../../context/ModalContext";
 import AddFlightPlanProvider from "../../provider/AddFlightPlanProvider";
 import NoWriteData from "../common/NoWriteData";
+import { useRecoilValue } from "recoil";
+import { DestinationData, destinationData } from "../../store/destinationAtom";
 
 const FlightPlans = () => {
   const { isOpen, openSideModal, closeSideModal } = useSideModal();
   const { openModal } = useModal();
+  const planDate = useRecoilValue<DestinationData>(destinationData);
+  const { flight } = planDate;
+  const hasFlight = Object.keys(flight).length > 0;
+  const hasPlan = planDate.planInfo.destination.length > 0;
+
   const showFlightPlan = () => {
     if (!isOpen) {
       openSideModal("비행 일정", <FlightList />, true);
@@ -15,29 +22,33 @@ const FlightPlans = () => {
     }
   };
   const addFlightPlan = () => {
-    openModal(
-      "비행 일정",
-      <AddFlightPlanProvider prefixes={["departure", "return"]} />
-    );
+    if (hasPlan) {
+      openModal(
+        "비행 일정",
+        <AddFlightPlanProvider prefixes={["departure", "return"]} />
+      );
+    }
   };
+
   return (
     <div className="h-full flex flex-col">
       <div className="h-[53px] flex items-center justify-between pb-5">
         <span className="text-[22px] font-semibold">비행 일정</span>
-        <button onClick={() => addFlightPlan()}>
-          <img
-            className="w-[24px] h-[24px]"
-            src="/images/write.svg"
-            alt="write"
-          />
-        </button>
+        {hasPlan && (
+          <button onClick={() => addFlightPlan()}>
+            <img
+              className="w-[24px] h-[24px]"
+              src="/images/write.svg"
+              alt="write"
+            />
+          </button>
+        )}
       </div>
       <div
-        className="bg-white w-full h-[642px] rounded-3xl p-5 cursor-pointer"
-        onClick={() => showFlightPlan()}
+        className="bg-white w-full h-[625px] rounded-3xl p-5 cursor-pointer"
+        onClick={hasFlight ? showFlightPlan : addFlightPlan}
       >
-        {/* <FlightList /> */}
-        <NoWriteData title="비행 일정" />
+        {hasFlight ? <FlightList /> : <NoWriteData title="비행 일정" />}
       </div>
     </div>
   );

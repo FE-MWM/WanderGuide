@@ -11,10 +11,9 @@ export const initData = atom<DestinationData>({
       member: "",
       destination: ""
     },
-    flight: {
-      startDate: "",
-      endDate: ""
-    },
+    flight: {},
+    departureTransfer: [],
+    returnTransfer: [],
     accommodation: [],
     activities: [],
     apiParams: {

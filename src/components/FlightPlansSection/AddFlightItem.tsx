@@ -69,7 +69,7 @@ const AddFlightItem = ({ prefix }: Props) => {
               type="radio"
               value="true"
               className="text-sm"
-              checked={stopoverValue === true}
+              checked={stopoverValue === "true"}
               {...register(`${prefix}Stopover`)}
             />
             <span className="ml-3">Y</span>
@@ -79,7 +79,7 @@ const AddFlightItem = ({ prefix }: Props) => {
               type="radio"
               value="false"
               className="text-sm"
-              checked={stopoverValue === false}
+              checked={stopoverValue === "false"}
               {...register(`${prefix}Stopover`)}
             />
             <span className="ml-3">N</span>

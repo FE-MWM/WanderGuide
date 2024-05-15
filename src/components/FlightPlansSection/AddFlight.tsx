@@ -1,15 +1,44 @@
+import { useRecoilValue } from "recoil";
 import { useModal } from "../../context/ModalContext";
+import { DestinationData, destinationData } from "../../store/destinationAtom";
 import AddFlightItem from "./AddFlightItem";
 
 type Props = {
   onSave: () => void;
+  onDelete: () => void;
 };
 
-const AddFlight = ({ onSave }: Props) => {
+const AddFlight = ({ onSave, onDelete }: Props) => {
+  const planDate = useRecoilValue<DestinationData>(destinationData);
+  const hasPlaneFlight = Object.keys(planDate.flight).length > 0;
+
   const { closeModal } = useModal();
 
+  const deleteFlightPlan = () => {
+    if (!hasPlaneFlight) {
+      alert("삭제할 항목이 없습니다.");
+      return;
+    }
+
+    if (confirm("정말 삭제하시겠습니까?")) {
+      onDelete();
+      closeModal();
+    }
+  };
+
   return (
-    <form>
+    <form className="relative">
+      <button
+        type="button"
+        className="absolute top-[-50px] right-[20px] cursor-pointer"
+        onClick={() => deleteFlightPlan()}
+      >
+        <img
+          src="/images/delete.svg"
+          alt="delete"
+          className="w-[30px] h-[30px] "
+        />
+      </button>
       <div className="grid grid-cols-2 p-5 w-[800px]">
         <div className="flex flex-col border-r border-gray-200 p-6">
           <span className="text-sm font-bold mb-[20px] inline-block rounded-full border-cool-gray-200 border w-[60px] text-center p-1">
