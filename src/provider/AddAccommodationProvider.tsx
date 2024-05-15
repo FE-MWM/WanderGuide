@@ -12,11 +12,18 @@ export type FormValue = {
   text: string;
 };
 
-const AddAccommodationProvider = () => {
+type AccommodationProps = {
+  data?: {
+    number: number;
+    formData: FormValue;
+  };
+};
+
+const AddAccommodationProvider = ({ data }: AccommodationProps) => {
   const { closeModal } = useModal();
 
   const methods = useForm<FormValue>({
-    defaultValues: {
+    defaultValues: data?.formData || {
       title: "",
       startDate: "",
       endDate: "",
@@ -26,11 +33,27 @@ const AddAccommodationProvider = () => {
 
   const [DestinationData, setDestinationData] = useRecoilState(destinationData);
 
-  const handleOnSave = async () => {
+  const concatData = () => {
     const formData = methods.getValues();
-    const newData = {
-      accommodation: DestinationData.accommodation.concat(formData)
+    const newData = DestinationData.accommodation.concat(formData);
+
+    return {
+      accommodation: newData
     };
+  };
+
+  const changeData = () => {
+    const formData = methods.getValues();
+    const newData = DestinationData.accommodation.map((ele, idx) => {
+      if (idx === data!.number) return formData;
+      return ele;
+    });
+
+    return { accommodation: newData };
+  };
+
+  const handleOnSave = async () => {
+    const newData = data ? changeData() : concatData();
 
     if (DestinationData.id) {
       setDestinationData({

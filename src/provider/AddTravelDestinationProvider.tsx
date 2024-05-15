@@ -59,7 +59,7 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
     if (!isActive) {
       setDestination(data);
     }
-    await addData(data);
+    await addData(data).then((res) => console.log("id :", res));
     onCloseModal();
   };
 

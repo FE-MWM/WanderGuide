@@ -44,7 +44,7 @@ export const initDB = (): Promise<boolean | IDBDatabase> => {
 };
 
 // 데이터를 넘기면 Store의 (최고값)id +1 로 저장됩니다.
-export const addData = <T>(data: T): Promise<T | string | null> => {
+export const addData = <T>(data: T): Promise<IDBValidKey> => {
   return new Promise((resolve) => {
     const request = indexedDB.open("wanderGuideDB", 1);
 
@@ -53,8 +53,10 @@ export const addData = <T>(data: T): Promise<T | string | null> => {
       const db = request.result;
       const tx = db.transaction("destination", "readwrite");
       const store = tx.objectStore("destination");
-      store.add(data);
-      resolve(data);
+      const res = store.add(data);
+      res.onsuccess = () => {
+        resolve(res.result);
+      };
     };
 
     request.onerror = () => {
