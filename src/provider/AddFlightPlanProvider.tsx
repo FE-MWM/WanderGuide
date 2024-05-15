@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import { DestinationData, destinationData } from "../store/destinationAtom";
 import { updateData } from "../indexeddb/indexedDB";
 import { useModal } from "../context/ModalContext";
+import { useEffect } from "react";
 
 export type FormValue = {
   [key: string]: string | boolean;
@@ -37,6 +38,12 @@ const AddFlightPlanProvider = ({ prefixes }: prefixProps) => {
     defaultValues: createDefaultValues(prefixes)
   });
 
+  useEffect(() => {
+    if (destination.flight) {
+      methods.reset(destination.flight);
+    }
+  }, [destination, methods]);
+
   const handleOnSave = async () => {
     const formData = methods.getValues();
     const flightData: DestinationData = {
@@ -50,9 +57,21 @@ const AddFlightPlanProvider = ({ prefixes }: prefixProps) => {
     closeModal();
   };
 
+  const handleOnDelete = async () => {
+    const flightData: DestinationData = {
+      ...destination,
+      flight: {}
+    };
+    setDestination(flightData);
+    if (destination.id) {
+      await updateData(destination.id, flightData);
+    }
+    closeModal();
+  };
+
   return (
     <FormProvider {...methods}>
-      <AddFlight onSave={handleOnSave} />
+      <AddFlight onSave={handleOnSave} onDelete={handleOnDelete} />
     </FormProvider>
   );
 };
