@@ -13,7 +13,7 @@ dayjs.locale("ko");
 const Activity = () => {
   const { setActiveTab } = useTab();
   const { openModal } = useModal();
-  const activetyData = useRecoilValue<Activities[]>(activities);
+  const activityData = useRecoilValue<Activities[]>(activities);
 
   const addActivity = () => {
     openModal("액티비티/투어", <ActivityModal />);
@@ -32,10 +32,10 @@ const Activity = () => {
         </button>
       </div>
       <div className="h-[400px] bg-white w-full  rounded-3xl p-10">
-        {activetyData?.length > 0 ? (
+        {activityData?.length > 0 ? (
           <>
             <div className="overflow-hidden h-[90%] max-h-[440px] relative">
-              {activetyData.map((item) => (
+              {activityData.map((item) => (
                 <div className="flex gap-8 mb-[33px]" key={item.id}>
                   <span className="text-cool-gray font-extrabold">
                     {`${item.date} (${dayjs(item.date).locale("ko").format("dddd").replace("요일", "")})`}
