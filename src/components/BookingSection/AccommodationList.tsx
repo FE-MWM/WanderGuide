@@ -20,11 +20,11 @@ const AccommodationList = () => {
   };
 
   const deleteItem = (idx: number) => {
-    const newAccomodations = accommodations.filter(
+    const newAccommodations = accommodations.filter(
       (ele, index) => idx !== index
     );
     const newData = {
-      accommodation: newAccomodations
+      accommodation: newAccommodations
     };
 
     openModal(
