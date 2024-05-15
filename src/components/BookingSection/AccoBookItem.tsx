@@ -27,7 +27,7 @@ const AccoBookItem = ({
   return (
     <div className="relative">
       <div
-        className="relative bg-white w-full h-full rounded-3xl p-5 mt-8 flex gap-7 items-center cursor-pointer"
+        className="relative bg-white w-full h-full rounded-3xl p-5 mt-[25px] flex gap-7 items-center cursor-pointer"
         onClick={onClick}
       >
         <div className="w-[80px] flex flex-col items-center gap-5">
@@ -69,7 +69,7 @@ const AccoBookItem = ({
         <img
           src="/images/close.svg"
           alt="close"
-          className="w-[12px] h-[12px] cursor-pointer"
+          className="w-[15px] h-[15px] cursor-pointer"
           onClick={deleteItem}
         />
       </button>
