@@ -87,7 +87,7 @@ const WeatherList = ({ setWeatherDate, setRefreshDate }: WeatherProps) => {
         <img src="/images/location.svg" alt="location" />
         <span className="text-sm font-bold leading-6 ">{countries}</span>
       </div>
-      <div className="flex gap-[28px] justify-around mx-auto my-0">
+      <div className="flex gap-[18px] justify-around mx-auto my-0">
         {weatherList.map((weather) => (
           <div key={weather.dt} className="flex flex-col items-center">
             <span className="text-blue text-sm ">
