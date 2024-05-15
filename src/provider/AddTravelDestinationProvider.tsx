@@ -34,7 +34,7 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
   const setDestination = useSetRecoilState<DestinationData>(destinationData);
   const [list, setList] = useRecoilState<PlanListData[]>(planList);
 
-  const saveDestination = async (destinationFormData: FormValues) => {
+  const saveDestination = (destinationFormData: FormValues) => {
     const data = {
       ...initValue,
       planInfo: {
@@ -56,10 +56,11 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
 
     delete data.id;
     setList(planData);
-    if (!isActive) {
-      setDestination(data);
-    }
-    await addData(data).then((res) => console.log("id :", res));
+    addData(data).then((res) => {
+      if (!isActive) {
+        setDestination({ ...data, id: Number(res) });
+      }
+    });
     onCloseModal();
   };
 

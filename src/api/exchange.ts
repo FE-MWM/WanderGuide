@@ -10,7 +10,6 @@ export const getExchangeList = async () => {
       //`/site/program/financial/exchangeJSON?authkey=YWVgIoxXxKTI3HNUAZYsfsrV9XTB0WIf&searchdate=20240423&data=AP01`
     );
     const req = await res;
-    //console.log("axios", req.data);
     return req.data;
   } catch (e) {
     return false;

@@ -22,7 +22,6 @@ export const initDB = (): Promise<boolean | IDBDatabase> => {
       const db = request.result;
 
       const oldVersion = ev.oldVersion;
-      // console.log(oldVersion); //0
       if (oldVersion < 1) {
         //id는 숫자로, 자동 증가
         db.createObjectStore(`destination`, {
@@ -49,7 +48,6 @@ export const addData = <T>(data: T): Promise<IDBValidKey> => {
     const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
-      console.log("request.onsuccess - addData", data);
       const db = request.result;
       const tx = db.transaction("destination", "readwrite");
       const store = tx.objectStore("destination");
@@ -75,7 +73,6 @@ export const deleteData = (id: number): Promise<boolean> => {
     const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
-      console.log("request.onsuccess - deleteData", id);
       const db = request.result;
       const tx = db.transaction("destination", "readwrite");
       const store = tx.objectStore("destination");
@@ -98,7 +95,6 @@ export const updateData = <T>(
     const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
-      console.log("request.onsuccess - updateData", id);
       const db = request.result;
       const tx = db.transaction("destination", "readwrite");
       const store = tx.objectStore("destination");
@@ -123,13 +119,11 @@ export const getStoreData = (): Promise<DestinationData[]> => {
     const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
-      console.log("request.onsuccess - getAllData");
       const db = request.result;
       const tx = db.transaction("destination", "readonly");
       const store = tx.objectStore("destination");
       const res = store.getAll();
       res.onsuccess = () => {
-        console.log(res.result);
         resolve(res.result);
       };
     };
@@ -142,13 +136,11 @@ export const getData = (id: number): Promise<Item> => {
     const request = indexedDB.open("wanderGuideDB", 1);
 
     request.onsuccess = () => {
-      console.log("request.onsuccess - getAllData");
       const db = request.result;
       const tx = db.transaction("destination", "readonly");
       const store = tx.objectStore("destination");
       const res = store.get(id);
       res.onsuccess = () => {
-        console.log(res.result);
         resolve(res.result);
       };
     };
