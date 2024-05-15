@@ -1,7 +1,12 @@
 import React from "react";
-import BookItem from "./BookItem";
+import { useRecoilValue } from "recoil";
+import { DestinationData, destinationData } from "../../store/destinationAtom";
+import AccoBookItem from "./AccoBookItem";
 
 const AccommodationList = () => {
+  const planData = useRecoilValue<DestinationData>(destinationData);
+  const accommodations = planData.accommodation;
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between">
@@ -15,9 +20,17 @@ const AccommodationList = () => {
         </button>
       </div>
       <div className="mb-[40px]">
-        <BookItem />
-        <BookItem />
-        <BookItem />
+        {accommodations.map((ele, idx) => {
+          return (
+            <AccoBookItem
+              key={idx}
+              st={ele.startDate}
+              end={ele.endDate}
+              text={ele.text}
+              accommodation={ele.title}
+            />
+          );
+        })}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import AddAccommodationProvider from "../../provider/AddAccommodationProvider";
 import { DestinationData, destinationData } from "../../store/destinationAtom";
 import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
-import dayjs from "dayjs";
+import { getDiff } from "../../Util/calcDate";
 
 //  임시데이터
 
@@ -41,9 +41,10 @@ const Accommodation = () => {
           <>
             <div className="overflow-hidden h-[90%] max-h-[400px] relative">
               {accommodations.map((item, index) => {
-                const st = dayjs(item.startDate);
-                const end = dayjs(item.endDate);
-                const diff = end.diff(st, "day");
+                const diff = getDiff({
+                  startDate: item.startDate,
+                  endDate: item.endDate
+                });
                 return (
                   <div
                     key={index}
@@ -53,7 +54,7 @@ const Accommodation = () => {
                       <span className="text-cool-gray font-extrabold">
                         {item.startDate} ~ {item.endDate}
                       </span>
-                      <span className="text-sky-500">({diff} 박)</span>
+                      <span className="text-sky-500">({diff}박)</span>
                     </div>
                     <div className="flex items-center gap-3 mb-[10px]">
                       <img
