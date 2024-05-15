@@ -33,18 +33,27 @@ const AddAccommodationProvider = ({ data }: AccommodationProps) => {
 
   const [DestinationData, setDestinationData] = useRecoilState(destinationData);
 
-  const handleOnSave = async () => {
+  const concatData = () => {
     const formData = methods.getValues();
-    const newData = data
-      ? {
-          accommodation: DestinationData.accommodation.map((ele, idx) => {
-            if (idx === data.number) return formData;
-            return ele;
-          })
-        }
-      : {
-          accommodation: DestinationData.accommodation.concat(formData)
-        };
+    const newData = DestinationData.accommodation.concat(formData);
+
+    return {
+      accommodation: newData
+    };
+  };
+
+  const changeData = () => {
+    const formData = methods.getValues();
+    const newData = DestinationData.accommodation.map((ele, idx) => {
+      if (idx === data!.number) return formData;
+      return ele;
+    });
+
+    return { accommodation: newData };
+  };
+
+  const handleOnSave = async () => {
+    const newData = data ? changeData() : concatData();
 
     if (DestinationData.id) {
       setDestinationData({
