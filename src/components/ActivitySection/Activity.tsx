@@ -11,6 +11,7 @@ import {
 import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
 import { formatDay, formatMonthDay } from "../../Util/dateFormatter";
+import NoSettingData from "../common/NoSettingData";
 
 const Activity = () => {
   const { setActiveTab } = useTab();
@@ -69,8 +70,10 @@ const Activity = () => {
               />
             </div>
           </>
-        ) : (
+        ) : hasPlan ? (
           <NoWriteData title="액티비티/투어" />
+        ) : (
+          <NoSettingData />
         )}
       </div>
     </div>

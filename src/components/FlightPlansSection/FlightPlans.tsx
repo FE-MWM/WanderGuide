@@ -5,6 +5,7 @@ import AddFlightPlanProvider from "../../provider/AddFlightPlanProvider";
 import NoWriteData from "../common/NoWriteData";
 import { useRecoilValue } from "recoil";
 import { DestinationData, destinationData } from "../../store/destinationAtom";
+import NoSettingData from "../common/NoSettingData";
 
 const FlightPlans = () => {
   const { isOpen, openSideModal, closeSideModal } = useSideModal();
@@ -48,7 +49,13 @@ const FlightPlans = () => {
         className="bg-white w-full h-[625px] rounded-3xl p-5 cursor-pointer"
         onClick={hasFlight ? showFlightPlan : addFlightPlan}
       >
-        {hasFlight ? <FlightList /> : <NoWriteData title="비행 일정" />}
+        {hasFlight ? (
+          <FlightList />
+        ) : hasPlan ? (
+          <NoWriteData title="비행 일정" />
+        ) : (
+          <NoSettingData />
+        )}
       </div>
     </div>
   );

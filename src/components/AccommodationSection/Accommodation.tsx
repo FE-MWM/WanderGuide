@@ -7,6 +7,7 @@ import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
 import { getDiff } from "../../Util/calcDate";
 import { formatMonthDay } from "../../Util/dateFormatter";
+import NoSettingData from "../common/NoSettingData";
 
 const Accommodation = () => {
   const { setActiveTab } = useTab();
@@ -93,8 +94,10 @@ const Accommodation = () => {
               />
             </div>
           </>
-        ) : (
+        ) : hasPlan ? (
           <NoWriteData title="숙소" />
+        ) : (
+          <NoSettingData />
         )}
       </div>
     </div>
