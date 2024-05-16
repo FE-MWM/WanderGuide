@@ -19,7 +19,7 @@ const SelectItem = ({
   const { handleList, handleSelect } = useContext(selectDispatch);
   return (
     <div
-      className={`cursor-pointer ${layout || ""}`}
+      className={`cursor-pointer ${layout || ""} p-2`}
       onClick={() => {
         onClick?.();
         handleSelect({ label: label, value: value });
