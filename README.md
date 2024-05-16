@@ -16,7 +16,7 @@
 ## 기술 스택
 
 <img alt="react badge" src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white">
-
+<img alt="react badge" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
 
 <br/>
 <br/>
