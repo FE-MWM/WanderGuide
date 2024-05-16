@@ -18,7 +18,7 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
           <span>TITLE</span>
           <input
             type="text"
-            className="h-[40px] border px-2 outline-none"
+            className="border px-2 outline-none rounded-[4px] h-[54px]"
             placeholder="제목을 입력해 주세요"
             {...register("title", { required: "Title is required" })}
           />
@@ -28,13 +28,13 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
           <div className="flex items-center">
             <input
               type="date"
-              className="w-1/2 h-[40px] border px-2 outline-none"
+              className="w-1/2 border px-2 outline-none rounded-[4px] h-[54px]"
               {...register("startDate", { required: "start date is required" })}
             />
             <span className="px-6">~</span>
             <input
               type="date"
-              className="w-1/2 h-[40px] border px-2 outline-none"
+              className="w-1/2 border px-2 outline-none rounded-[4px] h-[54px]"
               {...register("endDate", { required: "end date is required" })}
             />
           </div>
@@ -43,7 +43,8 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
           <span>WHO</span>
           <input
             type="text"
-            className="h-[40px] border px-2 outline-none"
+            className="border px-2 outline-none rounded-[4px] h-[54px]"
+            placeholder="누구와 함께 가시나요?"
             {...register("member")}
           />
         </div>
