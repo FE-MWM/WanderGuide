@@ -15,7 +15,7 @@
 
 ## 기술 스택
 
-<img alt="react badge" src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"> <img alt="typescript badge" src="#3178C6"> <img alt="indexeddb badge" src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"> <img alt="tailwind badge" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
+<img alt="react badge" src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img alt="typescript badge" src="https://img.shields.io/badge/TypeScript-61DAFB?style=for-the-badge&logo=TypeScript&logoColor=white#3178C6"> <img alt="indexeddb badge" src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"> <img alt="tailwind badge" src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white">
 
 
 <br/>
