@@ -50,21 +50,25 @@ const AddTravelDestinationProvider = ({
         destination: destinationFormData.destination
       }
     };
-    const planData = [
-      ...list,
-      {
-        id: list.length + 1,
-        title: destinationFormData.title,
-        isActive: list.length === 0 ? true : false
-      }
-    ];
+
+    const setPlanList = (id: number) => {
+      const planData = [
+        ...list,
+        {
+          id: id,
+          title: destinationFormData.title,
+          isActive: list.length === 0 ? true : false
+        }
+      ];
+      setList(planData);
+    };
 
     delete data.id;
-    setList(planData);
     addData(data).then((res) => {
       if (!isActivePlan) {
         setDestination({ ...data, id: Number(res) });
       }
+      setPlanList(Number(res));
     });
     onCloseModal();
   };
