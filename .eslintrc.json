@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "webextensions": true
   },
   "settings": {
     "import/resolver": {
@@ -12,12 +13,12 @@
     }
   },
   "extends": [
+    "react-app",
     "prettier",
     "plugin:prettier/recommended",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
@@ -29,15 +30,29 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "@typescript-eslint",
-    "react",
-    "react-hooks",
-    "import",
-    "prettier"
-  ],
+  "plugins": ["react", "react-hooks", "import", "prettier", "unused-imports"],
   "rules": {
     "prettier/prettier": "error",
-    "no-var": "error"
+    "no-var": "error",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        "additionalHooks": "useRecoilCallback"
+      }
+    ]
   }
 }
