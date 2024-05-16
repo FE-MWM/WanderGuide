@@ -36,15 +36,15 @@ const Home = () => {
     <div className="flex w-full h-full bg-[#f5f7fa]  min-h-[800px] min-w-[1500px]">
       {isReady && (
         <>
-          <nav className="w-[230px] h-full">
-            <Navbar />
-          </nav>
-          <main className="w-[calc(100%-260px)] h-full flex-1">
-            <Header />
-            <TabProvider>
+          <TabProvider>
+            <nav className="w-[230px] h-full">
+              <Navbar />
+            </nav>
+            <main className="w-[calc(100%-260px)] h-full flex-1">
+              <Header />
               <Body />
-            </TabProvider>
-          </main>
+            </main>
+          </TabProvider>
         </>
       )}
     </div>

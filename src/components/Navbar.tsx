@@ -5,9 +5,11 @@ import { PlanListData, planList } from "../store/planListAtom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { getStoreData } from "../indexeddb/indexedDB";
 import { DestinationData, destinationData } from "../store/destinationAtom";
+import { useTab } from "../context/TabContext";
 
 const Navbar = () => {
   const { openModal, closeModal } = useModal();
+  const { setActiveTab } = useTab();
   const [list, setList] = useRecoilState<PlanListData[]>(planList);
   const setDestination = useSetRecoilState<DestinationData>(destinationData);
 
@@ -54,7 +56,10 @@ const Navbar = () => {
                 <div
                   key={item.id}
                   className={`flex items-center px-4 mb-[20px] ${item.isActive ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
-                  onClick={() => handlePlanSelection(item.id)}
+                  onClick={() => {
+                    handlePlanSelection(item.id);
+                    setActiveTab("main");
+                  }}
                 >
                   <img
                     className="w-[40px] h-[40px]"
