@@ -11,7 +11,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  @apply w-screen h-screen text-gray-700;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@layer utilities {
+  .before-dot::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #cacaca;
+    border-radius: 100%;
+    margin-right: 20px;
+    position: relative;
+    left: -5px;
+    top: 4px;
+  }
 }
