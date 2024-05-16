@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "short_name": "React App",
   "name": "Create React App Sample",
-  "permissions": ["activeTab", "https://www.koreaexim.go.kr/*"],
+  "permissions": ["activeTab"],
   "background": {
     "service_worker": "background.js"
   },

@@ -24,7 +24,7 @@ const SelectInput = ({
 
   const debounce = (str: string) => {
     if (!debounceFunc) return;
-    let timer: NodeJS.Timeout | null = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
     if (timer) {
       clearTimeout(timer);
     }

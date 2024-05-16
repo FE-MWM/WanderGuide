@@ -20,10 +20,8 @@ const AddFlight = ({ onSave, onDelete }: Props) => {
       return;
     }
 
-    if (confirm("정말 삭제하시겠습니까?")) {
-      onDelete();
-      closeModal();
-    }
+    onDelete();
+    closeModal();
   };
 
   return (

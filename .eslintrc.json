@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "webextensions": true
   },
   "settings": {
     "import/resolver": {
@@ -12,12 +13,12 @@
     }
   },
   "extends": [
+    "react-app",
     "prettier",
     "plugin:prettier/recommended",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
@@ -29,14 +30,7 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "@typescript-eslint",
-    "react",
-    "react-hooks",
-    "import",
-    "prettier",
-    "unused-imports"
-  ],
+  "plugins": ["react", "react-hooks", "import", "prettier", "unused-imports"],
   "rules": {
     "prettier/prettier": "error",
     "no-var": "error",
