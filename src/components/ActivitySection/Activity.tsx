@@ -2,7 +2,12 @@ import React from "react";
 import { useTab } from "../../context/TabContext";
 import ActivityModal from "./ActivityModal";
 import { useModal } from "../../context/ModalContext";
-import { Activities, activities } from "../../store/destinationAtom";
+import {
+  Activities,
+  DestinationData,
+  activities,
+  destinationData
+} from "../../store/destinationAtom";
 import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
 import { formatDay, formatMonthDay } from "../../Util/dateFormatter";
@@ -11,6 +16,9 @@ const Activity = () => {
   const { setActiveTab } = useTab();
   const { openModal } = useModal();
   const activityData = useRecoilValue<Activities[]>(activities);
+  const planDate = useRecoilValue<DestinationData>(destinationData);
+  const hasPlan = planDate.planInfo.destination.length > 0;
+  const hasActivity = activityData.length > 0;
 
   const addActivity = () => {
     openModal("액티비티/투어", <ActivityModal />);
@@ -20,15 +28,20 @@ const Activity = () => {
     <div className="h-full flex flex-col overflow-hidden">
       <div className="h-[53px] flex items-center justify-between pb-5">
         <span className="text-[22px] font-semibold">액티비티/투어</span>
-        <button onClick={() => addActivity()}>
-          <img
-            className="w-[24px] h-[24px]"
-            src="/images/write.svg"
-            alt="write"
-          />
-        </button>
+        {hasPlan && (
+          <button onClick={() => addActivity()}>
+            <img
+              className="w-[24px] h-[24px]"
+              src="/images/write.svg"
+              alt="write"
+            />
+          </button>
+        )}
       </div>
-      <div className="h-[400px] bg-white w-full  rounded-3xl p-10">
+      <div
+        className="h-[400px] bg-white w-full  rounded-3xl p-10 cursor-pointer"
+        onClick={() => hasPlan && !hasActivity && addActivity()}
+      >
         {activityData?.length > 0 ? (
           <>
             <div className="overflow-hidden h-[90%] max-h-[440px] relative">
