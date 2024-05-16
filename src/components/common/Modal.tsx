@@ -26,7 +26,7 @@ const Modal = () => {
                 <h3 className="text-xl font-semibold">{title}</h3>
               </div>
 
-              <div className="">{content}</div>
+              <div>{content}</div>
             </div>
           </div>
         </div>
