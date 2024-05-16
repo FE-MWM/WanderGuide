@@ -14,7 +14,10 @@ const Navbar = () => {
   const addTrip = () => {
     openModal(
       "여행지 추가",
-      <AddTravelDestinationProvider onCloseModal={closeModal} />
+      <AddTravelDestinationProvider
+        onCloseModal={closeModal}
+        isUpdate={false}
+      />
     );
   };
 
