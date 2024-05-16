@@ -10,9 +10,9 @@ const ExchangeRate = () => {
   const [DestinationData] = useRecoilState(destinationData);
   const country = DestinationData?.planInfo.destination || "";
 
-  const { cashData } = useGetExchangeRate(country);
+  const { cashData, checkWeekend } = useGetExchangeRate(country);
 
-  const list: number[] = [1, 100, 1000, 2000, 5000, 10000, 50000];
+  const list: number[] = [1, 2, 5, 10, 20, 50, 100];
 
   return (
     <div className="h-full flex flex-col">
@@ -20,15 +20,14 @@ const ExchangeRate = () => {
         <div>
           <span className="text-[22px] font-semibold pr-2">환율</span>
         </div>
-        {/*환율 새로고침 기능 주석 */}
-        {/* <div className="flex items-center">
+        <div className="flex items-center">
           <img
             className="w-[20px] h-[20px]"
             src="/images/refresh.svg"
             alt="refresh"
           />
-          <span className="text-xs pl-1">2024.04.20 19:30</span>
-        </div> */}
+          <span className="text-xs pl-1">{checkWeekend} 11:00</span>
+        </div>
       </div>
       <div className="bg-white w-full h-[140px] flex flex-row justify-center items-center rounded-3xl overflow-hidden">
         {country ? (
