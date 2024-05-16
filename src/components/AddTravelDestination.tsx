@@ -15,7 +15,7 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
     <div className="flex flex-col gap-2">
       <div className="p-6 flex flex-col gap-2">
         <div className="flex flex-col">
-          <span>TITLE</span>
+          <span className="mb-1">TITLE</span>
           <input
             type="text"
             className="border px-2 outline-none rounded-[4px] h-[54px]"
@@ -24,7 +24,7 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
           />
         </div>
         <div className="flex flex-col">
-          <span>WHEN</span>
+          <span className="mb-1">WHEN</span>
           <div className="flex items-center">
             <input
               type="date"
@@ -40,7 +40,7 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
           </div>
         </div>
         <div className="flex flex-col">
-          <span>WHO</span>
+          <span className="mb-1">WHO</span>
           <input
             type="text"
             className="border px-2 outline-none rounded-[4px] h-[54px]"

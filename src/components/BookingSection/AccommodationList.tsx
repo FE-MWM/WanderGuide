@@ -5,14 +5,17 @@ import { useModal } from "../../context/ModalContext";
 import AddAccommodationProvider from "../../provider/AddAccommodationProvider";
 import { updateData } from "../../indexeddb/indexedDB";
 import NoWriteData from "../common/NoWriteData";
+import NoSettingData from "../common/NoSettingData";
 
 const AccommodationList = () => {
   const { openModal, closeModal } = useModal();
   const [planData, setPlanData] =
     useRecoilState<DestinationData>(destinationData);
   const accommodations = planData.accommodation;
+  const hasPlan = planData.planInfo.destination.length > 0;
 
   const onModal = (idx?: number) => {
+    if (!hasPlan) return;
     const formData =
       typeof idx === "number"
         ? { formData: accommodations[idx], number: idx }
@@ -96,7 +99,7 @@ const AccommodationList = () => {
           className="w-full h-[119px] bg-white rounded-[25px] mt-[30px] cursor-pointer"
           onClick={() => onModal()}
         >
-          <NoWriteData title="숙소" />
+          {hasPlan ? <NoWriteData title="숙소" /> : <NoSettingData />}
         </div>
       )}
     </div>

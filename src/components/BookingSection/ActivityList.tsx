@@ -3,14 +3,25 @@ import ActivityItem from "./ActivityItem";
 import { useModal } from "../../context/ModalContext";
 import ActivityModal from "../ActivitySection/ActivityModal";
 import { useRecoilValue } from "recoil";
-import { Activities, activities } from "../../store/destinationAtom";
+import {
+  Activities,
+  DestinationData,
+  activities,
+  destinationData
+} from "../../store/destinationAtom";
 import NoWriteData from "../common/NoWriteData";
+import NoSettingData from "../common/NoSettingData";
 
 const ActivityList = () => {
   const { openModal } = useModal();
   const activityData = useRecoilValue<Activities[]>(activities);
+  const planDate = useRecoilValue<DestinationData>(destinationData);
+  const hasPlan = planDate.planInfo.destination.length > 0;
+
   const addActivity = () => {
-    openModal("액티비티/투어", <ActivityModal />);
+    if (hasPlan) {
+      openModal("액티비티/투어", <ActivityModal />);
+    }
   };
   return (
     <div className="flex flex-col">
@@ -35,7 +46,7 @@ const ActivityList = () => {
           className="w-full h-[119px] bg-white rounded-[25px] mt-[30px] cursor-pointer"
           onClick={() => addActivity()}
         >
-          <NoWriteData title="액티비티/투어" />
+          {hasPlan ? <NoWriteData title="액티비티/투어" /> : <NoSettingData />}
         </div>
       )}
     </div>
