@@ -21,7 +21,12 @@ const ExchangeRate = () => {
           <span className="text-[22px] font-semibold pr-2">환율</span>
         </div>
         <div className="flex items-center">
-          <span className="text-xs pl-1">{checkWeekend} 기준 조회</span>
+          <img
+            className="w-[20px] h-[20px]"
+            src="/images/refresh.svg"
+            alt="refresh"
+          />
+          <span className="text-xs pl-1">{checkWeekend} 11:00</span>
         </div>
       </div>
       <div className="bg-white w-full h-[140px] flex flex-row justify-center items-center rounded-3xl overflow-hidden">
