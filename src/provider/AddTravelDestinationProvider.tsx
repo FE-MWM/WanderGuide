@@ -1,6 +1,6 @@
 import { useForm, FormProvider } from "react-hook-form";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { addData } from "../indexeddb/indexedDB";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { addData, updateData } from "../indexeddb/indexedDB";
 import AddTravelDestination from "../components/AddTravelDestination";
 import { DestinationData, destinationData } from "../store/destinationAtom";
 import { PlanListData, activePlan, planList } from "../store/planListAtom";
@@ -16,9 +16,13 @@ export type FormValues = {
 
 type PropsData = {
   onCloseModal: () => void;
+  isUpdate: boolean;
 };
 
-const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
+const AddTravelDestinationProvider = ({
+  onCloseModal,
+  isUpdate
+}: PropsData) => {
   const methods = useForm<FormValues>({
     defaultValues: {
       title: "",
@@ -29,9 +33,10 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
     }
   });
 
-  const isActive = useRecoilValue<PlanListData | undefined>(activePlan);
+  const isActivePlan = useRecoilValue<PlanListData | undefined>(activePlan);
   const initValue = useRecoilValue<DestinationData>(initData);
-  const setDestination = useSetRecoilState<DestinationData>(destinationData);
+  const [destination, setDestination] =
+    useRecoilState<DestinationData>(destinationData);
   const [list, setList] = useRecoilState<PlanListData[]>(planList);
 
   const saveDestination = (destinationFormData: FormValues) => {
@@ -57,27 +62,62 @@ const AddTravelDestinationProvider = ({ onCloseModal }: PropsData) => {
     delete data.id;
     setList(planData);
     addData(data).then((res) => {
-      if (!isActive) {
+      if (!isActivePlan) {
         setDestination({ ...data, id: Number(res) });
       }
     });
     onCloseModal();
   };
 
+  const updateDestination = (destinationFormData: FormValues) => {
+    const apiParams = initValue.apiParams;
+    const data = {
+      ...destination,
+      planInfo: {
+        title: destinationFormData.title,
+        startDate: destinationFormData.startDate,
+        endDate: destinationFormData.endDate,
+        member: destinationFormData.member,
+        destination: destinationFormData.destination
+      },
+      apiParams: apiParams.영문명 !== "" ? apiParams : destination.apiParams
+    };
+
+    const planData = list.map((item) => {
+      if (item.id === destination.id) {
+        return { ...item, title: destinationFormData.title };
+      }
+      return item;
+    });
+
+    updateData(destination?.id as number, data);
+    setList(planData);
+    setDestination(data);
+    onCloseModal();
+  };
+
   const handleOnSave = () => {
     const formData = methods.getValues();
-    saveDestination({
+
+    const data = {
       title: formData.title,
       startDate: formData.startDate,
       endDate: formData.endDate,
       member: formData.member,
       destination: formData.destination
-    });
+    };
+
+    isUpdate ? updateDestination(data) : saveDestination(data);
+    // saveDestination();
   };
 
   return (
     <FormProvider {...methods}>
-      <AddTravelDestination onSave={handleOnSave} onCloseModal={onCloseModal} />
+      <AddTravelDestination
+        onSave={handleOnSave}
+        onCloseModal={onCloseModal}
+        isUpdate={isUpdate}
+      />
     </FormProvider>
   );
 };

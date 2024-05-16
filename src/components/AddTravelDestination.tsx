@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { FormValues } from "../provider/AddTravelDestinationProvider";
 import CountriesSelectBox from "./CountriesSelectBox";
+import { useRecoilValue } from "recoil";
+import { PlanInfoData, planInfo } from "../store/destinationAtom";
 
 type PropsData = {
   onSave: () => void;
   onCloseModal: () => void;
+  isUpdate: boolean;
 };
 
-const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
-  const { register } = useFormContext<FormValues>();
+const AddTravelDestination = ({
+  onSave,
+  onCloseModal,
+  isUpdate
+}: PropsData) => {
+  const { register, setValue } = useFormContext<FormValues>();
+  const planData = useRecoilValue<PlanInfoData>(planInfo);
+
+  const setPlanData = () => {
+    if (!planData) return;
+    setValue("title", planData?.title);
+    setValue("startDate", planData?.startDate);
+    setValue("endDate", planData?.endDate);
+    setValue("member", planData?.member);
+    setValue("destination", planData?.destination);
+  };
+
+  useEffect(() => {
+    isUpdate && setPlanData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpdate]);
 
   return (
     <div className="flex flex-col gap-2">

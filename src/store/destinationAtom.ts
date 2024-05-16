@@ -1,6 +1,14 @@
 import { atom, selector } from "recoil";
 import { CountryData } from "../api/country";
 
+export type PlanInfoData = {
+  title: string;
+  startDate: string;
+  endDate: string;
+  member: string;
+  destination: string;
+};
+
 export type AccommodationData = {
   startDate: string;
   endDate: string;
@@ -20,13 +28,7 @@ export type TransferFlight = {
 
 export type DestinationData = {
   id?: number;
-  planInfo: {
-    title: string;
-    startDate: string;
-    endDate: string;
-    member: string;
-    destination: string;
-  };
+  planInfo: PlanInfoData;
   flight: {
     [key: string]: string | boolean;
   };
@@ -62,6 +64,14 @@ export const destinationData = atom<DestinationData>({
       영문명: "",
       한글명: ""
     }
+  }
+});
+
+export const planInfo = selector({
+  key: "planInfo",
+  get: ({ get }) => {
+    const data = get(destinationData);
+    return data.planInfo;
   }
 });
 
