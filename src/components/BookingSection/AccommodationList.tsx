@@ -4,6 +4,7 @@ import AccoBookItem from "./AccoBookItem";
 import { useModal } from "../../context/ModalContext";
 import AddAccommodationProvider from "../../provider/AddAccommodationProvider";
 import { updateData } from "../../indexeddb/indexedDB";
+import NoWriteData from "../common/NoWriteData";
 
 const AccommodationList = () => {
   const { openModal, closeModal } = useModal();
@@ -74,21 +75,30 @@ const AccommodationList = () => {
           />
         </button>
       </div>
-      <div className="mb-[40px]">
-        {accommodations.map((ele, idx) => {
-          return (
-            <AccoBookItem
-              key={idx}
-              st={ele.startDate}
-              end={ele.endDate}
-              text={ele.text}
-              accommodation={ele.title}
-              onClick={() => onModal(idx)}
-              deleteItem={() => deleteItem(idx)}
-            />
-          );
-        })}
-      </div>
+      {accommodations.length > 0 ? (
+        <div className="mb-[40px]">
+          {accommodations.map((ele, idx) => {
+            return (
+              <AccoBookItem
+                key={idx}
+                st={ele.startDate}
+                end={ele.endDate}
+                text={ele.text}
+                accommodation={ele.title}
+                onClick={() => onModal(idx)}
+                deleteItem={() => deleteItem(idx)}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div
+          className="w-full h-[119px] bg-white rounded-[25px] mt-[30px] cursor-pointer"
+          onClick={() => onModal()}
+        >
+          <NoWriteData title="숙소" />
+        </div>
+      )}
     </div>
   );
 };

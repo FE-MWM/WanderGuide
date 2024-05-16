@@ -4,6 +4,7 @@ import { useModal } from "../../context/ModalContext";
 import ActivityModal from "../ActivitySection/ActivityModal";
 import { useRecoilValue } from "recoil";
 import { Activities, activities } from "../../store/destinationAtom";
+import NoWriteData from "../common/NoWriteData";
 
 const ActivityList = () => {
   const { openModal } = useModal();
@@ -23,11 +24,20 @@ const ActivityList = () => {
           />
         </button>
       </div>
-      <div className="mb-[40px]">
-        {activityData.map((data) => (
-          <ActivityItem key={data.id} data={data} />
-        ))}
-      </div>
+      {activityData.length > 0 ? (
+        <div className="mb-[40px]">
+          {activityData.map((data) => (
+            <ActivityItem key={data.id} data={data} />
+          ))}
+        </div>
+      ) : (
+        <div
+          className="w-full h-[119px] bg-white rounded-[25px] mt-[30px] cursor-pointer"
+          onClick={() => addActivity()}
+        >
+          <NoWriteData title="액티비티/투어" />
+        </div>
+      )}
     </div>
   );
 };
