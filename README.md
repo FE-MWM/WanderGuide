@@ -34,8 +34,11 @@
 <br/>
 <br/>
 
-### 트러블 슈팅 ⚽️
+### 트러블 슈팅 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+⚽️ Open API CORS 에러 핸들링
+⚽️ IndexedDB 로 사용자 데이터 관리
+⚽️ 크롬 확장 프로그램 실행 오류 해결
 
+<br/>
+<br/>
