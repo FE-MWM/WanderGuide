@@ -2,17 +2,18 @@ import React from "react";
 import { useModal } from "../context/ModalContext";
 import AddTravelDestinationProvider from "../provider/AddTravelDestinationProvider";
 import { PlanListData, planList } from "../store/planListAtom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { getStoreData } from "../indexeddb/indexedDB";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { deleteData, getStoreData } from "../indexeddb/indexedDB";
 import { DestinationData, destinationData } from "../store/destinationAtom";
 import { useTab } from "../context/TabContext";
+import { initData } from "../store/initAtom";
 
 const Navbar = () => {
   const { openModal, closeModal } = useModal();
   const { setActiveTab } = useTab();
   const [list, setList] = useRecoilState<PlanListData[]>(planList);
   const setDestination = useSetRecoilState<DestinationData>(destinationData);
-
+  const init = useRecoilValue<DestinationData>(initData);
   const addTrip = () => {
     openModal(
       "여행지 추가",
@@ -40,6 +41,39 @@ const Navbar = () => {
     });
   };
 
+  const handleDelete = async (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    item: PlanListData
+  ) => {
+    event.stopPropagation();
+
+    await deleteData(item.id);
+    const getPlans = await getStoreData();
+
+    if (!getPlans.length) {
+      setList([]);
+      setDestination(init);
+      return;
+    }
+
+    if (item.isActive) {
+      const newPlans = list
+        .filter((plan) => plan.id !== item.id)
+        .map((item, idx) => {
+          if (idx === 0) {
+            return { ...item, isActive: true };
+          } else {
+            return { ...item, isActive: false };
+          }
+        });
+      setList(newPlans);
+      setDestination(getPlans[0]);
+    } else {
+      const filterPlanList = list.filter((plan) => plan.id !== item.id);
+      setList(filterPlanList);
+    }
+  };
+
   return (
     <div className="h-full bg-white border-r border-gray-200">
       <div className="p-2 flex items-center justify-center  border-gray-200">
@@ -58,22 +92,34 @@ const Navbar = () => {
               return (
                 <div
                   key={item.id}
-                  className={`flex items-center px-4 mb-[20px] ${item.isActive ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
+                  className={`flex items-center justify-between px-4 mb-[20px] ${item.isActive ? " border-l-blue-500 border-l-4" : ""} cursor-pointer`}
                   onClick={() => {
                     handlePlanSelection(item.id);
                     setActiveTab("main");
                   }}
                 >
-                  <img
-                    className="w-[40px] h-[40px]"
-                    src={`${item.isActive ? "/images/plane-blue.svg" : "/images/plane-black.svg"}`}
-                    alt="plane"
-                  />
-                  <span
-                    className={`line-clamp-1 ${item.isActive ? "text-blue-600 font-bold" : "text-cool-gray"} hover:font-bold`}
+                  <div className="flex items-center">
+                    <img
+                      className="w-[40px] h-[40px]"
+                      src={`${item.isActive ? "/images/plane-blue.svg" : "/images/plane-black.svg"}`}
+                      alt="plane"
+                    />
+                    <span
+                      className={`line-clamp-1 ${item.isActive ? "text-blue-600 font-bold" : "text-cool-gray"} hover:font-bold`}
+                    >
+                      {item.title}
+                    </span>
+                  </div>
+                  <div
+                    className="flex items-center"
+                    onClick={(event) => handleDelete(event, item)}
                   >
-                    {item.title}
-                  </span>
+                    <img
+                      className="w-[22px] h-[22px]"
+                      src="/images/delete.svg"
+                      alt="delete"
+                    />
+                  </div>
                 </div>
               );
             })

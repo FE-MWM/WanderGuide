@@ -131,7 +131,7 @@ export const getStoreData = (): Promise<DestinationData[]> => {
 };
 
 // id로 조회한 값만 가져오기
-export const getData = (id: number): Promise<Item> => {
+export const getData = (id: number): Promise<DestinationData> => {
   return new Promise((resolve) => {
     const request = indexedDB.open("wanderGuideDB", 1);
 
