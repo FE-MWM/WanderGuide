@@ -2,7 +2,7 @@ chrome.action.onClicked.addListener(function () {
   chrome.windows.create({
     url: "index.html",
     type: "popup",
-    width: 1500,
+    width: 1280,
     height: 900
   });
 });
