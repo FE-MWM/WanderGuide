@@ -24,7 +24,7 @@ export const useGetExchangeRate = (country: string) => {
   const checkWeekend = getFridayIfWeekend(today).format("YYYY-MM-DD");
 
   //리액트 쿼리로 해당 환율목록 가져오기
-  const { data: cashData } = useQuery<
+  const { data: cashData, isLoading } = useQuery<
     CashData,
     AxiosError,
     { krw: string; exc: string }
@@ -44,5 +44,5 @@ export const useGetExchangeRate = (country: string) => {
   });
 
   //가져온 환율 목록 중 여행할 나라 환율 추출
-  return { cashData, checkWeekend };
+  return { cashData, isLoading, checkWeekend };
 };
