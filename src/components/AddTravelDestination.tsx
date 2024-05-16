@@ -15,35 +15,36 @@ const AddTravelDestination = ({ onSave, onCloseModal }: PropsData) => {
     <div className="flex flex-col gap-2">
       <div className="p-6 flex flex-col gap-2">
         <div className="flex flex-col">
-          <span>TITLE</span>
+          <span className="mb-1">TITLE</span>
           <input
             type="text"
-            className="h-[40px] border px-2 outline-none"
+            className="border px-2 outline-none rounded-[4px] h-[54px]"
             placeholder="제목을 입력해 주세요"
             {...register("title", { required: "Title is required" })}
           />
         </div>
         <div className="flex flex-col">
-          <span>WHEN</span>
+          <span className="mb-1">WHEN</span>
           <div className="flex items-center">
             <input
               type="date"
-              className="w-1/2 h-[40px] border px-2 outline-none"
+              className="w-1/2 border px-2 outline-none rounded-[4px] h-[54px]"
               {...register("startDate", { required: "start date is required" })}
             />
             <span className="px-6">~</span>
             <input
               type="date"
-              className="w-1/2 h-[40px] border px-2 outline-none"
+              className="w-1/2 border px-2 outline-none rounded-[4px] h-[54px]"
               {...register("endDate", { required: "end date is required" })}
             />
           </div>
         </div>
         <div className="flex flex-col">
-          <span>WHO</span>
+          <span className="mb-1">WHO</span>
           <input
             type="text"
-            className="h-[40px] border px-2 outline-none"
+            className="border px-2 outline-none rounded-[4px] h-[54px]"
+            placeholder="누구와 함께 가시나요?"
             {...register("member")}
           />
         </div>

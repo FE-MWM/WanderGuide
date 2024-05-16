@@ -17,18 +17,17 @@ const CurrentTime = () => {
   const [timeDifference, setTimeDifference] = useState("");
   const planDate = useRecoilValue<DestinationData>(destinationData);
 
-  async function fetchTimeForCountry(countryCode: string) {
+  const fetchTimeForCountry = async (countryCode: string) => {
     const countryInfo = getCountry(countryCode);
     if (!countryInfo) {
       return;
     }
-
     const timezone = countryInfo.timezones[0];
     const currentTime = dayjs().tz(timezone).format("YYYY-MM-DD HH:mm:ss");
     return currentTime;
-  }
+  };
 
-  async function calculateTimeDifference(time1: string, time2: string) {
+  const calculateTimeDifference = async (time1: string, time2: string) => {
     const format = "HH:mm:ss";
 
     const moment1 = dayjs(time1, format);
@@ -38,7 +37,7 @@ const CurrentTime = () => {
 
     const diffDuration = dayjs.duration(timeDiff, "minutes").format("HH");
     return diffDuration;
-  }
+  };
 
   const getKoreaTime = async () => {
     const krTime = await fetchTimeForCountry("KR");

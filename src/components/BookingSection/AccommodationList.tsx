@@ -4,14 +4,18 @@ import AccoBookItem from "./AccoBookItem";
 import { useModal } from "../../context/ModalContext";
 import AddAccommodationProvider from "../../provider/AddAccommodationProvider";
 import { updateData } from "../../indexeddb/indexedDB";
+import NoWriteData from "../common/NoWriteData";
+import NoSettingData from "../common/NoSettingData";
 
 const AccommodationList = () => {
   const { openModal, closeModal } = useModal();
   const [planData, setPlanData] =
     useRecoilState<DestinationData>(destinationData);
   const accommodations = planData.accommodation;
+  const hasPlan = planData.planInfo.destination.length > 0;
 
   const onModal = (idx?: number) => {
+    if (!hasPlan) return;
     const formData =
       typeof idx === "number"
         ? { formData: accommodations[idx], number: idx }
@@ -20,11 +24,11 @@ const AccommodationList = () => {
   };
 
   const deleteItem = (idx: number) => {
-    const newAccomodations = accommodations.filter(
+    const newAccommodations = accommodations.filter(
       (ele, index) => idx !== index
     );
     const newData = {
-      accommodation: newAccomodations
+      accommodation: newAccommodations
     };
 
     openModal(
@@ -74,21 +78,30 @@ const AccommodationList = () => {
           />
         </button>
       </div>
-      <div className="mb-[40px]">
-        {accommodations.map((ele, idx) => {
-          return (
-            <AccoBookItem
-              key={idx}
-              st={ele.startDate}
-              end={ele.endDate}
-              text={ele.text}
-              accommodation={ele.title}
-              onClick={() => onModal(idx)}
-              deleteItem={() => deleteItem(idx)}
-            />
-          );
-        })}
-      </div>
+      {accommodations.length > 0 ? (
+        <div className="mb-[40px]">
+          {accommodations.map((ele, idx) => {
+            return (
+              <AccoBookItem
+                key={idx}
+                st={ele.startDate}
+                end={ele.endDate}
+                text={ele.text}
+                accommodation={ele.title}
+                onClick={() => onModal(idx)}
+                deleteItem={() => deleteItem(idx)}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div
+          className="w-full h-[119px] bg-white rounded-[25px] mt-[30px] cursor-pointer"
+          onClick={() => onModal()}
+        >
+          {hasPlan ? <NoWriteData title="숙소" /> : <NoSettingData />}
+        </div>
+      )}
     </div>
   );
 };

@@ -6,15 +6,17 @@ import { DestinationData, destinationData } from "../../store/destinationAtom";
 import { useRecoilValue } from "recoil";
 import NoWriteData from "../common/NoWriteData";
 import { getDiff } from "../../Util/calcDate";
-
-//  임시데이터
+import { formatMonthDay } from "../../Util/dateFormatter";
+import NoSettingData from "../common/NoSettingData";
 
 const Accommodation = () => {
   const { setActiveTab } = useTab();
   const { openModal } = useModal();
   const planDate = useRecoilValue<DestinationData>(destinationData);
+  const hasPlan = planDate.planInfo.destination.length > 0;
 
   const accommodations = planDate.accommodation;
+  const hasAccommodation = accommodations.length > 0;
 
   const AddAccommodation = () => {
     openModal("숙소", <AddAccommodationProvider />);
@@ -24,19 +26,25 @@ const Accommodation = () => {
     <div className="h-full flex flex-col">
       <div className="h-[53px] flex items-center justify-between pb-5">
         <span className="text-[22px] font-semibold">숙소</span>
-        <button
-          type="button"
-          aria-label="modify accommodation"
-          onClick={() => AddAccommodation()}
-        >
-          <img
-            className="w-[24px] h-[24px]"
-            src="/images/write.svg"
-            alt="write"
-          />
-        </button>
+        {hasPlan && (
+          <button
+            type="button"
+            aria-label="modify accommodation"
+            onClick={() => AddAccommodation()}
+          >
+            <img
+              className="w-[24px] h-[24px]"
+              src="/images/write.svg"
+              alt="write"
+            />
+          </button>
+        )}
       </div>
-      <div className="h-[400px] bg-white w-full rounded-3xl p-10">
+
+      <div
+        className="h-[400px] bg-white w-full rounded-3xl p-10 cursor-pointer"
+        onClick={() => hasPlan && !hasAccommodation && AddAccommodation()}
+      >
         {planDate?.accommodation.length > 0 ? (
           <>
             <div className="overflow-hidden h-[90%] max-h-[400px] relative">
@@ -52,7 +60,8 @@ const Accommodation = () => {
                   >
                     <div className="flex items-center gap-2 mb-[20px]">
                       <span className="text-cool-gray font-extrabold">
-                        {item.startDate} ~ {item.endDate}
+                        {formatMonthDay(item.startDate)} ~{" "}
+                        {formatMonthDay(item.endDate)}
                       </span>
                       <span className="text-sky-500">({diff}박)</span>
                     </div>
@@ -64,7 +73,9 @@ const Accommodation = () => {
                       />
                       <span className="text-base font-bold">{item.title}</span>
                     </div>
-                    <span className="text-sm line-clamp-1">{item.text}</span>
+                    <span className="text-sm line-clamp-1 text-cool-gray">
+                      {item.text}
+                    </span>
                   </div>
                 );
               })}
@@ -83,8 +94,10 @@ const Accommodation = () => {
               />
             </div>
           </>
-        ) : (
+        ) : hasPlan ? (
           <NoWriteData title="숙소" />
+        ) : (
+          <NoSettingData />
         )}
       </div>
     </div>
