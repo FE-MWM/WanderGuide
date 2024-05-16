@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getCountry } from "countries-and-timezones";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import duration from "dayjs/plugin/duration";
 import { useRecoilValue } from "recoil";
 import { DestinationData, destinationData } from "../../store/destinationAtom";
+import {
+  calculateTimeDifference,
+  fetchTimeForCountry
+} from "../../Util/dateFormatter";
 import IsLoading from "../common/IsLoading";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.extend(duration);
 
 const CurrentTime = () => {
   const [destinationTime, setDestinationTime] = useState("");
@@ -18,28 +13,6 @@ const CurrentTime = () => {
   const [timeDifference, setTimeDifference] = useState("");
   const [loading, setLoading] = useState(true);
   const planDate = useRecoilValue<DestinationData>(destinationData);
-
-  const fetchTimeForCountry = async (countryCode: string) => {
-    const countryInfo = getCountry(countryCode);
-    if (!countryInfo) {
-      return;
-    }
-    const timezone = countryInfo.timezones[0];
-    const currentTime = dayjs().tz(timezone).format("YYYY-MM-DD HH:mm:ss");
-    return currentTime;
-  };
-
-  const calculateTimeDifference = async (time1: string, time2: string) => {
-    const format = "HH:mm:ss";
-
-    const moment1 = dayjs(time1, format);
-    const moment2 = dayjs(time2, format);
-
-    const timeDiff = moment1.diff(moment2, "minutes");
-
-    const diffDuration = dayjs.duration(timeDiff, "minutes").format("HH");
-    return diffDuration;
-  };
 
   const getKoreaTime = async () => {
     const krTime = await fetchTimeForCountry("KR");
@@ -55,7 +28,7 @@ const CurrentTime = () => {
     return destinationTime;
   };
 
-  const setDefferenceTime = async (krTime: string, deTime: string) => {
+  const setDifferenceTime = async (krTime: string, deTime: string) => {
     if (deTime && krTime) {
       const timeDifference = await calculateTimeDifference(deTime, krTime);
       setTimeDifference(timeDifference);
@@ -67,7 +40,7 @@ const CurrentTime = () => {
       setLoading(true);
       const krTime = await getKoreaTime();
       const deTime = await getDestinationTime();
-      setDefferenceTime(krTime as string, deTime as string);
+      setDifferenceTime(krTime as string, deTime as string);
       setLoading(false);
     }, 1000);
     return () => {
