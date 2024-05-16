@@ -31,6 +31,9 @@
 6. 로드된 크롬 확장 프로그램 아이콘을 클릭합니다
 
 
+<br/>
+<br/>
+
 ### 트러블 슈팅 ⚽️
 
 Launches the test runner in the interactive watch mode.\
