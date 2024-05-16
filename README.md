@@ -36,9 +36,9 @@
 
 ### 트러블 슈팅 
 
-⚽️ Open API CORS 에러 핸들링
-⚽️ IndexedDB 로 사용자 데이터 관리
-⚽️ 크롬 확장 프로그램 실행 오류 해결
+⚽️ Open API CORS 에러 핸들링<br/>
+⚽️ IndexedDB 로 사용자 데이터 관리<br/>
+⚽️ 크롬 확장 프로그램 실행 오류 해결<br/>
 
 <br/>
 <br/>
