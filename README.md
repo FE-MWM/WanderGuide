@@ -46,6 +46,6 @@
 
 ## 팀원 소개 & 역할
 
-
+![스크린샷 2024-05-21 09 16 16](https://github.com/FE-MWM/WanderGuide/assets/62421526/870f1df1-829a-48e5-8160-33ed1eeb9b53)
 <br/>
 <br/>
