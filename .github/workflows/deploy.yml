@@ -14,11 +14,6 @@ jobs:
       - name: Install mustache (to update the date)
         run: apk add ruby && gem install mustache
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
-
       - name: creates output
         run: sh ./build.sh
 
