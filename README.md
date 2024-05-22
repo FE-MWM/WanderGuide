@@ -87,10 +87,8 @@
 <br/>
 ⚽️ 크롬 확장 프로그램 실행 오류 해결<br/>
 <br/>
-![007](https://github.com/FE-MWM/WanderGuide/assets/62421526/17ff1206-8353-4f89-b6db-c89bb590b745)
+<img src="https://github.com/FE-MWM/WanderGuide/assets/62421526/7c5bd229-2feb-4b3d-abbe-00f01b16e44a">
 
-
-<br/>
 
 <br/>
 <br/>
