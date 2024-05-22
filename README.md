@@ -1,4 +1,5 @@
-# Wander Guide 
+# ![Group 954](https://github.com/FE-MWM/WanderGuide/assets/62421526/a1e2f8e3-d8fe-4a84-b371-591bb2f54cac)
+
 ### 내게 필요한 여행 정보를 한 곳에!
 여행 계획을 세우셨나요?<br/>
 여행가는 나라에 대한 시차 따로, 날씨 따로, 환율 따로… 모든 걸 따로따로 검색하는 게 번거롭진 않으신가요? 🤔<br/>
