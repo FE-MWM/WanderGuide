@@ -11,7 +11,7 @@
 크롬 확장 프로그램 클릭 한번만 하시면 끝~ <br/>
 
 
-## Project Introduction
+## 👩🏻‍💻 Project Introduction
 
 ![001](https://github.com/FE-MWM/WanderGuide/assets/62421526/65398c8c-c08e-4d40-baab-2bc905307523)
 
@@ -30,7 +30,8 @@
 <br/>
 <br/>
 
-## Technologies & Libraries
+
+## 👩🏻‍💻 Technologies & Libraries
 
 ### 💪 Technologies 
 
@@ -45,7 +46,7 @@
 <br/>
 
 
-## Development Setup & Execution
+## 👩🏻‍💻 Development Setup & Execution
 
 ### Chrome Extension Setup Guide
 
@@ -72,7 +73,7 @@
 <br/>
 <br/>
 
-## Troubleshooting
+## 👩🏻‍💻 Troubleshooting
 
 ⚽️ Open API CORS 에러 핸들링<br/>
 ⚽️ IndexedDB 로 사용자 데이터 관리<br/>
@@ -81,7 +82,7 @@
 <br/>
 <br/>
 
-## Team Members & Roles
+## 👩🏻‍💻 Team Members & Roles
 
 ![스크린샷 2024-05-21 09 16 16](https://github.com/FE-MWM/WanderGuide/assets/62421526/870f1df1-829a-48e5-8160-33ed1eeb9b53)
 <br/>
