@@ -12,6 +12,17 @@
 
 ## Project Introduction
 
+![001](https://github.com/FE-MWM/WanderGuide/assets/62421526/65398c8c-c08e-4d40-baab-2bc905307523)
+
+![002](https://github.com/FE-MWM/WanderGuide/assets/62421526/9432754a-b40a-4684-9468-9787c02bdff8)
+
+![003](https://github.com/FE-MWM/WanderGuide/assets/62421526/4379843f-dab1-4eb9-8868-45825934acd8)
+
+![004](https://github.com/FE-MWM/WanderGuide/assets/62421526/23ce973f-7f79-4ba0-9052-0e5eaffb88be)
+
+![005](https://github.com/FE-MWM/WanderGuide/assets/62421526/5ccdceac-18ae-40e1-94fa-6574cf68d027)
+
+![006](https://github.com/FE-MWM/WanderGuide/assets/62421526/bd2a0d78-8f63-4225-889d-ac04e710ec81)
 
 
 
