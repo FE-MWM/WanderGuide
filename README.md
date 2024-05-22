@@ -10,6 +10,9 @@
 또한 저희의 서비스를 이용하기 위해 웹브라우저를 새롭게 열지 않으셔도 됩니다! <br/>
 크롬 확장 프로그램 클릭 한번만 하시면 끝~ <br/>
 
+ <br/> <br/> <br/>
+
+
 
 ## 👩🏻‍💻 Project Introduction
 
@@ -29,7 +32,7 @@
 
 <br/>
 <br/>
-
+ <br/>
 
 ## 👩🏻‍💻 Technologies & Libraries
 
@@ -44,7 +47,7 @@
 
 <br/>
 <br/>
-
+ <br/>
 
 ## 👩🏻‍💻 Development Setup & Execution
 
@@ -72,7 +75,8 @@
 
 <br/>
 <br/>
-
+ <br/>
+ 
 ## 👩🏻‍💻 Troubleshooting
 
 ⚽️ Open API CORS 에러 핸들링<br/>
@@ -81,6 +85,7 @@
 
 <br/>
 <br/>
+ <br/>
 
 ## 👩🏻‍💻 Team Members & Roles
 
