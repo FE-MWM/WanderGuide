@@ -17,6 +17,17 @@ jobs:
       - name: creates output
         run: sh ./build.sh
 
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Lint code
+        run: npm run lint
+        env:
+          CI: true
+
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@release
