@@ -17,8 +17,8 @@ jobs:
       - name: creates output
         run: sh ./build.sh
 
-      # - name: Install dependencies
-      #   run: npm install
+      - name: Install dependencies
+        run: npm install
 
       # - name: Build project
       #   run: npm run build
