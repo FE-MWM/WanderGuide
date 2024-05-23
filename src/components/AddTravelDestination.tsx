@@ -30,7 +30,6 @@ const AddTravelDestination = ({
 
   useEffect(() => {
     isUpdate && setPlanData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpdate]);
 
   return (
