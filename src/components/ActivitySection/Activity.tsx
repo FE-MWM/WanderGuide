@@ -28,7 +28,7 @@ const Activity = () => {
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <div className="h-[53px] flex items-center justify-between pb-5">
-        <span className="text-[22px] font-semibold">액티비티/투어</span>
+        <span className="text-[22px] font-semibold">액티비티 / 투어</span>
         {hasPlan && (
           <button onClick={() => addActivity()}>
             <img
