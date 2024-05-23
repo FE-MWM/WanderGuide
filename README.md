@@ -27,7 +27,9 @@
 <br/>
 <br/>
 <br/>
+
 ## 👩🏻‍💻 Technologies & Libraries
+
 
 ### 💪 Technologies
 
@@ -92,3 +94,15 @@
 
 ![스크린샷 2024-05-23 09 41 53](https://github.com/FE-MWM/WanderGuide/assets/62421526/abd50dd3-ff8f-4c07-a77f-dd5d73f7c376)<br/>
 <br/>
+<br/>
+
+## 📝 memoir
+
+### 우신애
+🙂 [신애님블로그 타이틀](https://www.naver.com)
+
+### 문선주
+🙂 [선주블로그타이틀](https://www.naver.com)
+
+### 문수정
+🙂 [수정블로그타이틀](https://www.naver.com)
