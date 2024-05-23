@@ -91,6 +91,5 @@
 
 ## 👩🏻‍💻 Team Members & Roles
 
-![스크린샷 2024-05-21 09 16 16](https://github.com/FE-MWM/WanderGuide/assets/62421526/870f1df1-829a-48e5-8160-33ed1eeb9b53)
-<br/>
+![스크린샷 2024-05-23 09 41 53](https://github.com/FE-MWM/WanderGuide/assets/62421526/abd50dd3-ff8f-4c07-a77f-dd5d73f7c376)<br/>
 <br/>
