@@ -32,7 +32,6 @@ const TravelItinerary = () => {
 
   useEffect(() => {
     calculateDDay();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [planDate]);
 
   return (
