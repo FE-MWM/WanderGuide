@@ -80,7 +80,6 @@ const ActivityModal = (props: PropsData) => {
 
   useEffect(() => {
     setActivityData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
   return (
     <>
