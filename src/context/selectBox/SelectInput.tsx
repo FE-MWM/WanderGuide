@@ -20,7 +20,11 @@ const SelectInput = ({
 }: SelectInputProps) => {
   const { isOn, selected } = useContext(selectState);
   const { handleList } = useContext(selectDispatch);
-  const { register, setValue } = useFormContext<FormValues>();
+  const {
+    register,
+    setValue,
+    formState: { errors }
+  } = useFormContext<FormValues>();
 
   const debounce = (str: string) => {
     if (!debounceFunc) return;
@@ -42,14 +46,19 @@ const SelectInput = ({
       <p className={`mb-[5px] ${titleStyle}`}>{title}</p>
       <input
         onInput={(e) => debounce(e.currentTarget.value.trim())}
-        placeholder="나라를 입력해주세요"
+        placeholder="나라를 선택해주세요"
         className={`w-full ${layout} border rounded py-[14px] px-[14px]`}
         onClick={(e) => {
           e.currentTarget.value.trim() ? handleList(true) : handleList(!isOn);
         }}
-        {...register("destination", { required: "destination is required" })}
+        {...register("destination", { required: "나라를 선택해주세요" })}
       />
       {isOn && children}
+      {errors.destination && (
+        <p className="text-xs text-red-700 pt-[3px]">
+          {errors.destination.message}
+        </p>
+      )}
     </div>
   );
 };
