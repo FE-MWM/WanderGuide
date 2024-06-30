@@ -16,7 +16,12 @@ const AddTravelDestination = ({
   onCloseModal,
   isUpdate
 }: PropsData) => {
-  const { register, setValue } = useFormContext<FormValues>();
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    handleSubmit
+  } = useFormContext<FormValues>();
   const planData = useRecoilValue<PlanInfoData>(planInfo);
 
   const setPlanData = () => {
@@ -30,11 +35,14 @@ const AddTravelDestination = ({
 
   useEffect(() => {
     isUpdate && setPlanData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpdate]);
 
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
   return (
-    <div className="flex flex-col gap-2">
+    <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSave)}>
       <div className="p-6 flex flex-col gap-2">
         <div className="flex flex-col">
           <span className="mb-1">TITLE</span>
@@ -42,8 +50,13 @@ const AddTravelDestination = ({
             type="text"
             className="border px-2 outline-none rounded-[4px] h-[54px]"
             placeholder="제목을 입력해 주세요"
-            {...register("title", { required: "Title is required" })}
+            {...register("title", { required: "제목을 입력해 주세요" })}
           />
+          {errors.title && (
+            <p className="text-xs text-red-700 pt-[3px]">
+              {errors.title.message}
+            </p>
+          )}
         </div>
         <div className="flex flex-col">
           <span className="mb-1">WHEN</span>
@@ -51,15 +64,30 @@ const AddTravelDestination = ({
             <input
               type="date"
               className="w-1/2 border px-2 outline-none rounded-[4px] h-[54px]"
-              {...register("startDate", { required: "start date is required" })}
+              {...register("startDate", {
+                required: "여행 시작날을 입력해주세요"
+              })}
             />
+
             <span className="px-6">~</span>
             <input
               type="date"
               className="w-1/2 border px-2 outline-none rounded-[4px] h-[54px]"
-              {...register("endDate", { required: "end date is required" })}
+              {...register("endDate", {
+                required: "여행 마지막날을 입력해주세요"
+              })}
             />
           </div>
+          {errors.startDate && (
+            <p className="text-xs text-red-700 pt-[3px]">
+              {errors.startDate.message}
+            </p>
+          )}
+          {errors.endDate && (
+            <p className="text-xs text-red-700 pt-[3px]">
+              {errors.endDate.message}
+            </p>
+          )}
         </div>
         <div className="flex flex-col">
           <span className="mb-1">WHO</span>
@@ -67,8 +95,13 @@ const AddTravelDestination = ({
             type="text"
             className="border px-2 outline-none rounded-[4px] h-[54px]"
             placeholder="누구와 함께 가시나요?"
-            {...register("member")}
+            {...register("member", { required: "여행 멤버를 입력해주세요" })}
           />
+          {errors.member && (
+            <p className="text-xs text-red-700 pt-[3px]">
+              {errors.member.message}
+            </p>
+          )}
         </div>
         <div className="flex flex-col">
           <CountriesSelectBox />
@@ -83,14 +116,13 @@ const AddTravelDestination = ({
           취소
         </button>
         <button
-          type="button"
+          type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-          onClick={onSave}
         >
           확인
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

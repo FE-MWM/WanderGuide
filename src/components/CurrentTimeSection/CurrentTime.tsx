@@ -46,7 +46,6 @@ const CurrentTime = () => {
     return () => {
       clearInterval(timerId);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [planDate]);
 
   return (

@@ -30,7 +30,6 @@ const Home = () => {
       });
       setList(planList);
     });
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="flex w-full h-full bg-[#f5f7fa]  min-h-[800px] min-w-[1500px]">
