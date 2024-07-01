@@ -2,6 +2,9 @@ import { calculateFlightDuration } from "../../Util/calcFlight";
 import { formatDay, formatMonthDay } from "../../Util/dateFormatter";
 import { DestinationData, destinationData } from "../../store/destinationAtom";
 import { useRecoilValue } from "recoil";
+import React from "react";
+import { useModal } from "../../context/ModalContext";
+import StopoverFlight from "./StopoverFlight";
 
 type FlightData = {
   type: string;
@@ -22,6 +25,8 @@ const flightData: FlightData[] = [
 const FlightList = () => {
   const planDate = useRecoilValue<DestinationData>(destinationData);
   const { flight } = planDate;
+  const { openModal } = useModal();
+
   flightData.forEach((item) => {
     item.data = Object.keys(flight)
       .filter((key) => key.startsWith(item.prefix))
@@ -55,6 +60,12 @@ const FlightList = () => {
     );
   });
 
+  const handleStopover = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    console.log("경유지 추가");
+    openModal("경유지 추가", <StopoverFlight />);
+  };
+
   return (
     <div className="h-full flex flex-col gap-5">
       {flightData.map((flight, index) => (
@@ -68,7 +79,10 @@ const FlightList = () => {
                 {flight.type} 상세일정
               </span>
               {flight.data?.stopover === "true" && (
-                <div className="flex items-center gap-2 cursor-pointer">
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={handleStopover}
+                >
                   <img
                     src="/images/add-button.svg"
                     className="w-[14px] h-[14px]"
