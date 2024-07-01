@@ -156,9 +156,10 @@ const FlightList = () => {
                       <span className="text-xs">
                         {`${flight.data?.airline || "--"} ${flight.data?.flightNumber || ""}`}
                       </span>
-                      <span className="text-xs text-fuchsia-500">
+                      {/* 총 소요시간 부분 */}
+                      {/* <span className="text-xs text-fuchsia-500">
                         {flight.data?.duration || ""}
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                   <div className="before-dot">
