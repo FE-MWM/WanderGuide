@@ -102,7 +102,7 @@
 🙂 [신애님블로그 타이틀](https://www.naver.com)
 
 ### 문선주
-🙂 [선주블로그타이틀](https://www.naver.com)
+🙂 [[ 크롬 익스텐션 만들기 ] WanderGuide 프로젝트 회고 ](https://moonsun-blog.vercel.app/wanderGuide)
 
 ### 문수정
 🙂 [수정블로그타이틀](https://www.naver.com)
