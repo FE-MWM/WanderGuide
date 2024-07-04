@@ -9,6 +9,7 @@ import {
   destinationData
 } from "../../store/destinationAtom";
 import { updateData } from "../../indexeddb/indexedDB";
+import ConfirmModal from "../common/ConfirmModal";
 
 type PropsData = {
   data: {
@@ -26,6 +27,7 @@ type DateInfo = {
 
 const ActivityItem = ({ data: { id, date, memo } }: PropsData) => {
   const [dateInfo, setDateInfo] = useState<DateInfo>();
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const { openModal } = useModal();
   const [data, setData] = useRecoilState<DestinationData>(destinationData);
   const activityData = useRecoilValue<Activities[]>(activities);
@@ -56,11 +58,7 @@ const ActivityItem = ({ data: { id, date, memo } }: PropsData) => {
     openModal("액티비티/투어", <ActivityModal id={id} />);
   };
 
-  const handleDeleteActivity = (
-    event: React.MouseEvent<HTMLImageElement, MouseEvent>
-  ) => {
-    event.stopPropagation();
-
+  const handleConfirm = () => {
     const filterData = activityData.filter((data) => data.id !== id);
 
     const parseData = {
@@ -72,36 +70,55 @@ const ActivityItem = ({ data: { id, date, memo } }: PropsData) => {
     updateData(data.id as number, parseData);
   };
 
+  const handleDeleteActivity = (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+
+    setConfirmModalOpen(true);
+  };
+
   useEffect(() => {
     const dateInfo = formatDate(date);
     setDateInfo(dateInfo);
   }, [date]);
   return (
-    <div
-      className="bg-white w-full rounded-3xl p-4 mt-[28px] flex items-center justify-between cursor-pointer relative"
-      onClick={() => handleUpdateActivity()}
-    >
-      <div className="w-[60px] flex flex-col items-center justify-center">
-        <span className="text-sm text-cool-gray">{dateInfo?.yearMonth}</span>
-        <span className="text-3xl text-cool-gray-dart font-bold">
-          {dateInfo?.day}
-        </span>
-        <span className="text-sm text-cool-gray">{dateInfo?.dayOfWeek}</span>
-      </div>
-      <div className="w-[calc(100%-84px)] pl-4 pr-2">
-        <p>{memo}</p>
-      </div>
-      <div className=" w-[30px] flex items-center justify-center">
-        <div className="absolute top-[25px] right-[30px]">
-          <img
-            src="/images/close.svg"
-            alt="close"
-            className="w-[15px] h-[15px] cursor-pointer"
-            onClick={(event) => handleDeleteActivity(event)}
-          />
+    <>
+      <div
+        className="bg-white w-full rounded-3xl p-4 mt-[28px] flex items-center justify-between cursor-pointer relative"
+        onClick={() => handleUpdateActivity()}
+      >
+        <div className="w-[60px] flex flex-col items-center justify-center">
+          <span className="text-sm text-cool-gray">{dateInfo?.yearMonth}</span>
+          <span className="text-3xl text-cool-gray-dart font-bold">
+            {dateInfo?.day}
+          </span>
+          <span className="text-sm text-cool-gray">{dateInfo?.dayOfWeek}</span>
+        </div>
+        <div className="w-[calc(100%-84px)] pl-4 pr-2">
+          <p>{memo}</p>
+        </div>
+        <div className=" w-[30px] flex items-center justify-center">
+          <div className="absolute top-[25px] right-[30px]">
+            <img
+              src="/images/close.svg"
+              alt="close"
+              className="w-[15px] h-[15px] cursor-pointer"
+              onClick={(event) => handleDeleteActivity(event)}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      {isConfirmModalOpen && (
+        <ConfirmModal
+          type="confirm"
+          imageType="delete"
+          message="삭제하시겠습니까?"
+          onConfirm={handleConfirm}
+          onCancel={() => setConfirmModalOpen(false)}
+        />
+      )}
+    </>
   );
 };
 
