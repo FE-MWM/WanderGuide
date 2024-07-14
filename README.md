@@ -30,7 +30,6 @@
 
 ## 👩🏻‍💻 Technologies & Libraries
 
-
 ### 💪 Technologies
 
 <img alt="react badge" src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img alt="typescript badge" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white#3178C6"> <img alt="indexeddb badge" src="https://img.shields.io/badge/IndexedDB-F7DF1E?style=for-the-badge&logo=IndexedDB&logoColor=white">
@@ -99,10 +98,13 @@
 ## 📝 memoir
 
 ### 우신애
-🙂 [신애님블로그 타이틀](https://www.naver.com)
+
+🙂 [신애님블로그 타이틀](https://velog.io/@wooshinae/%ED%8C%80%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%81%AC%EB%A1%AC-%ED%99%95%EC%9E%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EA%B0%9C%EB%B0%9C-%ED%9A%8C%EA%B3%A0)
 
 ### 문선주
+
 🙂 [선주블로그타이틀](https://www.naver.com)
 
 ### 문수정
+
 🙂 [수정블로그타이틀](https://www.naver.com)
