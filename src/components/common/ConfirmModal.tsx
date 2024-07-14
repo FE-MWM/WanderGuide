@@ -20,6 +20,7 @@ export default function ConfirmModal({
       case "delete":
         return "/images/delete.svg";
       case "info":
+        return "/images/info-circle.svg";
       default:
         return "";
     }

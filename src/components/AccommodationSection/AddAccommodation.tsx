@@ -1,12 +1,15 @@
 import { useModal } from "../../context/ModalContext";
 import { useFormContext } from "react-hook-form";
 import { FormValue } from "../../provider/AddAccommodationProvider";
+import ConfirmModal from "../common/ConfirmModal";
+import { useState } from "react";
 
 type PropsData = {
   onSave: () => void;
 };
 
 const AddAccommodation = ({ onSave }: PropsData) => {
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const { closeModal } = useModal();
   const { register } = useFormContext<FormValue>();
 
@@ -59,12 +62,22 @@ const AddAccommodation = ({ onSave }: PropsData) => {
         </button>
         <button
           type="button"
-          onClick={onSave}
+          onClick={() => setConfirmModalOpen(true)}
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         >
           확인
         </button>
       </div>
+
+      {isConfirmModalOpen && (
+        <ConfirmModal
+          type="confirm"
+          imageType="info"
+          message="저장하시겠습니까?"
+          onConfirm={() => onSave()}
+          onCancel={() => setConfirmModalOpen(false)}
+        />
+      )}
     </>
   );
 };
