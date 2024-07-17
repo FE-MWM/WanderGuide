@@ -6,9 +6,13 @@ import AddAccommodationProvider from "../../provider/AddAccommodationProvider";
 import { updateData } from "../../indexeddb/indexedDB";
 import NoWriteData from "../common/NoWriteData";
 import NoSettingData from "../common/NoSettingData";
+import { useState } from "react";
+import ConfirmModal from "../common/ConfirmModal";
 
 const AccommodationList = () => {
-  const { openModal, closeModal } = useModal();
+  const { openModal } = useModal();
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [planData, setPlanData] =
     useRecoilState<DestinationData>(destinationData);
   const accommodations = planData.accommodation;
@@ -23,9 +27,9 @@ const AccommodationList = () => {
     openModal("숙소", <AddAccommodationProvider data={formData} />);
   };
 
-  const deleteItem = (idx: number) => {
+  const deleteItem = () => {
     const newAccommodations = accommodations.filter(
-      (ele, index) => idx !== index
+      (ele, index) => selectedIdx !== index
     );
     const newData = {
       accommodation: newAccommodations
@@ -37,33 +41,7 @@ const AccommodationList = () => {
       });
     });
 
-    // openModal(
-    //   "삭제하시겠습니까?",
-    //   <div className="w-[300px] flex items-center justify-end px-6 py-3 border-t border-gray-200 gap-2">
-    //     <button
-    //       type="button"
-    //       className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-    //       onClick={closeModal}
-    //     >
-    //       취소
-    //     </button>
-    //     <button
-    //       type="button"
-    //       className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-    //       onClick={() => {
-    //         updateData(planData.id!, newData).then(() => {
-    //           setPlanData({
-    //             ...planData,
-    //             ...newData
-    //           });
-    //           closeModal();
-    //         });
-    //       }}
-    //     >
-    //       확인
-    //     </button>
-    //   </div>
-    // );
+    setConfirmModalOpen(false);
   };
 
   return (
@@ -86,19 +64,20 @@ const AccommodationList = () => {
       </div>
       {accommodations.length > 0 ? (
         <div className="mb-[40px]">
-          {accommodations.map((ele, idx) => {
-            return (
-              <AccoBookItem
-                key={idx}
-                st={ele.startDate}
-                end={ele.endDate}
-                text={ele.text}
-                accommodation={ele.title}
-                onClick={() => onModal(idx)}
-                deleteItem={() => deleteItem(idx)}
-              />
-            );
-          })}
+          {accommodations.map((ele, idx) => (
+            <AccoBookItem
+              key={idx}
+              st={ele.startDate}
+              end={ele.endDate}
+              text={ele.text}
+              accommodation={ele.title}
+              onClick={() => onModal(idx)}
+              deleteItem={() => {
+                setSelectedIdx(idx);
+                setConfirmModalOpen(true);
+              }}
+            />
+          ))}
         </div>
       ) : (
         <div
@@ -107,6 +86,16 @@ const AccommodationList = () => {
         >
           {hasPlan ? <NoWriteData title="숙소" /> : <NoSettingData />}
         </div>
+      )}
+
+      {isConfirmModalOpen && (
+        <ConfirmModal
+          type="confirm"
+          imageType="delete"
+          message="삭제하시겠습니까?"
+          onConfirm={() => deleteItem()}
+          onCancel={() => setConfirmModalOpen(false)}
+        />
       )}
     </div>
   );
